@@ -28,6 +28,47 @@ export class FriendsService {
                 private store$: Store<any>) {
     }
 
+
+    getFriends(typeSort: number = 0,
+                searchValue?: string,
+                showBookmark?: boolean,
+                startView?: number,
+                limitView?: number): Observable<Friend[]> {
+
+        return this.http.get(this.BASE_URL + 'friends')
+            .pipe(
+                map((friendsList: Friend[]) => {
+
+                    console.log('friendsList', friendsList)
+
+                    // преобразования
+
+                    friendsList = this.getRating(friendsList);
+                    friendsList = this.getBookmark(friendsList);
+
+                    friendsList = this.setRatingSort(friendsList, typeSort);
+                    // console.log('~friendsList', friendsList);
+
+                    if (showBookmark) {
+                        friendsList = this.getFilterBookmark(friendsList);
+                    }
+
+                    if (searchValue) {
+                        friendsList = this.getFilterSearch(friendsList, searchValue);
+                    }
+
+                    friendsList = this.setLimitViewOnPage(friendsList, startView, limitView);
+
+                    this.store$.dispatch(new LoadFriends(friendsList));
+
+                    // console.log('friendsList', friendsList);
+                    return friendsList;
+                }),
+                catchError(({status}: Response) => throwError(status))
+            );
+
+    }
+
     loadFriends(typeSort: number = 0,
                 searchValue?: string,
                 showBookmark?: boolean,

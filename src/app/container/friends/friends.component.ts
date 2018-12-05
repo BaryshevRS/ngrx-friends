@@ -3,6 +3,8 @@ import {Component, OnInit} from '@angular/core';
 import {select, Store} from '@ngrx/store';
 import {FriendsService} from '../../service/friends.service';
 import {Friend} from '../../class/friends';
+import {friendsActionTypes} from '../../type/store/action';
+import {GetFriends} from '../../store/action';
 
 // todo подписываться на данные в шаблоне
 // todo добавить лоадеры и вывод ошибок, если данные недоступны
@@ -64,7 +66,9 @@ export class FriendsComponent  implements OnInit {
             console.log('detect');
         });
 
-        this.loadFriends();
+        this.store$.dispatch(new GetFriends());
+
+        // this.loadFriends();
 
 /*        this.todoListState$ = this.store.select(state => state.todos);
         this.store.dispatch(new TodoAction.GetTodos());*/

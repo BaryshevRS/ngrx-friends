@@ -20,6 +20,10 @@ export class LoadFriends implements Action {
     constructor(public payload: Friend[]) {}
 }
 
+export class GetFriends implements Action {
+    readonly type = friendsActionTypes.GET_FRIENDS;
+}
+
 export class RatingFriends implements Action {
     readonly type = friendsActionTypes.RATING_FRIENDS;
 

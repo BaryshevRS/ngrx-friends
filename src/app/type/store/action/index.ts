@@ -1,8 +1,9 @@
-import {LoadFriends, BookmarkFriends, RatingFriends, SortFriends, SearchFriends} from '../../../store/action';
+import {LoadFriends, BookmarkFriends, RatingFriends, SortFriends, SearchFriends, GetFriends} from '../../../store/action';
 
-export type FriendsAction = LoadFriends | BookmarkFriends | RatingFriends | SortFriends | SearchFriends;
+export type FriendsAction = LoadFriends | BookmarkFriends | RatingFriends | SortFriends | SearchFriends | GetFriends;
 
 export enum friendsActionTypes {
+    GET_FRIENDS = '[Friends] GET_FRIENDS',
     LOAD_FRIENDS = '[Friends] LOAD_FRIENDS',
     SEARCH_FRIENDS = '[Friends] SEARCH_FRIENDS',
     BOOKMARK_FRIENDS = '[Friends] BOOKMARK_FRIENDS',

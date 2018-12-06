@@ -63,14 +63,10 @@ export class FriendsComponent  implements OnInit {
     ngOnInit() {
         this.store$.pipe(select('friends')).subscribe(({friends}) => {
             this.friends = friends;
-            console.log('detect');
+            this.issetContent = true;
+            console.log('select friends');
         });
 
         this.store$.dispatch(new GetFriends());
-
-        // this.loadFriends();
-
-/*        this.todoListState$ = this.store.select(state => state.todos);
-        this.store.dispatch(new TodoAction.GetTodos());*/
     }
 }

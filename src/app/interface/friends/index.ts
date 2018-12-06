@@ -8,3 +8,11 @@ export interface Friends {
 export interface Configs {
     typeSort?: number;
 }
+
+export interface ApiFriends {
+    typeSort?: number;
+    searchValue?: string;
+    showBookmark?: boolean;
+    startView?: number;
+    limitView?: number;
+}

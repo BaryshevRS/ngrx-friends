@@ -20,9 +20,9 @@ export class LoadFriendsEffect {
     @Effect()
     getFriends$: Observable<Action> = this.actions$.pipe(
         ofType<GetFriends>(friendsActionTypes.GET_FRIENDS),
-        switchMap(() => {
+        switchMap((action) => {
             return this.friendsService
-                .getFriends()
+                .getFriends(action.payload)
                 .pipe(
                     map(friends => new LoadFriends(friends))
                 );

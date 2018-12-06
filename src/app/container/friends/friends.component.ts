@@ -67,6 +67,6 @@ export class FriendsComponent  implements OnInit {
             console.log('select friends');
         });
 
-        this.store$.dispatch(new GetFriends());
+        this.store$.dispatch(new GetFriends({typeSort: 0, limitView: 10}));
     }
 }

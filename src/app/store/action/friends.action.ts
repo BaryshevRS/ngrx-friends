@@ -1,6 +1,7 @@
 import {Action} from '@ngrx/store';
 import {friendsActionTypes} from '../../type/store/action';
 import {Friend} from '../../class/friends';
+import {IGetFriends} from '../../interface/friends';
 
 export class BookmarkFriends implements Action {
     readonly type = friendsActionTypes.BOOKMARK_FRIENDS;
@@ -22,6 +23,8 @@ export class LoadFriends implements Action {
 
 export class GetFriends implements Action {
     readonly type = friendsActionTypes.GET_FRIENDS;
+
+    constructor(public payload: IGetFriends) {}
 }
 
 export class RatingFriends implements Action {

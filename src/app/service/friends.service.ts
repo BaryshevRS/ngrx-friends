@@ -7,6 +7,7 @@ import {Store} from '@ngrx/store';
 import {LoadFriends} from '../store/action';
 import {Friend} from '../class/friends';
 import {LocalSaveService} from './local-save.service';
+import {IGetFriends} from '../interface/friends';
 
 
 @Injectable({
@@ -29,11 +30,10 @@ export class FriendsService {
     }
 
 
-    getFriends(typeSort: number = 0,
-                searchValue?: string,
-                showBookmark?: boolean,
-                startView?: number,
-                limitView?: number): Observable<Friend[]> {
+    getFriends(payload: IGetFriends): Observable<Friend[]> {
+
+        const { typeSort = 0, searchValue = '', showBookmark = false, startView = 0, limitView = 4}: IGetFriends = payload;
+        console.log('limitView', limitView  )
 
         return this.http.get(this.BASE_URL + 'friends')
             .pipe(

@@ -9,7 +9,7 @@ export interface Configs {
     typeSort?: number;
 }
 
-export interface ApiFriends {
+export interface IGetFriends {
     typeSort?: number;
     searchValue?: string;
     showBookmark?: boolean;

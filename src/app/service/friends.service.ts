@@ -29,17 +29,19 @@ export class FriendsService {
                 private store$: Store<any>) {
     }
 
+    getFriends({ typeSort = 0, searchValue = '', showBookmark = false, startView = 0, limitView = 4}: IGetFriends): Observable<Friend[]> {
 
-    getFriends(payload: IGetFriends): Observable<Friend[]> {
-
-        const { typeSort = 0, searchValue = '', showBookmark = false, startView = 0, limitView = 4}: IGetFriends = payload;
-        console.log('limitView', limitView  )
+        console.log('typeSort', typeSort );
+        console.log('searchValue', searchValue );
+        console.log('showBookmark', showBookmark );
+        console.log('startView', startView );
+        console.log('limitView', limitView );
 
         return this.http.get(this.BASE_URL + 'friends')
             .pipe(
                 map((friendsList: Friend[]) => {
 
-                    console.log('friendsList', friendsList)
+                    // console.log('friendsList', friendsList);
 
                     // преобразования
 
@@ -59,9 +61,7 @@ export class FriendsService {
 
                     friendsList = this.setLimitViewOnPage(friendsList, startView, limitView);
 
-                    this.store$.dispatch(new LoadFriends(friendsList));
-
-                    // console.log('friendsList', friendsList);
+                    console.log('friendsList', friendsList);
                     return friendsList;
                 }),
                 catchError(({status}: Response) => throwError(status))
@@ -69,7 +69,7 @@ export class FriendsService {
 
     }
 
-    loadFriends(typeSort: number = 0,
+/*    loadFriends(typeSort: number = 0,
                 searchValue?: string,
                 showBookmark?: boolean,
                 startView?: number,
@@ -97,7 +97,7 @@ export class FriendsService {
 
                     friendsList = this.setLimitViewOnPage(friendsList, startView, limitView);
 
-                    this.store$.dispatch(new LoadFriends(friendsList));
+                    // this.store$.dispatch(new LoadFriends(friendsList));
 
                     // console.log('friendsList', friendsList);
                     return friendsList;
@@ -105,7 +105,7 @@ export class FriendsService {
                 catchError(({status}: Response) => throwError(status))
             );
 
-    }
+    }*/
 
     public getRating(friendsList: Friend[]): Friend[] {
 
@@ -175,14 +175,13 @@ export class FriendsService {
         });
     }
 
+    // todo сделать подгрузку с сервера чанками
+
     public setLimitViewOnPage(friendsList: Friend[], startView: number, limitView: number): Friend[] {
 
         startView = startView || this.startView;
         limitView = limitView || this.limitView;
         const end = startView + limitView;
-
-        // console.log('!end', end);
-
         return friendsList.slice(0, end);
     }
 }

@@ -42,7 +42,7 @@ export class SortFriendsEffect {
     getSortFriends$: Observable<Action> = this.actions$.pipe(
         ofType<SortFriends>(friendsActionTypes.SORT_FRIENDS),
         switchMap((action) => {
-            return this.friendsService.loadFriends(action.payload);
+            return this.friendsService.getFriends({});
         }),
         switchMap((friends: Friend[]) => {
             console.log('friends', friends);

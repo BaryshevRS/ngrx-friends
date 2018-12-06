@@ -20,34 +20,21 @@ export class FriendsComponent  implements OnInit {
 
     public friends: Friend[];
     public startView = 0;
-    public stepView = 4;
+    public limitView = 4;
     public issetContent = false;
 
     constructor(
-        private store$: Store<any>,
-        private friendsService: FriendsService
+        private store$: Store<any>
     ) {}
-
-    loadFriends(): void {
-        this.friendsService.loadFriends(
-            0,
-            '',
-            false,
-            this.startView
-        ).subscribe((friendsList) => {
-            this.friends = friendsList;
-            this.issetContent = true;
-        });
-    }
 
     // отслеживание подгрузки по скролу
     setScrollingActive(isScrolling: false) {
         if ( isScrolling ) {
             console.log('setScrollingActive');
             // todo сделать проверку, когда больше нет друзей, чтоб счётчик сбрасывался
-            this.startView = this.startView + this.stepView;
-            this.issetContent = false;
-            this.loadFriends();
+            this.startView = this.startView + this.limitView;
+            this.issetContent = false; // отключаем дорисовку при инициализации
+            this.store$.dispatch(new GetFriends({startView: this.startView, limitView: this.limitView}));
         }
     }
 
@@ -55,9 +42,9 @@ export class FriendsComponent  implements OnInit {
     initFilling() {
         console.log('initFilling');
 
-        this.startView = this.startView + this.stepView;
+        this.startView = this.startView + this.limitView;
         // this.issetScrollContent = false;
-        this.loadFriends();
+        this.store$.dispatch(new GetFriends({startView: this.startView, limitView: this.limitView}));
     }
 
     ngOnInit() {
@@ -67,6 +54,6 @@ export class FriendsComponent  implements OnInit {
             console.log('select friends');
         });
 
-        this.store$.dispatch(new GetFriends({typeSort: 0, limitView: 10}));
+        this.store$.dispatch(new GetFriends({startView: this.startView, limitView: this.limitView}));
     }
 }

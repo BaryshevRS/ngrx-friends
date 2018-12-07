@@ -68,13 +68,15 @@ export class InfinityScrollLoaderDirective implements AfterViewInit, AfterViewCh
             this.issetContent && // когда пришли данные для полной отрисовки контейнера
             (initScrollHeight !== this.initScrollHeight) // проверяем, что высота изменилась
         ) {
+
             // высота документа без прокрутки
             const clientHeight = this.document.documentElement.clientHeight;
             // проинициализированная высота контейнера
             this.initScrollHeight = this.elm.nativeElement.offsetHeight;
             // высота скролл до верха от контейнера
             const scrollTop = this.elm.nativeElement.offsetTop;
-
+            console.log('X clientHeight', (clientHeight));
+            console.log('X scrollTop', (scrollTop + this.initScrollHeight));
             // когда высота экрана больше высоты компонента
             if (clientHeight >= (scrollTop + this.initScrollHeight)) {
                 console.log('no fill');

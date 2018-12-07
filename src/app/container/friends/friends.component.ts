@@ -1,9 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 
 import {select, Store} from '@ngrx/store';
-import {FriendsService} from '../../service/friends.service';
 import {Friend} from '../../class/friends';
-import {friendsActionTypes} from '../../type/store/action';
 import {GetFriends} from '../../store/action';
 
 // todo подписываться на данные в шаблоне
@@ -16,11 +14,11 @@ import {GetFriends} from '../../store/action';
     styleUrls: ['./friends.component.scss']
 })
 
-export class FriendsComponent  implements OnInit {
+export class FriendsComponent implements OnInit {
 
     public friends: Friend[];
     public startView = 0;
-    public limitView = 4;
+    public limitView = 3;
     public issetContent = false;
 
     constructor(
@@ -43,15 +41,20 @@ export class FriendsComponent  implements OnInit {
         console.log('initFilling');
 
         this.startView = this.startView + this.limitView;
-        // this.issetScrollContent = false;
+
         this.store$.dispatch(new GetFriends({startView: this.startView, limitView: this.limitView}));
+        // this.issetContent = false;
     }
 
     ngOnInit() {
         this.store$.pipe(select('friends')).subscribe(({friends}) => {
             this.friends = friends;
-            this.issetContent = true;
-            console.log('select friends');
+
+            if(friends.length) {
+                this.issetContent = true;
+            }
+
+            console.log('select friends', friends);
         });
 
         this.store$.dispatch(new GetFriends({startView: this.startView, limitView: this.limitView}));

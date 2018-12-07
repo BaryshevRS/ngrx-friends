@@ -21,19 +21,19 @@ export class FriendsService {
     public nameFriendsRating = 'friendsRating';
     public nameFriendsBookmark = 'friendsBookmark';
 
-    private limitView = 4;
-    private startView = 0;
-
     constructor(private http: HttpClient,
                 private LocalSave: LocalSaveService,
                 private store$: Store<any>) {
     }
 
-    getFriends({ typeSort = 0, searchValue = '', showBookmark = false, startView = 0, limitView = 4}: IGetFriends): Observable<Friend[]> {
+    getFriends({ typeSort = 0, searchValue = '', showBookmark = false, startView = 0, limitView = 0}: IGetFriends): Observable<Friend[]> {
 
-        console.log('typeSort', typeSort );
+/*        console.log('typeSort', typeSort );
         console.log('searchValue', searchValue );
         console.log('showBookmark', showBookmark );
+        console.log('startView', startView );
+        console.log('limitView', limitView );*/
+
         console.log('startView', startView );
         console.log('limitView', limitView );
 
@@ -178,10 +178,6 @@ export class FriendsService {
     // todo сделать подгрузку с сервера чанками
 
     public setLimitViewOnPage(friendsList: Friend[], startView: number, limitView: number): Friend[] {
-
-        startView = startView || this.startView;
-        limitView = limitView || this.limitView;
-        const end = startView + limitView;
-        return friendsList.slice(0, end);
+        return friendsList.slice(0, (startView + limitView));
     }
 }

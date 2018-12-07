@@ -7,6 +7,8 @@ import {GetFriends} from '../../store/action';
 // todo подписываться на данные в шаблоне
 // todo добавить лоадеры и вывод ошибок, если данные недоступны
 // todo продумать offline режим
+// todo push change detection
+// todo настройка отписки
 
 @Component({
     selector: 'app-friends',
@@ -18,7 +20,7 @@ export class FriendsComponent implements OnInit {
 
     public friends: Friend[];
     public startView = 0;
-    public limitView = 3;
+    public limitView = 4;
     public issetContent = false;
 
     constructor(
@@ -41,7 +43,6 @@ export class FriendsComponent implements OnInit {
         console.log('initFilling');
 
         this.startView = this.startView + this.limitView;
-
         this.store$.dispatch(new GetFriends({startView: this.startView, limitView: this.limitView}));
         // this.issetContent = false;
     }
@@ -50,7 +51,13 @@ export class FriendsComponent implements OnInit {
         this.store$.pipe(select('friends')).subscribe(({friends}) => {
             this.friends = friends;
 
-            if(friends.length) {
+            /*
+                todo надо перенести в директиву, так как отрисовка документа может происходить не сразу и события
+                todo дозаполнения могут приходить несколько раз
+                todo issetContent заменить на передачу friends as contents
+            */
+
+            if (friends.length) {
                 this.issetContent = true;
             }
 

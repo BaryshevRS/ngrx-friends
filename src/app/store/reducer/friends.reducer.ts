@@ -2,12 +2,12 @@ import {FriendsAction, friendsActionTypes} from '../../type/store/action';
 
 const initialState = {
     friends : [],
-    configs: {
+    configsFriends: {
         typeSort: 0,
         searchValue: '',
         showBookmark: false,
         startView: 0,
-        limitView: 4
+        limitView: 0
     }
 };
 
@@ -17,6 +17,7 @@ export function friendsReducer(state = initialState, action: FriendsAction) {
             console.log('action LOAD_FRIENDS', action);
             return {...state, friends : [...action.payload]};
 
+        // todo сделать отдельный редьюсер для закладок
         case friendsActionTypes.BOOKMARK_FRIENDS:
             console.log('action BOOKMARK_FRIENDS', action);
 

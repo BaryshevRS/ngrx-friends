@@ -20,10 +20,11 @@ export class NavComponent implements OnInit {
 
     // записываем число друзей в избранном
     setStore(): void {
-        this.store$.pipe(select('friends', )).subscribe(({friends, configs}) => {
+        this.store$.pipe(select('friends', )).subscribe(({friends, configsFriends}) => {
             this.friends = friends;
-            this.countBookmark = friends.reduce((a: number, friend) => friend.bookmark > 0 ? ++a : a, 0);
-            this.typeSort = configs.typeSort;
+            // todo нужен отдельный запрос на сервер, так как стейт не содержит все значения с сервера
+            // this.countBookmark = friends.reduce((a: number, friend) => friend.bookmark > 0 ? ++a : a, 0);
+            this.typeSort = configsFriends.typeSort;
         });
     }
 

@@ -20,6 +20,8 @@ export class LoadFriendsEffect {
     @Effect()
     getFriends$: Observable<Action> = this.actions$.pipe(
         ofType<GetFriends>(friendsActionTypes.GET_FRIENDS),
+        // todo нужно взять данные из стейта,
+        // todo сравнить с текущем пейлоадем и исходя из них выдавать стейт
         switchMap((action) => {
             return this.friendsService
                 .getFriends(action.payload)

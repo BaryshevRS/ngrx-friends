@@ -5,7 +5,7 @@ import {HttpClientModule} from '@angular/common/http';
 
 import {AppComponent} from './app.component';
 import {HeaderComponent} from './container/header/header.component';
-import {HeaderSearchComponent} from './container/header-search/header-search.component';
+import {HeaderSearchComponent} from './component/header-search/header-search.component';
 import {AppRoutingModule} from './app-routing.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ScrollTopComponent} from './component/scroll-top/scroll-top.component';

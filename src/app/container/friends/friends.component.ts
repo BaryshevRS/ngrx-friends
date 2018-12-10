@@ -62,9 +62,9 @@ export class FriendsComponent implements OnInit {
                 this.issetContent = true;
             }
 
-            console.log('select friends', friends);
+            console.log('select friends', friends.length);
         });
 
-        this.store$.dispatch(new GetFriends({startView: this.startView, limitView: this.limitView}));
+        this.store$.dispatch(new GetFriends( {}));
     }
 }

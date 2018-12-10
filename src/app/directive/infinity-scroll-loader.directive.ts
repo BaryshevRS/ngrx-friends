@@ -48,7 +48,7 @@ export class InfinityScrollLoaderDirective implements AfterViewInit, AfterViewCh
             );
 
         this.scrollEvent$.subscribe(() => {
-            console.log('emit');
+            // console.log('emit');
             this.issetContent = false;
             this.scrollingActive.emit(true);
         });
@@ -56,7 +56,7 @@ export class InfinityScrollLoaderDirective implements AfterViewInit, AfterViewCh
     }
 
     ngAfterViewChecked() {
-        this.initFillingScroll();
+       // this.initFillingScroll();
     }
 
     // todo нужно продумать, когда элементов реально меньше чем высота экрана
@@ -75,8 +75,8 @@ export class InfinityScrollLoaderDirective implements AfterViewInit, AfterViewCh
             this.initScrollHeight = this.elm.nativeElement.offsetHeight;
             // высота скролл до верха от контейнера
             const scrollTop = this.elm.nativeElement.offsetTop;
-            console.log('X clientHeight', (clientHeight));
-            console.log('X scrollTop', (scrollTop + this.initScrollHeight));
+            // console.log('X clientHeight', (clientHeight));
+            // console.log('X scrollTop', (scrollTop + this.initScrollHeight));
             // когда высота экрана больше высоты компонента
             if (clientHeight >= (scrollTop + this.initScrollHeight)) {
                 console.log('no fill');
@@ -98,7 +98,7 @@ export class InfinityScrollLoaderDirective implements AfterViewInit, AfterViewCh
         const scrollTop = this.document.documentElement.scrollTop || this.document.body.scrollTop;
 
         if (this.scrollPercent) {
-            console.log('scrollPercent', ((scrollTop + window.innerHeight) / scrollHeight));
+            // console.log('scrollPercent', ((scrollTop + window.innerHeight) / scrollHeight));
             return ((scrollTop + window.innerHeight) / scrollHeight) >= (this.scrollPercent / 100);
         }
     }

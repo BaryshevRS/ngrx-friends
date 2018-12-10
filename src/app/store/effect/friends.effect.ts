@@ -24,9 +24,6 @@ export class LoadFriendsEffect {
         withLatestFrom(this.store$.select('friends')),
         switchMap(([action, store]) => {
 
-            console.log('actionx', action);
-            console.log('store', store.configsFriends);
-
             const params = {...store.configsFriends, ...action.payload};
 
             console.log('paramsx', params);
@@ -54,9 +51,9 @@ export class SortFriendsEffect {
         withLatestFrom(this.store$.select('friends')),
         switchMap(([action, store]) => {
 
-            const params = {...store.configsFriends, ...{typeSort: action.payload, startView: 0}};
+            const params = {...store.configsFriends, ...{typeSort: action.payload}};
 
-            console.log('params2', params);
+            console.log('params', params);
 
             return this.friendsService
                 .getFriends(params)

@@ -3,8 +3,6 @@ import {HttpClient, HttpResponse} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {map, catchError, switchMap} from 'rxjs/operators';
 
-import {Store} from '@ngrx/store';
-import {LoadFriends} from '../store/action';
 import {Friend} from '../class/friends';
 import {LocalSaveService} from './local-save.service';
 import {IGetFriends} from '../interface/friends';
@@ -22,8 +20,7 @@ export class FriendsService {
     public nameFriendsBookmark = 'friendsBookmark';
 
     constructor(private http: HttpClient,
-                private LocalSave: LocalSaveService,
-                private store$: Store<any>) {
+                private LocalSave: LocalSaveService ) {
     }
 
     getFriends({ typeSort = 0, searchValue = '', showBookmark = false, startView = 0, limitView = 0}: IGetFriends): Observable<Friend[]> {
@@ -61,7 +58,7 @@ export class FriendsService {
 
                     friendsList = this.setLimitViewOnPage(friendsList, startView, limitView);
 
-                    console.log('friendsList', friendsList);
+                   // console.log('friendsList', friendsList);
                     return friendsList;
                 }),
                 catchError(({status}: Response) => throwError(status))

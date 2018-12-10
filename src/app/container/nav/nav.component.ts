@@ -18,17 +18,7 @@ export class NavComponent implements OnInit {
     public activeBookmark: boolean;
     public friends: Friend[];
 
-    // записываем число друзей в избранном
-    setStore(): void {
-        this.store$.pipe(select('friends', )).subscribe(({friends, configsFriends}) => {
-            this.friends = friends;
-            // todo нужен отдельный запрос на сервер, так как стейт не содержит все значения с сервера
-            // this.countBookmark = friends.reduce((a: number, friend) => friend.bookmark > 0 ? ++a : a, 0);
-            this.typeSort = configsFriends.typeSort;
-        });
-    }
-
-    showBookmark(active?: boolean): boolean {
+    mark(active?: boolean): boolean {
         this.activeBookmark = active || false;
 
         // устанавливаем контекст фильтра по закладкам
@@ -37,12 +27,16 @@ export class NavComponent implements OnInit {
     }
 
     changeSort(typeSort: number) {
-        // todo сервис сюда
-        this.store$.dispatch(new SortFriends(typeSort)); // typeSort
+        this.store$.dispatch(new SortFriends(typeSort));
     }
 
     ngOnInit() {
-        this.setStore();
+        this.store$.pipe(select('friends', )).subscribe(({friends, configsFriends}) => {
+            // this.friends = friends;
+            // todo нужен отдельный запрос на сервер, так как стейт не содержит все значения с сервера
+            // this.countBookmark = friends.reduce((a: number, friend) => friend.bookmark > 0 ? ++a : a, 0);
+            this.typeSort = configsFriends.typeSort;
+        });
     }
 
 }

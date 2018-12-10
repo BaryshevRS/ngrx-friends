@@ -45,3 +45,4 @@ export class SortFriends implements Action {
     constructor(public payload: number) {}
 }
 
+// todo добавить экшен для ошибок

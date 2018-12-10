@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Actions, Effect} from '@ngrx/effects';
 import {Action, Store} from '@ngrx/store';
 import {Observable, of} from 'rxjs';
-import {catchError, map, switchMap} from 'rxjs/operators';
+import {catchError, map, switchMap, withLatestFrom} from 'rxjs/operators';
 import {friendsActionTypes} from '../../type/store/action';
 import {LoadFriends, SortFriends, GetFriends} from '../action';
 import {ofType} from '@ngrx/effects';
@@ -20,11 +20,19 @@ export class LoadFriendsEffect {
     @Effect()
     getFriends$: Observable<Action> = this.actions$.pipe(
         ofType<GetFriends>(friendsActionTypes.GET_FRIENDS),
-        // todo нужно взять данные из стейта,
-        // todo сравнить с текущем пейлоадем и исходя из них выдавать стейт
-        switchMap((action) => {
+        // todo нужно взять данные из селекта
+        withLatestFrom(this.store$.select('friends')),
+        switchMap(([action, store]) => {
+
+            console.log('actionx', action);
+            console.log('store', store.configsFriends);
+
+            const params = {...store.configsFriends, ...action.payload};
+
+            console.log('paramsx', params);
+
             return this.friendsService
-                .getFriends(action.payload)
+                .getFriends(params)
                 .pipe(
                     map(friends => new LoadFriends(friends))
                 );
@@ -43,15 +51,18 @@ export class SortFriendsEffect {
     @Effect()
     getSortFriends$: Observable<Action> = this.actions$.pipe(
         ofType<SortFriends>(friendsActionTypes.SORT_FRIENDS),
-        switchMap((action) => {
-            return this.friendsService.getFriends({});
-        }),
-        switchMap((friends: Friend[]) => {
-            console.log('friends', friends);
-            return [{
-                type : friendsActionTypes.LOAD_FRIENDS,
-                payload: friends
-            }];
+        withLatestFrom(this.store$.select('friends')),
+        switchMap(([action, store]) => {
+
+            const params = {...store.configsFriends, ...{typeSort: action.payload, startView: 0}};
+
+            console.log('params2', params);
+
+            return this.friendsService
+                .getFriends(params)
+                .pipe(
+                    map(friends => new LoadFriends(friends))
+                );
         })
     );
 }

@@ -14,6 +14,7 @@ export class NavSortComponent implements OnInit {
 
     // выбираем тип сортировки и эмитируем событие в родительский компонент
     setSort(sortType?: number): void {
+        this.typeSort = sortType;
         this.changeSort.emit(<number>sortType);
     }
 

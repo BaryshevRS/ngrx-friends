@@ -49,7 +49,7 @@ export class FriendsComponent implements OnInit {
 
     ngOnInit() {
         this.store$.pipe(select('friends')).subscribe(({friends}) => {
-            this.friends = friends;
+
 
             /*
                 todo надо перенести в директиву, так как отрисовка документа может происходить не сразу и события
@@ -58,6 +58,7 @@ export class FriendsComponent implements OnInit {
             */
 
             if (friends.length) {
+                this.friends = friends;
                 this.issetContent = true;
             }
 

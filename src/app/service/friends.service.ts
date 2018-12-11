@@ -106,7 +106,7 @@ export class FriendsService {
 
     // сохраняем локально пользователя в закладки
     public setBookmark(id: string, value: number): void {
-        this.LocalSave.set(this.nameFriendsBookmark, {[id] : value});
+       this.LocalSave.set(this.nameFriendsBookmark, {[id] : value});
     }
 
     // сохраняем рейтинг участника в закладки

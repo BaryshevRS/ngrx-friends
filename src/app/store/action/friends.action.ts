@@ -3,8 +3,8 @@ import {friendsActionTypes} from '../../type/store/action';
 import {Friend} from '../../class/friends';
 import {IGetFriends} from '../../interface/friends';
 
-export class BookmarkFriends implements Action {
-    readonly type = friendsActionTypes.BOOKMARK_FRIENDS;
+export class SetBookmarkFriends implements Action {
+    readonly type = friendsActionTypes.SET_BOOKMARK_FRIENDS;
 
     constructor(public payload: Friend) {}
 }

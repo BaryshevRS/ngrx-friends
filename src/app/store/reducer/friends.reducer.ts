@@ -21,7 +21,7 @@ export function friendsReducer(state = initialState, action: FriendsAction) {
             return {...state, friends : [...action.payload]};
 
         // todo сделать отдельный редьюсер для закладок
-        case friendsActionTypes.BOOKMARK_FRIENDS:
+        case friendsActionTypes.SET_BOOKMARK_FRIENDS:
             console.log('action BOOKMARK_FRIENDS', action);
 
             const idb = state.friends.findIndex(friend => friend.id === action.payload.id);
@@ -30,7 +30,6 @@ export function friendsReducer(state = initialState, action: FriendsAction) {
             updateBookmark[idb] = {...state.friends[idb], bookmark: action.payload.bookmark};
 
             return {...state, friends : [...state.friends, updateBookmark]};
-
 
         case friendsActionTypes.SET_COUNT_BOOKMARKS_FRIENDS:
             return {...state, ...{bookmarks : {count : action.payload}}};

@@ -7,8 +7,6 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 })
 export class BookmarkComponent implements OnInit {
 
-    public active: number;
-
     @Input() id: string;
     @Input() value: number;
     @Output() bookmarkChange: EventEmitter<number> = new EventEmitter();

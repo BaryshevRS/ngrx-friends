@@ -1,7 +1,7 @@
 import {Input, Component, OnInit, Output, EventEmitter} from '@angular/core';
 import {Friend} from '../../../class/friends/index';
 import {Store} from '@ngrx/store';
-import {BookmarkFriends, RatingFriends} from '../../../store/action';
+import {RatingFriends, SetBookmarkFriends} from '../../../store/action';
 import {FriendsService} from '../../../service/friends.service';
 
 @Component({
@@ -22,9 +22,9 @@ export class FriendComponent implements OnInit {
     }
 
     bookmarkChange(value: number) {
-        this.friendsService.setBookmark(this.friend.id, value);
+
         this.friend.bookmark = value;
-        this.store$.dispatch(new BookmarkFriends(this.friend));
+        this.store$.dispatch(new SetBookmarkFriends(this.friend));
     }
 
     ratingChange(value: number) {

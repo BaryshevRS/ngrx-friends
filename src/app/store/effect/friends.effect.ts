@@ -2,9 +2,9 @@ import {Injectable} from '@angular/core';
 import {Actions, Effect} from '@ngrx/effects';
 import {Action, Store} from '@ngrx/store';
 import {Observable, of} from 'rxjs';
-import {catchError, map, switchMap, withLatestFrom} from 'rxjs/operators';
+import {catchError, map, pluck, switchMap, take, tap, withLatestFrom} from 'rxjs/operators';
 import {friendsActionTypes} from '../../type/store/action';
-import {LoadFriends, SortFriends, GetFriends, SetCountBookmarksFriends} from '../action';
+import {LoadFriends, SortFriends, GetFriends, SetCountBookmarksFriends, SetBookmarkFriends, GetCountBookmarksFriends} from '../action';
 import {ofType} from '@ngrx/effects';
 import {FriendsService} from '../../service/friends.service';
 import {Friend} from '../../class/friends';
@@ -73,13 +73,34 @@ export class GetCountBookmarksFriendsEffect {
 
     @Effect()
     GetCountBookmarskFriends$: Observable<Action> = this.actions$.pipe(
-        ofType<SortFriends>(friendsActionTypes.GET_COUNT_BOOKMARKS_FRIENDS),
+        ofType<GetCountBookmarksFriends>(friendsActionTypes.GET_COUNT_BOOKMARKS_FRIENDS),
         switchMap((action) => {
             return this.friendsService
                 .getCountBookmarskFriends()
                 .pipe(
                     map(count => new SetCountBookmarksFriends(count))
                 );
+        })
+    );
+}
+
+
+@Injectable()
+export class BookmarkFriendsEffect {
+    constructor(
+        private actions$: Actions,
+        private store$: Store<any>,
+        private friendsService: FriendsService
+    ) {}
+
+    @Effect()
+    SetBookmarkFriends$: Observable<Action> = this.actions$.pipe(
+        ofType<SetBookmarkFriends>(friendsActionTypes.SET_BOOKMARK_FRIENDS),
+        withLatestFrom(this.store$.select('friends')),
+        switchMap(([action, store]) => {
+            this.friendsService.setBookmark(action.payload.id, action.payload.bookmark);
+            const count = action.payload.bookmark ? ++store.bookmarks.count : --store.bookmarks.count;
+            return of(new SetCountBookmarksFriends(count));
         })
     );
 }

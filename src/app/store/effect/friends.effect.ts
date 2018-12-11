@@ -3,11 +3,18 @@ import {Actions, Effect} from '@ngrx/effects';
 import {Action, Store} from '@ngrx/store';
 import {Observable, of} from 'rxjs';
 import {catchError, map, pluck, switchMap, take, tap, withLatestFrom} from 'rxjs/operators';
-import {friendsActionTypes} from '../../type/store/action';
-import {LoadFriends, SortFriends, GetFriends, SetCountBookmarksFriends, SetBookmarkFriends, GetCountBookmarksFriends} from '../action';
+import {friendsActionTypes} from '../type/index';
+import {
+    LoadFriends,
+    SortFriends,
+    GetFriends,
+    SetCountBookmarksFriends,
+    SetBookmarkFriends,
+    GetCountBookmarksFriends,
+    ShowBookmarksFriends
+} from '../action';
 import {ofType} from '@ngrx/effects';
 import {FriendsService} from '../../service/friends.service';
-import {Friend} from '../../class/friends';
 
 @Injectable()
 export class LoadFriendsEffect {
@@ -25,6 +32,8 @@ export class LoadFriendsEffect {
         switchMap(([action, store]) => {
 
             const params = {...store.configsFriends, ...action.payload};
+
+            console.log('params!!', params)
 
             return this.friendsService
                 .getFriends(params)
@@ -62,9 +71,8 @@ export class SortFriendsEffect {
     );
 }
 
-
 @Injectable()
-export class GetCountBookmarksFriendsEffect {
+export class BookmarkFriendsEffect {
     constructor(
         private actions$: Actions,
         private store$: Store<any>,
@@ -82,16 +90,6 @@ export class GetCountBookmarksFriendsEffect {
                 );
         })
     );
-}
-
-
-@Injectable()
-export class BookmarkFriendsEffect {
-    constructor(
-        private actions$: Actions,
-        private store$: Store<any>,
-        private friendsService: FriendsService
-    ) {}
 
     @Effect()
     SetBookmarkFriends$: Observable<Action> = this.actions$.pipe(
@@ -101,6 +99,15 @@ export class BookmarkFriendsEffect {
             this.friendsService.setBookmark(action.payload.id, action.payload.bookmark);
             const count = action.payload.bookmark ? ++store.bookmarks.count : --store.bookmarks.count;
             return of(new SetCountBookmarksFriends(count));
+        })
+    );
+
+    @Effect()
+    ShowBookmarkFriends$: Observable<Action> = this.actions$.pipe(
+        ofType<ShowBookmarksFriends>(friendsActionTypes.SHOW_BOOKMARKS_FRIENDS),
+        switchMap((action) => {
+            console.log('showBookmark',  action.payload);
+            return of(new GetFriends({showBookmark: action.payload}));
         })
     );
 }

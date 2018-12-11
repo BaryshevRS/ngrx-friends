@@ -1,7 +1,7 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {select, Store} from '@ngrx/store';
-import {FriendsAction} from '../../type/store/action';
-import {GetCountBookmarksFriends, GetFriends, SortFriends} from '../../store/action';
+import {FriendsAction} from '../../store/type/index';
+import {GetCountBookmarksFriends, GetFriends, ShowBookmarksFriends, SortFriends} from '../../store/action';
 import {Friend} from '../../class/friends';
 
 @Component({
@@ -19,7 +19,8 @@ export class NavComponent implements OnInit {
     public friends: Friend[];
 
     showBookmark(active?: boolean): void {
-        this.store$.dispatch(new GetFriends( {showBookmark: true}));
+        this.store$.dispatch(new ShowBookmarksFriends( active));
+
         this.activeBookmark = active || false;
     }
 

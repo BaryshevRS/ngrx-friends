@@ -1,23 +1,7 @@
 import {Action} from '@ngrx/store';
-import {friendsActionTypes} from '../../type/store/action';
+import {friendsActionTypes} from '../type/index';
 import {Friend} from '../../class/friends';
 import {IGetFriends} from '../../interface/friends';
-
-export class SetBookmarkFriends implements Action {
-    readonly type = friendsActionTypes.SET_BOOKMARK_FRIENDS;
-
-    constructor(public payload: Friend) {}
-}
-
-export class GetCountBookmarksFriends implements Action {
-    readonly type = friendsActionTypes.GET_COUNT_BOOKMARKS_FRIENDS;
-}
-
-export class SetCountBookmarksFriends implements Action {
-    readonly type = friendsActionTypes.SET_COUNT_BOOKMARKS_FRIENDS;
-
-    constructor(public payload: number) {}
-}
 
 export class DeleteFriends implements Action {
     readonly type = friendsActionTypes.DELETE_FRIENDS;
@@ -53,6 +37,28 @@ export class SortFriends implements Action {
     readonly type = friendsActionTypes.SORT_FRIENDS;
 
     constructor(public payload: number) {}
+}
+
+export class SetBookmarkFriends implements Action {
+    readonly type = friendsActionTypes.SET_BOOKMARK_FRIENDS;
+
+    constructor(public payload: Friend) {}
+}
+
+export class GetCountBookmarksFriends implements Action {
+    readonly type = friendsActionTypes.GET_COUNT_BOOKMARKS_FRIENDS;
+}
+
+export class SetCountBookmarksFriends implements Action {
+    readonly type = friendsActionTypes.SET_COUNT_BOOKMARKS_FRIENDS;
+
+    constructor(public payload: number) {}
+}
+
+export class ShowBookmarksFriends implements Action {
+    readonly type = friendsActionTypes.SHOW_BOOKMARKS_FRIENDS;
+
+    constructor(public payload: boolean) {}
 }
 
 // todo добавить экшен для ошибок

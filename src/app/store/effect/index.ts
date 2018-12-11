@@ -1,5 +1,5 @@
-import {GetCountBookmarksFriendsEffect, LoadFriendsEffect, BookmarkFriendsEffect, SortFriendsEffect} from './friends.effect';
+import {LoadFriendsEffect, BookmarkFriendsEffect, SortFriendsEffect} from './friends.effect';
 
 export const effectsList = [
-    SortFriendsEffect, LoadFriendsEffect, GetCountBookmarksFriendsEffect, BookmarkFriendsEffect
+    SortFriendsEffect, LoadFriendsEffect, BookmarkFriendsEffect
 ];

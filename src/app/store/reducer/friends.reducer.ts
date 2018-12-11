@@ -1,4 +1,4 @@
-import {FriendsAction, friendsActionTypes} from '../../type/store/action';
+import {FriendsAction, friendsActionTypes} from '../type/index';
 
 const initialState = {
     friends : [],
@@ -19,20 +19,6 @@ export function friendsReducer(state = initialState, action: FriendsAction) {
         case friendsActionTypes.LOAD_FRIENDS:
             console.log('action LOAD_FRIENDS', action);
             return {...state, friends : [...action.payload]};
-
-        // todo сделать отдельный редьюсер для закладок
-        case friendsActionTypes.SET_BOOKMARK_FRIENDS:
-            console.log('action BOOKMARK_FRIENDS', action);
-
-            const idb = state.friends.findIndex(friend => friend.id === action.payload.id);
-
-            const updateBookmark = [];
-            updateBookmark[idb] = {...state.friends[idb], bookmark: action.payload.bookmark};
-
-            return {...state, friends : [...state.friends, updateBookmark]};
-
-        case friendsActionTypes.SET_COUNT_BOOKMARKS_FRIENDS:
-            return {...state, ...{bookmarks : {count : action.payload}}};
 
         case friendsActionTypes.RATING_FRIENDS:
             console.log('action RATING_FRIENDS', action);
@@ -58,6 +44,32 @@ export function friendsReducer(state = initialState, action: FriendsAction) {
             console.log('action SEARCH_FRIENDS', action);
             return {...state, configsFriends: {searchValue : action.payload}};
 
+        // todo сделать отдельный редьюсер для закладок
+        case friendsActionTypes.SHOW_BOOKMARKS_FRIENDS:
+            console.log('action SHOW_BOOKMARKS_FRIENDS', action);
+
+            return {...state,
+                configsFriends : {
+                    ...state.configsFriends,
+                    ...{showBookmark : action.payload, startView: 0}
+                }
+            };
+
+        case friendsActionTypes.SET_BOOKMARK_FRIENDS:
+            console.log('action BOOKMARK_FRIENDS', action);
+
+            const idb = state.friends.findIndex(friend => friend.id === action.payload.id);
+
+            const updateBookmark = [];
+            updateBookmark[idb] = {...state.friends[idb], bookmark: action.payload.bookmark};
+
+            return {...state, friends : [...state.friends, updateBookmark]};
+
+        case friendsActionTypes.SET_COUNT_BOOKMARKS_FRIENDS:
+            return {
+                ...state,
+                ...{bookmarks : {count : action.payload}}
+            };
         default:
             return state;
     }

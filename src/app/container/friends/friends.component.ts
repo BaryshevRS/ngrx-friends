@@ -49,8 +49,6 @@ export class FriendsComponent implements OnInit {
 
     ngOnInit() {
         this.store$.pipe(select('friends')).subscribe(({friends}) => {
-
-
             /*
                 todo надо перенести в директиву, так как отрисовка документа может происходить не сразу и события
                 todo дозаполнения могут приходить несколько раз
@@ -61,8 +59,6 @@ export class FriendsComponent implements OnInit {
                 this.friends = friends;
                 this.issetContent = true;
             }
-
-            console.log('select friends', friends.length);
         });
 
         this.store$.dispatch(new GetFriends( {}));

@@ -1,7 +1,7 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {select, Store} from '@ngrx/store';
 import {FriendsAction} from '../../type/store/action';
-import {SortFriends} from '../../store/action';
+import {GetCountBookmarksFriends, GetFriends, SortFriends} from '../../store/action';
 import {Friend} from '../../class/friends';
 
 @Component({
@@ -18,12 +18,9 @@ export class NavComponent implements OnInit {
     public activeBookmark: boolean;
     public friends: Friend[];
 
-    mark(active?: boolean): boolean {
+    showBookmark(active?: boolean): void {
+        this.store$.dispatch(new GetFriends( {showBookmark: true}));
         this.activeBookmark = active || false;
-
-        // устанавливаем контекст фильтра по закладкам
-        // this.bookmarkService.filterBookmark(this.activeBookmark);
-        return false;
     }
 
     changeSort(typeSort: number) {
@@ -31,12 +28,13 @@ export class NavComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.store$.pipe(select('friends', )).subscribe(({friends, configsFriends}) => {
-            // this.friends = friends;
-            // todo нужен отдельный запрос на сервер, так как стейт не содержит все значения с сервера
-            // this.countBookmark = friends.reduce((a: number, friend) => friend.bookmark > 0 ? ++a : a, 0);
-            this.typeSort = configsFriends.typeSort;
+        this.store$.pipe(select('friends')).subscribe(({bookmarks, configsFriends}) => {
+            console.log('select bookmarks', bookmarks);
+            this.countBookmark = bookmarks.count || 0;
+            this.typeSort = configsFriends.typeSort || 0;
         });
+
+        this.store$.dispatch(new GetCountBookmarksFriends());
     }
 
 }

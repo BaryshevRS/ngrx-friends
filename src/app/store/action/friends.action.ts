@@ -9,6 +9,16 @@ export class BookmarkFriends implements Action {
     constructor(public payload: Friend) {}
 }
 
+export class GetCountBookmarksFriends implements Action {
+    readonly type = friendsActionTypes.GET_COUNT_BOOKMARKS_FRIENDS;
+}
+
+export class SetCountBookmarksFriends implements Action {
+    readonly type = friendsActionTypes.SET_COUNT_BOOKMARKS_FRIENDS;
+
+    constructor(public payload: number) {}
+}
+
 export class DeleteFriends implements Action {
     readonly type = friendsActionTypes.DELETE_FRIENDS;
 

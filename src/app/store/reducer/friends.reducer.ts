@@ -8,6 +8,9 @@ const initialState = {
         showBookmark: false,
         startView: 0,
         limitView: 4
+    },
+    bookmarks : {
+        count : 0
     }
 };
 
@@ -28,13 +31,17 @@ export function friendsReducer(state = initialState, action: FriendsAction) {
 
             return {...state, friends : [...state.friends, updateBookmark]};
 
+
+        case friendsActionTypes.SET_COUNT_BOOKMARKS_FRIENDS:
+            return {...state, ...{bookmarks : {count : action.payload}}};
+
         case friendsActionTypes.RATING_FRIENDS:
             console.log('action RATING_FRIENDS', action);
 
             const idr = state.friends.findIndex(friend => friend.id === action.payload.id);
 
             const updateRating = [];
-            updateRating[idr] = {...state.friends[idr], bookmark: action.payload.bookmark};
+            updateRating[idr] = {...state.friends[idr], rating: action.payload.rating};
 
             return {...state, friends : [...state.friends, updateRating]};
 

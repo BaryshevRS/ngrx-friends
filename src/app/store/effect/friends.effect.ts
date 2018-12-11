@@ -51,6 +51,9 @@ export class SortFriendsEffect {
         withLatestFrom(this.store$.select('friends')),
         switchMap(([action, store]) => {
 
+/*            console.log('store.configsFriends', store.configsFriends);
+            console.log('typeSort', {typeSort: action.payload});*/
+
             const params = {...store.configsFriends, ...{typeSort: action.payload}};
 
             console.log('params', params);

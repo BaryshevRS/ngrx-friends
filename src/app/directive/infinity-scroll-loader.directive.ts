@@ -56,7 +56,7 @@ export class InfinityScrollLoaderDirective implements AfterViewInit, AfterViewCh
     }
 
     ngAfterViewChecked() {
-       // this.initFillingScroll();
+        this.initFillingScroll();
     }
 
     // todo нужно продумать, когда элементов реально меньше чем высота экрана

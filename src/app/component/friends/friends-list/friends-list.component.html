@@ -1,7 +1,6 @@
 <div class="friends-list">
 
     <app-friend
-            @fade
             *ngFor="let friend of friends; trackBy: trackByFn"
             [friend]="friend">
     </app-friend>

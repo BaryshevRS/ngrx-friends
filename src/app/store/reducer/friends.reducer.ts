@@ -40,10 +40,11 @@ export function friendsReducer(state = initialState, action: FriendsAction) {
 
         case friendsActionTypes.SORT_FRIENDS:
             console.log('action SORT_FRIENDS', action);
+
             return {...state,
                 configsFriends : {
                     ...state.configsFriends,
-                    configsFriends : {typeSort : action.payload, startView: 0}
+                    ...{typeSort : action.payload, startView: 0}
                 }
             };
 

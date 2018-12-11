@@ -1,5 +1,6 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 
+// todo разобраться, как отслеживать анимацию со стором
 
 export const fadeStateTrigger = trigger('fade', [
     transition(':enter', [

@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, OnInit} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import {Observable, of, Subject} from 'rxjs';
 import {map, debounceTime, switchMap, distinctUntilChanged} from 'rxjs/operators';
 
@@ -9,10 +9,13 @@ import {map, debounceTime, switchMap, distinctUntilChanged} from 'rxjs/operators
 })
 export class HeaderSearchComponent implements OnInit, AfterViewInit {
 
-
-    public searchBox: ElementRef<HTMLLinkElement>;
+   // public searchBox: ElementRef<HTMLLinkElement>;
     private searchTerms = new Subject<string>();
     public search$;
+
+    @Output() initSearch: EventEmitter<string> = new EventEmitter();
+
+    @ViewChild('searchBox') searchBox: ElementRef;
 
     constructor() {}
 
@@ -22,7 +25,8 @@ export class HeaderSearchComponent implements OnInit, AfterViewInit {
 
     resetSearch() {
         console.log('resetSearch');
-        this.searchTerms.next('');
+        this.searchBox.nativeElement.value = '';
+        // this.searchBox = '';
     }
 
     ngOnInit() {
@@ -30,12 +34,11 @@ export class HeaderSearchComponent implements OnInit, AfterViewInit {
             debounceTime(300),
             distinctUntilChanged(),
             switchMap((term: string) => {
-                console.log('termx', term);
-                return of();
+                return of(term);
             }),
         );
 
-        this.search$.subscribe();
+        this.search$.subscribe(term => this.initSearch.emit(term));
     }
 
     ngAfterViewInit(): void {

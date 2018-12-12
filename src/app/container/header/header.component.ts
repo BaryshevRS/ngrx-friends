@@ -20,4 +20,8 @@ export class HeaderComponent implements OnInit {
         this.mobileMenu = !this.mobileMenu;
     }
 
+    initSearch(term: string) {
+        console.log('termx!!', term);
+    }
+
 }

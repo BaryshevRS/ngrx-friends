@@ -9,7 +9,7 @@
 
         <div [ngClass]="{'open':mobileMenu}" class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
             <div class="navbar-nav mr-auto"></div>
-            <app-header-search></app-header-search>
+            <app-header-search (initSearch)="initSearch($event)"></app-header-search>
 
         </div>
     </div>

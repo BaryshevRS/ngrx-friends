@@ -14,6 +14,7 @@ import {pairwise, map, exhaustMap, filter, debounceTime} from 'rxjs/operators';
 
 // todo поддержка привязки к контейнеру, а не документу
 // todo поддержка лоадера
+// todo поддержка 7 ангуляря с его подгрузкой
 
 @Directive({
     selector: '[appInfinityScrollLoader]',

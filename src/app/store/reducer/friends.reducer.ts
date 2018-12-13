@@ -42,7 +42,13 @@ export function friendsReducer(state = initialState, action: FriendsAction) {
 
         case friendsActionTypes.SEARCH_FRIENDS:
             console.log('action SEARCH_FRIENDS', action);
-            return {...state, configsFriends: {searchValue : action.payload}};
+
+            return {...state,
+                configsFriends : {
+                    ...state.configsFriends,
+                    ...{searchValue : action.payload, startView: 0}
+                }
+            };
 
         // todo сделать отдельный редьюсер для закладок
         case friendsActionTypes.SHOW_BOOKMARKS_FRIENDS:

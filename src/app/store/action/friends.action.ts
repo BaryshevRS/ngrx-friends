@@ -30,7 +30,7 @@ export class RatingFriends implements Action {
 export class SearchFriends implements Action {
     readonly type = friendsActionTypes.SEARCH_FRIENDS;
 
-    constructor(public payload: number) {}
+    constructor(public payload: string) {}
 }
 
 export class SortFriends implements Action {

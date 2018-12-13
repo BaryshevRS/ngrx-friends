@@ -11,7 +11,7 @@ import {
     SetCountBookmarksFriends,
     SetBookmarkFriends,
     GetCountBookmarksFriends,
-    ShowBookmarksFriends
+    ShowBookmarksFriends, SearchFriends
 } from '../action';
 import {ofType} from '@ngrx/effects';
 import {FriendsService} from '../../service/friends.service';
@@ -33,7 +33,7 @@ export class LoadFriendsEffect {
 
             const params = {...store.configsFriends, ...action.payload};
 
-            console.log('params!!', params)
+            console.log('params!!', params);
 
             return this.friendsService
                 .getFriends(params)
@@ -59,11 +59,35 @@ export class SortFriendsEffect {
         switchMap(([action, store]) => {
 
             const params = {...store.configsFriends, ...{typeSort: action.payload}};
-
-            console.log('params', params);
+            // console.log('params', params);
 
             return this.friendsService
                 .getFriends(params)
+                .pipe(
+                    map(friends => new LoadFriends(friends))
+                );
+        })
+    );
+}
+
+@Injectable()
+export class SearchFriendsEffect {
+    constructor(
+        private actions$: Actions,
+        private store$: Store<any>,
+        private friendsService: FriendsService
+    ) {}
+
+    @Effect()
+    getSearchFriends$: Observable<Action> = this.actions$.pipe(
+        ofType<SearchFriends>(friendsActionTypes.SEARCH_FRIENDS),
+        withLatestFrom(this.store$.select('friends')),
+        switchMap(([action, store]) => {
+
+            console.log('params search', store.configsFriends);
+
+            return this.friendsService
+                .getFriends(store.configsFriends)
                 .pipe(
                     map(friends => new LoadFriends(friends))
                 );

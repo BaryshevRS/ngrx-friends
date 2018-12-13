@@ -1,4 +1,7 @@
 import {Component, OnInit} from '@angular/core';
+import {SearchFriends} from '../../store/action';
+import {Store} from '@ngrx/store';
+import {FriendsAction} from '../../store/type';
 
 @Component({
     selector: 'app-header',
@@ -10,7 +13,7 @@ export class HeaderComponent implements OnInit {
     public title = 'Friends';
     public mobileMenu: boolean;
 
-    constructor() {
+    constructor(private store$: Store<FriendsAction>) {
     }
 
     ngOnInit() {
@@ -22,6 +25,7 @@ export class HeaderComponent implements OnInit {
 
     initSearch(term: string) {
         console.log('termx!!', term);
+        this.store$.dispatch(new SearchFriends(term));
     }
 
 }

@@ -2,11 +2,14 @@
 
     <app-bookmark (bookmarkChange)="bookmarkChange($event)" [value]="friend.bookmark" [id]="friend.id" ></app-bookmark>
 
-    <img
-            src="https://robohash.org/{{ friend.id }}.jpg?size=50x50&set=set1"
-            alt=""
-            class="mr-2 border rounded"
-    >
+    <div class="friend-img border rounded">
+        <img
+                data-src="https://robohash.org/{{ friend.id }}.jpg?size=50x50&set=set1"
+                alt=""
+                class="mr-2 "
+        >
+    </div>
+
 
     <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
 

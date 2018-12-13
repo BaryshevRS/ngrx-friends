@@ -6,7 +6,6 @@ import {GetFriends} from '../../store/action';
 
 // todo подписываться на данные в шаблоне
 // todo добавить лоадеры и вывод ошибок, если данные недоступны
-// todo продумать offline режим
 // todo push change detection
 // todo настройка отписки
 
@@ -44,7 +43,7 @@ export class FriendsComponent implements OnInit {
 
         this.startView = this.startView + this.limitView;
         this.store$.dispatch(new GetFriends({startView: this.startView, limitView: this.limitView}));
-        // this.issetContent = false;
+
     }
 
     ngOnInit() {

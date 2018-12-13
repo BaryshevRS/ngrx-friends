@@ -59,7 +59,7 @@ export class SortFriendsEffect {
         switchMap(([action, store]) => {
 
             const params = {...store.configsFriends, ...{typeSort: action.payload}};
-            // console.log('params', params);
+            console.log('params typeSort', store.configsFriends);
 
             return this.friendsService
                 .getFriends(params)
@@ -122,6 +122,9 @@ export class BookmarkFriendsEffect {
         switchMap(([action, store]) => {
             this.friendsService.setBookmark(action.payload.id, action.payload.bookmark);
             const count = action.payload.bookmark ? ++store.bookmarks.count : --store.bookmarks.count;
+
+            // обновляем список друзей, когда на вкладке закладок
+            // todo from []
             return of(new SetCountBookmarksFriends(count));
         })
     );
@@ -134,4 +137,25 @@ export class BookmarkFriendsEffect {
             return of(new GetFriends({showBookmark: action.payload}));
         })
     );
+}
+
+
+@Injectable()
+export class RatingFriendsEffect {
+    constructor(
+        private actions$: Actions,
+        private store$: Store<any>,
+        private friendsService: FriendsService
+    ) {}
+
+    @Effect()
+    SetRatingFriends$: Observable<Action> = this.actions$.pipe(
+        ofType<SetBookmarkFriends>(friendsActionTypes.RATING_FRIENDS),
+        switchMap((action) => {
+            this.friendsService.setRating(action.payload.id, action.payload.rating);
+            // todo сделать обновление документа
+            return of();
+        })
+    );
+
 }

@@ -14,21 +14,19 @@ export class FriendComponent implements OnInit {
     @Input() friend: Friend;
 
     constructor(
-        private store$: Store<any>,
-        private friendsService: FriendsService
+        private store$: Store<any>
     ) {}
 
     ngOnInit() {
     }
 
     bookmarkChange(value: number) {
-
         this.friend.bookmark = value;
         this.store$.dispatch(new SetBookmarkFriends(this.friend));
     }
 
     ratingChange(value: number) {
-        this.friendsService.setRating(this.friend.id, value);
+        // this.friendsService.setRating(this.friend.id, value);
         this.friend.rating = value;
         this.store$.dispatch(new RatingFriends(this.friend));
     }

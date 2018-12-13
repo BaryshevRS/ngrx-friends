@@ -138,8 +138,8 @@ export class FriendsService {
     public getFilterSearch(friendsList: Friend[], search: string): Friend[] {
         return friendsList.filter(friend => {
             return (
-                friend.first_name.toLowerCase().indexOf(search.toLowerCase()) >= 0 ||
-                friend.last_name.toLowerCase().indexOf(search.toLowerCase()) >= 0
+                friend.first_name.trim().toLowerCase().indexOf(search.trim().toLowerCase()) >= 0 ||
+                friend.last_name.trim().toLowerCase().indexOf(search.trim().toLowerCase()) >= 0
             );
         });
     }

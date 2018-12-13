@@ -80,7 +80,7 @@ export class InfinityScrollLoaderDirective implements AfterViewInit, AfterViewCh
             // console.log('X scrollTop', (scrollTop + this.initScrollHeight));
             // когда высота экрана больше высоты компонента
             if (clientHeight >= (scrollTop + this.initScrollHeight)) {
-                console.log('no fill');
+                // console.log('no fill');
                 this.initFilling.emit(true);
             }
         }

@@ -1,6 +1,7 @@
 import {FriendsAction, friendsActionTypes} from '../type/index';
+import {Friends} from '../../interface/friends';
 
-const initialState = {
+const initialState: Friends = {
     friends : [],
     configsFriends: {
         typeSort: 0,

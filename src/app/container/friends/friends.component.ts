@@ -3,6 +3,8 @@ import {Component, OnInit} from '@angular/core';
 import {select, Store} from '@ngrx/store';
 import {Friend} from '../../class/friends';
 import {GetFriends} from '../../store/action';
+import {Observable} from 'rxjs';
+import {getFriends} from '../../store/selector/friends.selector';
 
 // todo подписываться на данные в шаблоне
 // todo добавить лоадеры и вывод ошибок, если данные недоступны
@@ -23,6 +25,7 @@ export class FriendsComponent implements OnInit {
     public startView = 0;
     public limitView = 4;
     public issetContent = false;
+    public friends$: Observable<Friend[]>;
 
     constructor(
         private store$: Store<any>
@@ -49,18 +52,19 @@ export class FriendsComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.store$.pipe(select('friends')).subscribe(({friends}) => {
-            /*
+       /* this.store$.pipe(select('friends')).subscribe(({friends}) => {
+            /!*
                 todo issetContent заменить на передачу friends as contents
                 todo лучше передавать друзей в директиву, так можно решить проблему двойной загрузки
-            */
+            *!/
 
             if (friends.length) {
                 this.friends = friends;
                 this.issetContent = true;
             }
-        });
+        });*/
 
+        this.friends$ = this.store$.select(getFriends);
         this.store$.dispatch(new GetFriends( {}));
     }
 }

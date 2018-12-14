@@ -2,7 +2,8 @@ import {Input, Component, OnInit, Output, EventEmitter} from '@angular/core';
 import {Friend} from '../../../class/friends/index';
 import {Store} from '@ngrx/store';
 import {RatingFriends, SetBookmarkFriends} from '../../../store/action';
-import {FriendsService} from '../../../service/friends.service';
+
+//todo вынести состояние в контейнер
 
 @Component({
     selector: 'app-friend',

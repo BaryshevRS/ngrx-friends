@@ -8,17 +8,12 @@ import {Friend} from '../../../class/friends';
 @Component({
     selector: 'app-friends-list',
     templateUrl: './friends-list.component.html',
-    styleUrls: ['./friends-list.component.scss'],
-    animations: [fadeStateTrigger]
+    styleUrls: ['./friends-list.component.scss']
 })
 
 export class FriendsListComponent {
 
-    private search: string;
-    private bookmark: false;
-
-    @Input() friends: Friend[];
-    @Output() scrollingActive: EventEmitter<boolean> = new EventEmitter();
+    @Input('contents') friends: Friend[];
 
     trackByFn(index: number, item: Friend) {
         return item.id;

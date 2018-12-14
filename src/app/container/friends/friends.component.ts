@@ -8,6 +8,8 @@ import {GetFriends} from '../../store/action';
 // todo добавить лоадеры и вывод ошибок, если данные недоступны
 // todo push change detection
 // todo настройка отписки
+// todo скролл на вверх
+// todo переход по логотипу
 
 @Component({
     selector: 'app-friends',
@@ -49,9 +51,8 @@ export class FriendsComponent implements OnInit {
     ngOnInit() {
         this.store$.pipe(select('friends')).subscribe(({friends}) => {
             /*
-                todo надо перенести в директиву, так как отрисовка документа может происходить не сразу и события
-                todo дозаполнения могут приходить несколько раз
                 todo issetContent заменить на передачу friends as contents
+                todo лучше передавать друзей в директиву, так можно решить проблему двойной загрузки
             */
 
             if (friends.length) {

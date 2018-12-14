@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Actions, Effect} from '@ngrx/effects';
 import {Action, Store} from '@ngrx/store';
 import {from, Observable, of} from 'rxjs';
-import {catchError, map, pluck, switchMap, take, tap, withLatestFrom} from 'rxjs/operators';
+import {map, switchMap, withLatestFrom} from 'rxjs/operators';
 import {friendsActionTypes} from '../type/index';
 import {
     LoadFriends,
@@ -27,7 +27,7 @@ export class LoadFriendsEffect {
     @Effect()
     getFriends$: Observable<Action> = this.actions$.pipe(
         ofType<GetFriends>(friendsActionTypes.GET_FRIENDS),
-        // todo нужно взять данные из селекта
+        // todo нужно взять данные из селекта configsFriends
         withLatestFrom(this.store$.select('friends')),
         switchMap(([action, store]) => {
 

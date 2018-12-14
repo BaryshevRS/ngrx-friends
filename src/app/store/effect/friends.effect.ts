@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Actions, Effect} from '@ngrx/effects';
 import {Action, Store} from '@ngrx/store';
-import {Observable, of} from 'rxjs';
+import {from, Observable, of} from 'rxjs';
 import {catchError, map, pluck, switchMap, take, tap, withLatestFrom} from 'rxjs/operators';
 import {friendsActionTypes} from '../type/index';
 import {
@@ -124,8 +124,13 @@ export class BookmarkFriendsEffect {
             const count = action.payload.bookmark ? ++store.bookmarks.count : --store.bookmarks.count;
 
             // обновляем список друзей, когда на вкладке закладок
-            // todo from []
-            return of(new SetCountBookmarksFriends(count));
+            const actions: Action[] = [new SetCountBookmarksFriends(count)];
+
+            if (store.configsFriends.showBookmark) {
+                actions.push(new GetFriends(store.configsFriends));
+            }
+
+            return from(actions);
         })
     );
 
@@ -151,10 +156,17 @@ export class RatingFriendsEffect {
     @Effect()
     SetRatingFriends$: Observable<Action> = this.actions$.pipe(
         ofType<SetBookmarkFriends>(friendsActionTypes.RATING_FRIENDS),
-        switchMap((action) => {
+        withLatestFrom(this.store$.select('friends')),
+        switchMap(([action, store]) => {
             this.friendsService.setRating(action.payload.id, action.payload.rating);
-            // todo сделать обновление документа
-            return of();
+
+            const actions: Action[] = [];
+
+            if (store.configsFriends.typeSort) {
+                actions.push(new GetFriends(store.configsFriends));
+            }
+
+            return from(actions);
         })
     );
 

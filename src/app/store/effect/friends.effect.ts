@@ -31,14 +31,23 @@ export class LoadFriendsEffect {
         withLatestFrom(this.store$.select('friends')),
         switchMap(([action, store]) => {
 
+            console.log('store.configsFriends!! BEFORE', store.configsFriends);
+            console.log('action.payload!! BEFORE', action.payload);
+
             const params = {...store.configsFriends, ...action.payload};
+
+            // todo проверка, что число элементов не изменилось
 
             console.log('params!!', params);
 
             return this.friendsService
                 .getFriends(params)
                 .pipe(
-                    map(friends => new LoadFriends(friends))
+                    map(friends => {
+                        console.log('friends GET', friends);
+                        params.startView = params.startView + params.limitView;
+                        return new LoadFriends({configsFriends: params, friends: friends})
+                    })
                 );
         })
     );
@@ -64,7 +73,7 @@ export class SortFriendsEffect {
             return this.friendsService
                 .getFriends(params)
                 .pipe(
-                    map(friends => new LoadFriends(friends))
+                    map(friends => new LoadFriends({friends: friends}))
                 );
         })
     );
@@ -89,7 +98,7 @@ export class SearchFriendsEffect {
             return this.friendsService
                 .getFriends(store.configsFriends)
                 .pipe(
-                    map(friends => new LoadFriends(friends))
+                    map(friends => new LoadFriends({friends: friends}))
                 );
         })
     );

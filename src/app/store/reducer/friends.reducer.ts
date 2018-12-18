@@ -10,15 +10,25 @@ const initialState: Friends = {
         startView: 0,
         limitView: 4
     },
-    bookmarks : {
-        count : 0
+    bookmarks: {
+        count: 0
     }
 };
 
 export function friendsReducer(state = initialState, action: FriendsAction) {
     switch (action.type) {
         case friendsActionTypes.LOAD_FRIENDS:
-            return {...state, friends : [...action.payload]};
+
+            const configsFriends = action.payload.configsFriends ? action.payload.configsFriends : state.configsFriends;
+
+            const store =  {
+                ...state,
+                friends : [...state.friends, ...action.payload.friends],
+                configsFriends : {...configsFriends}
+            };
+
+            console.log('xxx', store);
+            return store;
 
         case friendsActionTypes.RATING_FRIENDS:
 

@@ -10,8 +10,8 @@ export interface IGetFriends {
 
 export interface Friends {
     friends: Friend[];
-    configsFriends: IGetFriends;
-    bookmarks: {
+    configsFriends?: IGetFriends;
+    bookmarks?: {
         count: number;
     }
 }

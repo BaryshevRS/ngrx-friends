@@ -36,34 +36,14 @@ export class FriendsService {
 
         return this.http.get(this.BASE_URL + 'friends')
             .pipe(
-                map((friendsList: Friend[]) => {
-
-                    // console.log('friendsList', friendsList);
-
-                    // преобразования
-
-                    friendsList = this.getRating(friendsList);
-                    friendsList = this.getBookmark(friendsList);
-
-                    friendsList = this.setRatingSort(friendsList, typeSort);
-                    // console.log('~friendsList', friendsList);
-
-                    if (showBookmark) {
-                        friendsList = this.getFilterBookmark(friendsList);
-                    }
-
-                    if (searchValue) {
-                        friendsList = this.getFilterSearch(friendsList, searchValue);
-                    }
-
-                    friendsList = this.setLimitViewOnPage(friendsList, startView, limitView);
-
-                   // console.log('friendsList', friendsList);
-                    return friendsList;
-                }),
+                map((friendsList: Friend[]) => this.getRating(friendsList)),
+                map((friendsList: Friend[]) => this.getBookmark(friendsList)),
+                map((friendsList: Friend[]) => this.setRatingSort(friendsList, typeSort)),
+                map((friendsList: Friend[]) => showBookmark ? this.getFilterBookmark(friendsList) : friendsList),
+                map((friendsList: Friend[]) => searchValue ? this.getFilterSearch(friendsList, searchValue) : friendsList),
+                map((friendsList: Friend[]) => this.setLimitViewOnPage(friendsList, startView, limitView)),
                 catchError(({status}: Response) => throwError(status))
             );
-
     }
 
     // получаем число закладок друзей
@@ -75,6 +55,7 @@ export class FriendsService {
                     friendsList = this.getFilterBookmark(friendsList);
                     return friendsList.reduce((a: number, friend: Friend) =>  friend.bookmark > 0 ? ++a : a, 0);
                 }),
+                //todo create logging errors
                 catchError(({status}: Response) => throwError(status))
             );
     }
@@ -144,9 +125,7 @@ export class FriendsService {
         });
     }
 
-    // todo сделать подгрузку с сервера чанками
-
     public setLimitViewOnPage(friendsList: Friend[], startView: number, limitView: number): Friend[] {
-        return friendsList.slice(0, (startView + limitView));
+        return friendsList.slice(startView, (startView + limitView));
     }
 }

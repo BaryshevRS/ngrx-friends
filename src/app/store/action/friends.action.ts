@@ -1,7 +1,7 @@
 import {Action} from '@ngrx/store';
 import {friendsActionTypes} from '../type/index';
 import {Friend} from '../../class/friends';
-import {IGetFriends} from '../../interface/friends';
+import {Friends, IGetFriends} from '../../interface/friends';
 
 export class DeleteFriends implements Action {
     readonly type = friendsActionTypes.DELETE_FRIENDS;
@@ -12,13 +12,13 @@ export class DeleteFriends implements Action {
 export class LoadFriends implements Action {
     readonly type = friendsActionTypes.LOAD_FRIENDS;
 
-    constructor(public payload: Friend[]) {}
+    constructor(public payload: Friends) {}
 }
 
 export class GetFriends implements Action {
     readonly type = friendsActionTypes.GET_FRIENDS;
 
-    constructor(public payload: IGetFriends) {}
+    constructor(public payload?: IGetFriends) {}
 }
 
 export class RatingFriends implements Action {

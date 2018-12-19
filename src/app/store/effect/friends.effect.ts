@@ -45,6 +45,9 @@ export class LoadFriendsEffect {
                 .pipe(
                     map(friends => {
                         console.log('friends GET', friends);
+                        if (params.startView > 0) {
+                            friends = [...store.friends, ...friends];
+                        }
                         params.startView = params.startView + params.limitView;
                         return new LoadFriends({configsFriends: params, friends: friends})
                     })
@@ -70,11 +73,24 @@ export class SortFriendsEffect {
             const params = {...store.configsFriends, ...{typeSort: action.payload}};
             console.log('params typeSort', store.configsFriends);
 
+            // todo косяк
             return this.friendsService
                 .getFriends(params)
                 .pipe(
-                    map(friends => new LoadFriends({friends: friends}))
+                    map(friends => {
+                        console.log('friends GET', friends);
+                        if (params.startView > 0) {
+                            friends = [...store.friends, ...friends];
+                        }
+                        params.startView = params.startView + params.limitView;
+                        return new LoadFriends({configsFriends: params, friends: friends})
+                    })
                 );
+/*            return this.friendsService
+                .getFriends(params)
+                .pipe(
+                    map(friends => new LoadFriends({friends: friends}))
+                );*/
         })
     );
 }
@@ -147,6 +163,7 @@ export class BookmarkFriendsEffect {
     ShowBookmarkFriends$: Observable<Action> = this.actions$.pipe(
         ofType<ShowBookmarksFriends>(friendsActionTypes.SHOW_BOOKMARKS_FRIENDS),
         switchMap((action) => {
+            action.payload = action.payload || false;
             console.log('showBookmark',  action.payload);
             return of(new GetFriends({showBookmark: action.payload}));
         })

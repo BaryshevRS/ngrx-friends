@@ -28,10 +28,6 @@ export class InfinityScrollLoaderDirective implements AfterViewInit, AfterViewCh
     @Input() scrollPercent = 90;
     // сообщение от контенейнера о том, что были добавленны новые данные
     @Input() contents: any[];
-    // событие скролла контейнеру о том, что надо довывести элементы
-    @Output() scrolling: EventEmitter<boolean> = new EventEmitter();
-    // событие контейнеру о том, что надо довывести элементы при инициализации
-    @Output() filling: EventEmitter<boolean> = new EventEmitter();
     // общее событие для скролла и заполнения
     @Output() drawing: EventEmitter<boolean> = new EventEmitter();
 
@@ -51,7 +47,6 @@ export class InfinityScrollLoaderDirective implements AfterViewInit, AfterViewCh
                 filter(positions => this.isScrollingDown(positions)), // отфильтровываем если скрол в обратную сторону
                 filter(_ => this.isScrollingActive()),
             ).subscribe(() => {
-                this.scrolling.emit(true);
                 this.drawing.emit(true);
             });
     }
@@ -63,16 +58,16 @@ export class InfinityScrollLoaderDirective implements AfterViewInit, AfterViewCh
     // делаем проверку, что текущий контент перекрывает текущий экран
     private checkFilling = () => {
 
-        console.log('this.contents.length  ', this.contents.length )
+        // console.log('this.contents.length  ', this.contents.length )
 
-        if (this.contents.length > 0) { // данные пришли
+        // if (this.contents.length > 0) { // данные пришли
             // проинициализированная высота контейнера, где висит директивва
             this.issetContent = true;
 
             const initScrollHeight = this.elm.nativeElement.offsetHeight;
-            console.log('this.initScrollHeight > initScrollHeight', initScrollHeight  + '>' + this.initScrollHeight)
+            console.log('initScrollHeight', initScrollHeight  + '!==' + this.initScrollHeight)
 
-            if (initScrollHeight > this.initScrollHeight) { // проверяем, что высота изменилась
+            if (initScrollHeight !== this.initScrollHeight) { // проверяем, что высота изменилась
                 this.initScrollHeight = initScrollHeight;
 
                 // высота документа без прокрутки
@@ -80,17 +75,15 @@ export class InfinityScrollLoaderDirective implements AfterViewInit, AfterViewCh
                 // высота скролл до верха от контейнера
                 const scrollTop = this.elm.nativeElement.offsetTop;
 
-                console.log('X Height', (clientHeight) +' > '+ (scrollTop + this.initScrollHeight));
+                console.log('clientHeight > initScrollHeight', (clientHeight) +' > '+ (scrollTop + this.initScrollHeight));
 
                 // когда высота экрана больше высоты компонента
                 if (clientHeight >= (scrollTop + this.initScrollHeight)) {
                     console.log('no fill');
-                    this.filling.emit(true);
                     this.drawing.emit(true);
-                    // this.contents = [{'k' : 123}];
                 }
             }
-        }
+        // }
     }
 
     // проверка, что скрол идёт не в обратном порядке

@@ -23,7 +23,7 @@ export function friendsReducer(state = initialState, action: FriendsAction) {
 
             const store =  {
                 ...state,
-                friends : [...state.friends, ...action.payload.friends],
+                friends : [...action.payload.friends],
                 configsFriends : {...configsFriends}
             };
 
@@ -62,8 +62,7 @@ export function friendsReducer(state = initialState, action: FriendsAction) {
 
             return {...state,
                 configsFriends : {
-                    ...state.configsFriends,
-                    ...{showBookmark : action.payload, startView: 0}
+                    ...state.configsFriends, ...{showBookmark : action.payload, startView: 0}
                 }
             };
 

@@ -31,8 +31,8 @@ export class FriendsService {
         console.log('startView', startView );
         console.log('limitView', limitView );*/
 
-        console.log('startView', startView );
-        console.log('limitView', limitView );
+/*        console.log('startView', startView );
+        console.log('limitView', limitView );*/
 
         return this.http.get(this.BASE_URL + 'friends')
             .pipe(
@@ -61,7 +61,6 @@ export class FriendsService {
     }
 
     public getRating(friendsList: Friend[]): Friend[] {
-
         const friendsRating: object = this.LocalSave.get(this.nameFriendsRating);
         if (friendsRating) {
             return friendsList.map((friend, index) => {
@@ -74,14 +73,12 @@ export class FriendsService {
 
     public getBookmark(friendsList: Friend[]): Friend[] {
         const friendsBookmark: object = this.LocalSave.get(this.nameFriendsBookmark);
-
         if (friendsBookmark) {
             return friendsList.map((friend, index) => {
                 friend.bookmark = friendsBookmark[friend.id] ? friendsBookmark[friend.id] : 0;
                 return friend;
             });
         }
-
         return friendsList;
     }
 
@@ -126,6 +123,11 @@ export class FriendsService {
     }
 
     public setLimitViewOnPage(friendsList: Friend[], startView: number, limitView: number): Friend[] {
-        return friendsList.slice(startView, (startView + limitView));
+
+        console.log('before friendsList', friendsList);
+        friendsList = friendsList.slice(startView, (startView + limitView));
+        console.log('after friendsList', friendsList);
+
+        return friendsList;
     }
 }

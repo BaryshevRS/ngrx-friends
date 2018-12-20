@@ -15,6 +15,7 @@ import {
 } from '../action';
 import {ofType} from '@ngrx/effects';
 import {FriendsService} from '../../service/friends.service';
+import {Friend} from '../../class/friends';
 
 @Injectable()
 export class LoadFriendsEffect {
@@ -26,13 +27,17 @@ export class LoadFriendsEffect {
 
     @Effect()
     getFriends$: Observable<Action> = this.actions$.pipe(
-        ofType<GetFriends>(friendsActionTypes.GET_FRIENDS),
+        ofType<GetFriends>(
+            friendsActionTypes.GET_FRIENDS,
+            friendsActionTypes.SORT_FRIENDS,
+            friendsActionTypes.SEARCH_FRIENDS
+        ),
         // todo нужно взять данные из селекта configsFriends
         withLatestFrom(this.store$.select('friends')),
         switchMap(([action, store]) => {
 
-            console.log('store.configsFriends!! BEFORE', store.configsFriends);
-            console.log('action.payload!! BEFORE', action.payload);
+ /*           console.log('store.configsFriends!! BEFORE', store.configsFriends);
+            console.log('action.payload!! BEFORE', action.payload);*/
 
             const params = {...store.configsFriends, ...action.payload};
 
@@ -44,77 +49,29 @@ export class LoadFriendsEffect {
                 .getFriends(params)
                 .pipe(
                     map(friends => {
-                        console.log('friends GET', friends);
-                        if (params.startView > 0) {
-                            friends = [...store.friends, ...friends];
+
+                        if(friends && friends.length > 0) {
+                            // TODO нет перерисовки при значение 4
+
+                           /* console.log('AR friends', friends);
+                            console.log('AS friends', ...store.friends);*/
+
+                            if (params.startView > 0) {
+                                friends = [...store.friends, ...friends];
+                            }
+
+                          //  console.log('BR friends', friends);
+                            params.startView = params.startView + params.limitView;
+                        } else {
+                           // console.log('ASx friends', ...store.friends);
+                            friends = [...store.friends];
+                            console.log('BRx friends', friends);
+                            params.startView = params.startView - params.limitView;
                         }
-                        params.startView = params.startView + params.limitView;
+
                         return new LoadFriends({configsFriends: params, friends: friends})
+
                     })
-                );
-        })
-    );
-}
-
-@Injectable()
-export class SortFriendsEffect {
-    constructor(
-        private actions$: Actions,
-        private store$: Store<any>,
-        private friendsService: FriendsService
-    ) {}
-
-    @Effect()
-    getSortFriends$: Observable<Action> = this.actions$.pipe(
-        ofType<SortFriends>(friendsActionTypes.SORT_FRIENDS),
-        withLatestFrom(this.store$.select('friends')),
-        switchMap(([action, store]) => {
-
-            const params = {...store.configsFriends, ...{typeSort: action.payload}};
-            console.log('params typeSort', store.configsFriends);
-
-            // todo косяк
-            return this.friendsService
-                .getFriends(params)
-                .pipe(
-                    map(friends => {
-                        console.log('friends GET', friends);
-                        if (params.startView > 0) {
-                            friends = [...store.friends, ...friends];
-                        }
-                        params.startView = params.startView + params.limitView;
-                        return new LoadFriends({configsFriends: params, friends: friends})
-                    })
-                );
-/*            return this.friendsService
-                .getFriends(params)
-                .pipe(
-                    map(friends => new LoadFriends({friends: friends}))
-                );*/
-        })
-    );
-}
-
-@Injectable()
-export class SearchFriendsEffect {
-    constructor(
-        private actions$: Actions,
-        private store$: Store<any>,
-        private friendsService: FriendsService
-    ) {}
-
-    @Effect()
-    getSearchFriends$: Observable<Action> = this.actions$.pipe(
-        ofType<SearchFriends>(friendsActionTypes.SEARCH_FRIENDS),
-        withLatestFrom(this.store$.select('friends')),
-        switchMap(([action, store]) => {
-
-            console.log('params search', store.configsFriends);
-
-            return this.friendsService
-                .getFriends(store.configsFriends)
-                .pipe(
-                    map(friends => new LoadFriends({friends: friends}))
                 );
         })
     );
@@ -148,11 +105,25 @@ export class BookmarkFriendsEffect {
             this.friendsService.setBookmark(action.payload.id, action.payload.bookmark);
             const count = action.payload.bookmark ? ++store.bookmarks.count : --store.bookmarks.count;
 
+            console.log('store.friends XXX', store.friends)
+
             // обновляем список друзей, когда на вкладке закладок
             const actions: Action[] = [new SetCountBookmarksFriends(count)];
 
             if (store.configsFriends.showBookmark) {
-                actions.push(new GetFriends(store.configsFriends));
+                console.log('store.configsFriends.showBookmark Y', store.configsFriends.showBookmark);
+                actions.push(new GetFriends());
+            } else {
+           /*     const friends: Friend[] = store.friends.map(friend => {
+                    if(friend.id === action.payload.id) {
+                        friend.bookmark = action.payload.bookmark || 0;
+                        return friend;
+                    }
+                });
+
+                console.log('bookmark friends', friends);
+
+                actions.push(new LoadFriends({friends: friends}));*/
             }
 
             return from(actions);

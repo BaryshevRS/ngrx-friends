@@ -12,6 +12,7 @@ export class NavSortComponent implements OnInit {
     @Output() changeSort: EventEmitter<number> = new EventEmitter();
     @Input() typeSort = 0;
 
+    // todo не запускать сортировк если уже стоит такая
     // выбираем тип сортировки и эмитируем событие в родительский компонент
     setSort(sortType?: number): void {
         this.typeSort = sortType;

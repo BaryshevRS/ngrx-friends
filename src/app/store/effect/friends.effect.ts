@@ -65,8 +65,6 @@ export class LoadFriendsEffect {
                         } else {
                            // console.log('ASx friends', ...store.friends);
                             friends = [...store.friends];
-                            console.log('BRx friends', friends);
-                            params.startView = params.startView - params.limitView;
                         }
 
                         return new LoadFriends({configsFriends: params, friends: friends})
@@ -112,18 +110,7 @@ export class BookmarkFriendsEffect {
 
             if (store.configsFriends.showBookmark) {
                 console.log('store.configsFriends.showBookmark Y', store.configsFriends.showBookmark);
-                actions.push(new GetFriends());
-            } else {
-           /*     const friends: Friend[] = store.friends.map(friend => {
-                    if(friend.id === action.payload.id) {
-                        friend.bookmark = action.payload.bookmark || 0;
-                        return friend;
-                    }
-                });
-
-                console.log('bookmark friends', friends);
-
-                actions.push(new LoadFriends({friends: friends}));*/
+                actions.push(new GetFriends({startView: 0}));
             }
 
             return from(actions);
@@ -141,7 +128,7 @@ export class BookmarkFriendsEffect {
     );
 }
 
-
+// todo сделать так чтобы не сбрасывался скролл, можно сохранить число элементов и их вывести
 @Injectable()
 export class RatingFriendsEffect {
     constructor(
@@ -158,9 +145,12 @@ export class RatingFriendsEffect {
             this.friendsService.setRating(action.payload.id, action.payload.rating);
 
             const actions: Action[] = [];
-
             if (store.configsFriends.typeSort) {
-                actions.push(new GetFriends(store.configsFriends));
+                // actions.push(new GetFriends({startView: 0}));
+
+                const friends = this.friendsService.setRatingSort(store.friends, store.configsFriends.typeSort)
+
+                actions.push(new LoadFriends({configsFriends: store.configsFriends, friends: friends}));
             }
 
             return from(actions);

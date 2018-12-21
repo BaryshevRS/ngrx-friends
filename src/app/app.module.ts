@@ -22,6 +22,7 @@ import {NavSortComponent} from './component/nav-sort/nav-sort.component';
 import {FriendsPageComponent} from './page/friends-page/friends-page.component';
 import {FriendPageComponent} from './page/friend-page/friend-page.component';
 import {FriendDescription} from './component/friends/friend-description/friend-description';
+import {AuthPageComponent} from './page/auth-page/auth-page.component';
 
 @NgModule({
     declarations: [
@@ -33,7 +34,8 @@ import {FriendDescription} from './component/friends/friend-description/friend-d
         NavSortComponent,
         FriendsPageComponent,
         FriendPageComponent,
-        FriendDescription
+        FriendDescription,
+        AuthPageComponent
     ],
     imports: [
         BrowserModule,

@@ -1,16 +1,38 @@
 <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-cyan">
-
     <div class="container">
-        <a class="navbar-brand mr-auto mr-lg-0" href="#">{{title}}</a>
-
-        <button (click)="showMobileMenu()" class="navbar-toggler p-0 border-0" type="button" data-toggle="offcanvas">
+        <a class="navbar-brand" routerLink="/" href="#">{{title}}</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div [ngClass]="{'open':mobileMenu}" class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
-            <div class="navbar-nav mr-auto"></div>
-            <app-header-search (initSearch)="initSearch($event)"></app-header-search>
+        <div class="collapse navbar-collapse  " id="navbarSupportedContent">
 
+            <ul  class="navbar-nav mr-auto ">
+
+                <li routerLinkActive="active" class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Авторизация
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a routerLink="auth" class="dropdown-item" href="#">Войти</a>
+                        <a  routerLink="auth" class="dropdown-item" href="#">Регистрация</a>
+                     <!--   <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Something else here</a>-->
+                    </div>
+                </li>
+
+            </ul>
+            <div class="form-inline my-2 my-lg-0">
+
+                <div [ngClass]="{'open':mobileMenu}">
+                    <div class="navbar-nav mr-auto"></div>
+                    <app-header-search (initSearch)="initSearch($event)"></app-header-search>
+
+                </div>
+            </div>
         </div>
     </div>
 </nav>
+

@@ -3,7 +3,8 @@
     <app-bookmark (bookmarkChange)="bookmarkChange($event)" [value]="friend.bookmark" [id]="friend.id" ></app-bookmark>
 
     <div class="friend-img border rounded">
-        <a  routerLink="/friend" ><img
+        <a  [routerLink]="['/friends', friend.id]" >
+            <img
                 data-src="https://robohash.org/{{ friend.id }}.jpg?size=50x50&set=set1"
                 alt=""
                 class="mr-2 "

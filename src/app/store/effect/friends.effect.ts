@@ -32,18 +32,11 @@ export class LoadFriendsEffect {
             friendsActionTypes.SORT_FRIENDS,
             friendsActionTypes.SEARCH_FRIENDS
         ),
-        // todo нужно взять данные из селекта configsFriends
+        // todo нужно взять данные из селекта
         withLatestFrom(this.store$.select('friends')),
         switchMap(([action, store]) => {
 
- /*           console.log('store.configsFriends!! BEFORE', store.configsFriends);
-            console.log('action.payload!! BEFORE', action.payload);*/
-
             const params = {...store.configsFriends, ...action.payload};
-
-            // todo проверка, что число элементов не изменилось
-
-            console.log('params!!', params);
 
             return this.friendsService
                 .getFriends(params)
@@ -51,19 +44,13 @@ export class LoadFriendsEffect {
                     map(friends => {
 
                         if(friends && friends.length > 0) {
-                            // TODO нет перерисовки при значение 4
-
-                           /* console.log('AR friends', friends);
-                            console.log('AS friends', ...store.friends);*/
 
                             if (params.startView > 0) {
                                 friends = [...store.friends, ...friends];
                             }
 
-                          //  console.log('BR friends', friends);
                             params.startView = params.startView + params.limitView;
                         } else {
-                           // console.log('ASx friends', ...store.friends);
                             friends = [...store.friends];
                         }
 
@@ -103,14 +90,13 @@ export class BookmarkFriendsEffect {
             this.friendsService.setBookmark(action.payload.id, action.payload.bookmark);
             const count = action.payload.bookmark ? ++store.bookmarks.count : --store.bookmarks.count;
 
-            console.log('store.friends XXX', store.friends)
-
-            // обновляем список друзей, когда на вкладке закладок
             const actions: Action[] = [new SetCountBookmarksFriends(count)];
 
+            // обновляем список друзей, когда на вкладке закладок
             if (store.configsFriends.showBookmark) {
-                console.log('store.configsFriends.showBookmark Y', store.configsFriends.showBookmark);
-                actions.push(new GetFriends({startView: 0}));
+                // actions.push(new GetFriends({startView: 0}));
+                const friends = this.friendsService.getFilterBookmark(store.friends);
+                actions.push(new LoadFriends({configsFriends: store.configsFriends, friends: friends}));
             }
 
             return from(actions);
@@ -122,13 +108,11 @@ export class BookmarkFriendsEffect {
         ofType<ShowBookmarksFriends>(friendsActionTypes.SHOW_BOOKMARKS_FRIENDS),
         switchMap((action) => {
             action.payload = action.payload || false;
-            console.log('showBookmark',  action.payload);
             return of(new GetFriends({showBookmark: action.payload}));
         })
     );
 }
 
-// todo сделать так чтобы не сбрасывался скролл, можно сохранить число элементов и их вывести
 @Injectable()
 export class RatingFriendsEffect {
     constructor(
@@ -146,10 +130,8 @@ export class RatingFriendsEffect {
 
             const actions: Action[] = [];
             if (store.configsFriends.typeSort) {
-                // actions.push(new GetFriends({startView: 0}));
 
                 const friends = this.friendsService.setRatingSort(store.friends, store.configsFriends.typeSort)
-
                 actions.push(new LoadFriends({configsFriends: store.configsFriends, friends: friends}));
             }
 

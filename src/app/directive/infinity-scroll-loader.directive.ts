@@ -14,7 +14,6 @@ import {pairwise, map, exhaustMap, filter, debounceTime} from 'rxjs/operators';
 
 // todo поддержка привязки к контейнеру, а не документу
 // todo поддержка лоадера
-// todo поддержка 7 ангуляря с его подгрузкой
 
 @Directive({
     selector: '[appInfinityScrollLoader]',
@@ -40,7 +39,7 @@ export class InfinityScrollLoaderDirective implements AfterViewInit, AfterViewCh
 
         this.scrollEvent$ = fromEvent(window, 'scroll')
             .pipe (
-                // todo  сделать изначальную првоерку в 0, когда появится уже в 50
+                // todo настроить задержку
                 debounceTime(50),
                 map((e: any) => this.document.documentElement.scrollTop || this.document.body.scrollTop),
                 pairwise(),

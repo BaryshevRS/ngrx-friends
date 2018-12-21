@@ -7,9 +7,6 @@ import {Observable} from 'rxjs';
 import {getFriends} from '../../store/selector/friends.selector';
 
 // todo добавить лоадеры и вывод ошибок, если данные недоступны
-// todo push change detection
-// todo скролл на вверх
-// todo переход по логотипу
 
 @Component({
     selector: 'app-friends',

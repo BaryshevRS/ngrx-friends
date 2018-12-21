@@ -25,15 +25,6 @@ export class FriendsService {
 
     getFriends({ typeSort = 0, searchValue = '', showBookmark = false, startView = 0, limitView = 0}: IGetFriends): Observable<Friend[]> {
 
-/*        console.log('typeSort', typeSort );
-        console.log('searchValue', searchValue );
-        console.log('showBookmark', showBookmark );
-        console.log('startView', startView );
-        console.log('limitView', limitView );*/
-
-/*        console.log('startView', startView );
-        console.log('limitView', limitView );*/
-
         return this.http.get(this.BASE_URL + 'friends')
             .pipe(
                 map((friendsList: Friend[]) => this.getRating(friendsList)),
@@ -123,11 +114,6 @@ export class FriendsService {
     }
 
     public setLimitViewOnPage(friendsList: Friend[], startView: number, limitView: number): Friend[] {
-
-        console.log('before friendsList', friendsList);
-        friendsList = friendsList.slice(startView, (startView + limitView));
-        console.log('after friendsList', friendsList);
-
-        return friendsList;
+        return friendsList.slice(startView, (startView + limitView));
     }
 }

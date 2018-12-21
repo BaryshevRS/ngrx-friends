@@ -25,17 +25,7 @@ export function friendsReducer(state = initialState, action: FriendsAction) {
                 configsFriends : {...action.payload.configsFriends}
             };
 
-            console.log('xxx', store);
             return store;
-
-        case friendsActionTypes.RATING_FRIENDS:
-
-            return {
-                ...state,
-                friends : state.friends.map(friend => {
-                    return friend.id === action.payload.id ? action.payload : friend;
-                })
-            };
 
         case friendsActionTypes.SORT_FRIENDS:
 
@@ -65,6 +55,7 @@ export function friendsReducer(state = initialState, action: FriendsAction) {
             };
 
         case friendsActionTypes.SET_BOOKMARK_FRIENDS:
+        case friendsActionTypes.RATING_FRIENDS:
 
             return {
                 ...state,
@@ -74,6 +65,7 @@ export function friendsReducer(state = initialState, action: FriendsAction) {
             };
 
         case friendsActionTypes.SET_COUNT_BOOKMARKS_FRIENDS:
+
             return {
                 ...state,
                 ...{bookmarks : {count : action.payload}}

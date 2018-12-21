@@ -16,10 +16,12 @@ import {EffectsModule} from '@ngrx/effects';
 import {environment} from '../environments/environment.prod';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {effectsList} from './store/effect';
-import {RouterModule} from '@angular/router';
 import {FriendsModule} from './module/friends.module';
 import {NavComponent} from './container/nav/nav.component';
 import {NavSortComponent} from './component/nav-sort/nav-sort.component';
+import {FriendsPageComponent} from './page/friends-page/friends-page.component';
+import {FriendPageComponent} from './page/friend-page/friend-page.component';
+import {FriendDescription} from './component/friends/friend-description/friend-description';
 
 @NgModule({
     declarations: [
@@ -28,7 +30,10 @@ import {NavSortComponent} from './component/nav-sort/nav-sort.component';
         HeaderSearchComponent,
         ScrollTopComponent,
         NavComponent,
-        NavSortComponent
+        NavSortComponent,
+        FriendsPageComponent,
+        FriendPageComponent,
+        FriendDescription
     ],
     imports: [
         BrowserModule,
@@ -40,10 +45,7 @@ import {NavSortComponent} from './component/nav-sort/nav-sort.component';
         StoreModule.forRoot(appReducer, {}),
         !environment.production ? StoreDevtoolsModule.instrument({ maxAge: 20 }) : [],
         EffectsModule.forRoot(effectsList),
-        FriendsModule
-/*        RouterModule.forRoot(
-        {path: '', component: AppComponent}
-        )*/
+        FriendsModule,
     ],
     providers: [],
     bootstrap: [AppComponent]

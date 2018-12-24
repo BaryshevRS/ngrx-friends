@@ -15,7 +15,7 @@ export class FriendDescription implements OnInit {
 
     @Input() friend: Friend =  new Friend();
 
-    private id: string;
+    public id: string;
 
     constructor(
         private store$: Store<any>,

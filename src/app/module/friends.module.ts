@@ -6,7 +6,7 @@ import {ShareModule} from './share.module';
 import {FriendsListComponent} from '../component/friends/friends-list/friends-list.component';
 import {FriendsComponent} from '../container/friends/friends.component';
 import {FriendComponent} from '../component/friends/friend/friend.component';
-import {RouterModule} from '@angular/router';
+import {FriendsRoutingModule} from '../routing/friends-routing.module';
 
 @NgModule({
     declarations: [
@@ -19,7 +19,7 @@ import {RouterModule} from '@angular/router';
     imports: [
         CommonModule,
         ShareModule,
-        RouterModule
+        FriendsRoutingModule
     ],
     exports: [FriendsComponent]
 })

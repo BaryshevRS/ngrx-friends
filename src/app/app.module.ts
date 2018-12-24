@@ -23,6 +23,7 @@ import {FriendsPageComponent} from './page/friends-page/friends-page.component';
 import {FriendPageComponent} from './page/friend-page/friend-page.component';
 import {FriendDescription} from './component/friends/friend-description/friend-description';
 import {AuthPageComponent} from './page/auth-page/auth-page.component';
+import {ErrorPageComponent} from './page/error-page/error-page.component';
 
 @NgModule({
     declarations: [
@@ -35,7 +36,8 @@ import {AuthPageComponent} from './page/auth-page/auth-page.component';
         FriendsPageComponent,
         FriendPageComponent,
         FriendDescription,
-        AuthPageComponent
+        AuthPageComponent,
+        ErrorPageComponent
     ],
     imports: [
         BrowserModule,

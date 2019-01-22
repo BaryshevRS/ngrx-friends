@@ -6,16 +6,14 @@ import {map, switchMap, withLatestFrom} from 'rxjs/operators';
 import {friendsActionTypes} from '../type/index';
 import {
     LoadFriends,
-    SortFriends,
     GetFriends,
     SetCountBookmarksFriends,
     SetBookmarkFriends,
     GetCountBookmarksFriends,
-    ShowBookmarksFriends, SearchFriends
+    ShowBookmarksFriends,
 } from '../action';
 import {ofType} from '@ngrx/effects';
 import {FriendsService} from '../../service/friends.service';
-import {Friend} from '../../class/friends';
 
 @Injectable()
 export class LoadFriendsEffect {
@@ -36,7 +34,7 @@ export class LoadFriendsEffect {
         withLatestFrom(this.store$.select('friends')),
         switchMap(([action, store]) => {
 
-            const params = {...store.configsFriends, ...action.payload};
+            const params =  {...store.configsFriends, ...action.payload};
 
             return this.friendsService
                 .getFriends(params)

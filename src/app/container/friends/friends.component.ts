@@ -30,10 +30,7 @@ export class FriendsComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.friends$ = this.store$.pipe(
-            select(getFriends)
-        );
-
+        this.friends$ = this.store$.pipe(select(getFriends));
         this.store$.dispatch(new GetFriends());
     }
 }

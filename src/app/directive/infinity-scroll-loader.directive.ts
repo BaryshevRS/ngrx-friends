@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import {DOCUMENT} from '@angular/common';
 import {fromEvent} from 'rxjs';
-import {pairwise, map, exhaustMap, filter, debounceTime} from 'rxjs/operators';
+import {pairwise, map,  filter, debounceTime} from 'rxjs/operators';
 
 // todo поддержка привязки к контейнеру, а не документу
 // todo поддержка лоадера
@@ -34,6 +34,8 @@ export class InfinityScrollLoaderDirective implements AfterViewInit, AfterViewCh
         private elm: ElementRef<HTMLLinkElement>,
         @Inject(DOCUMENT) private document: any
     ) {}
+
+    // ngAfterContentInit(){
 
     ngAfterViewInit() {
 
@@ -61,7 +63,10 @@ export class InfinityScrollLoaderDirective implements AfterViewInit, AfterViewCh
         if (this.contents.length > 0) {
 
             const initScrollHeight = this.elm.nativeElement.offsetHeight;
-           // console.log('initScrollHeight', initScrollHeight  + '!==' + this.initScrollHeight)
+
+               console.log('this.elm.nativeElement.offsetHeight', this.elm.nativeElement.offsetHeight)
+              console.log('this.elm.nativeElement.scrollHeight', this.elm.nativeElement.scrollHeight)
+               console.log('this.elm.nativeElement.clientHeight', this.elm.nativeElement.clientHeight)
 
             if (initScrollHeight !== this.initScrollHeight) { // проверяем, что высота изменилась
                 this.initScrollHeight = initScrollHeight;
@@ -71,7 +76,7 @@ export class InfinityScrollLoaderDirective implements AfterViewInit, AfterViewCh
                 // высота скролл до верха от контейнера
                 const scrollTop = this.elm.nativeElement.offsetTop;
 
-               // console.log('clientHeight > initScrollHeight', (clientHeight) +' > '+ (scrollTop + this.initScrollHeight));
+                 console.log('clientHeight > initScrollHeight', (clientHeight) +' > '+ (scrollTop + this.initScrollHeight));
 
                 // когда высота экрана больше высоты компонента
                 if (clientHeight >= (scrollTop + this.initScrollHeight)) {

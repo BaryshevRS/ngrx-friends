@@ -1,6 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-
 import {HttpClientModule} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -29,8 +28,6 @@ import {ErrorPageComponent} from './page/error-page/error-page.component';
 import {routerReducer, StoreRouterConnectingModule} from '@ngrx/router-store';
 import {RouterModule} from '@angular/router';
 
-
-
 @NgModule({
     declarations: [
         AppComponent,
@@ -56,13 +53,9 @@ import {RouterModule} from '@angular/router';
         !environment.production ? StoreDevtoolsModule.instrument({ maxAge: 20 }) : [],
         EffectsModule.forRoot(effectsList),
         FriendsModule,
-
-        StoreModule.forRoot({
+/*        StoreModule.forRoot({
             router: routerReducer,
-        }),
-        RouterModule.forRoot([
-            // routes
-        ]),
+        }),*/
         StoreRouterConnectingModule.forRoot(),
     ],
     providers: [],

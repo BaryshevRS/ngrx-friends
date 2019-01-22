@@ -22,7 +22,6 @@ export class InfinityScrollLoaderDirective implements AfterViewInit, AfterViewCh
 
     private scrollEvent$;
     private initScrollHeight = 0;
-    private issetContent = false;
 
     @Input() scrollPercent = 90;
     // сообщение от контенейнера о том, что были добавленны новые данные
@@ -64,9 +63,9 @@ export class InfinityScrollLoaderDirective implements AfterViewInit, AfterViewCh
 
             const initScrollHeight = this.elm.nativeElement.offsetHeight;
 
-               console.log('this.elm.nativeElement.offsetHeight', this.elm.nativeElement.offsetHeight)
-              console.log('this.elm.nativeElement.scrollHeight', this.elm.nativeElement.scrollHeight)
-               console.log('this.elm.nativeElement.clientHeight', this.elm.nativeElement.clientHeight)
+               // console.log('this.elm.nativeElement.offsetHeight', this.elm.nativeElement.offsetHeight)
+               // console.log('this.elm.nativeElement.scrollHeight', this.elm.nativeElement.scrollHeight)
+               // console.log('this.elm.nativeElement.clientHeight', this.elm.nativeElement.clientHeight)
 
             if (initScrollHeight !== this.initScrollHeight) { // проверяем, что высота изменилась
                 this.initScrollHeight = initScrollHeight;
@@ -76,11 +75,11 @@ export class InfinityScrollLoaderDirective implements AfterViewInit, AfterViewCh
                 // высота скролл до верха от контейнера
                 const scrollTop = this.elm.nativeElement.offsetTop;
 
-                 console.log('clientHeight > initScrollHeight', (clientHeight) +' > '+ (scrollTop + this.initScrollHeight));
+                 // console.log('clientHeight > initScrollHeight', (clientHeight) +' > '+ (scrollTop + this.initScrollHeight));
 
                 // когда высота экрана больше высоты компонента
                 if (clientHeight >= (scrollTop + this.initScrollHeight)) {
-                    console.log('no fill');
+                    // console.log('no fill');
                     this.drawing.emit(true);
                 }
             }

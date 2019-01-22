@@ -41,7 +41,7 @@ export class LoadFriendsEffect {
                 .pipe(
                     map(friends => {
 
-                        if(friends && friends.length > 0) {
+                        if (friends && friends.length > 0) {
 
                             if (params.startView > 0) {
                                 friends = [...store.friends, ...friends];
@@ -52,7 +52,7 @@ export class LoadFriendsEffect {
                             friends = [...store.friends];
                         }
 
-                        return new LoadFriends({configsFriends: params, friends: friends})
+                        return new LoadFriends({configsFriends: params, friends: friends});
 
                     })
                 );

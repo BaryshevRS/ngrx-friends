@@ -13,5 +13,5 @@ export interface Friends {
     configsFriends?: IGetFriends;
     bookmarks?: {
         count: number;
-    }
+    };
 }

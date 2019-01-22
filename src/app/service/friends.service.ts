@@ -46,7 +46,7 @@ export class FriendsService {
                     friendsList = this.getFilterBookmark(friendsList);
                     return friendsList.reduce((a: number, friend: Friend) =>  friend.bookmark > 0 ? ++a : a, 0);
                 }),
-                //todo create logging errors
+                // todo create logging errors
                 catchError(({status}: Response) => throwError(status))
             );
     }

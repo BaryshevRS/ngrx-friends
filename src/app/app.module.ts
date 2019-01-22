@@ -2,7 +2,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {HttpClientModule} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+// import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import {EffectsModule} from '@ngrx/effects';
 import {StoreModule} from '@ngrx/store';
@@ -27,6 +27,7 @@ import {AuthPageComponent} from './page/auth-page/auth-page.component';
 import {ErrorPageComponent} from './page/error-page/error-page.component';
 import {routerReducer, StoreRouterConnectingModule} from '@ngrx/router-store';
 import {RouterModule} from '@angular/router';
+// import {RouterModule} from '@angular/router';
 
 @NgModule({
     declarations: [
@@ -36,18 +37,18 @@ import {RouterModule} from '@angular/router';
         ScrollTopComponent,
         NavComponent,
         NavSortComponent,
-        FriendsPageComponent,
-        FriendPageComponent,
-        FriendDescription,
-        AuthPageComponent,
+        // FriendsPageComponent,
+        // AuthPageComponent,
+       // FriendPageComponent,
+        // FriendDescription,
         ErrorPageComponent
     ],
     imports: [
         BrowserModule,
         HttpClientModule,
         AppRoutingModule,
-        FormsModule,
-        ReactiveFormsModule,
+        // FormsModule,
+        // ReactiveFormsModule,
         BrowserAnimationsModule,
         StoreModule.forRoot(appReducer, {}),
         !environment.production ? StoreDevtoolsModule.instrument({ maxAge: 20 }) : [],
@@ -57,6 +58,7 @@ import {RouterModule} from '@angular/router';
             router: routerReducer,
         }),*/
         StoreRouterConnectingModule.forRoot(),
+        RouterModule
     ],
     providers: [],
     bootstrap: [AppComponent]

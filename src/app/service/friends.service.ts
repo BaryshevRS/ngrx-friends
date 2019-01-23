@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpResponse} from '@angular/common/http';
 import {Observable, of, throwError} from 'rxjs';
-import {map, catchError, switchMap, reduce, filter} from 'rxjs/operators';
+import {map, catchError} from 'rxjs/operators';
 
 import {Friend} from '../class/friends';
 import {LocalSaveService} from './local-save.service';

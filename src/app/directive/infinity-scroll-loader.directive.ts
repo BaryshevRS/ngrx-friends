@@ -40,7 +40,7 @@ export class InfinityScrollLoaderDirective implements AfterViewInit, AfterViewCh
 
         this.scrollEvent$ = fromEvent(window, 'scroll')
             .pipe (
-                // todo настроить задержку
+                // todo настроить задержку, первый раз не срабатывает
                 debounceTime(50),
                 map((e: any) => this.document.documentElement.scrollTop || this.document.body.scrollTop),
                 pairwise(),

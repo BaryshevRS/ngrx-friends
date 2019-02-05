@@ -8,7 +8,6 @@ import {HeaderSearchComponent} from './component/header-search/header-search.com
 import {ScrollTopComponent} from './component/scroll-top/scroll-top.component';
 import {NavSortComponent} from './component/nav-sort/nav-sort.component';
 import {FriendsPageComponent} from './page/friends-page/friends-page.component';
-import {AuthPageComponent} from './page/auth-page/auth-page.component';
 import {FriendDescription} from './component/friends/friend-description/friend-description';
 import {ErrorPageComponent} from './page/error-page/error-page.component';
 import {FriendPageComponent} from './page/friend-page/friend-page.component';
@@ -44,7 +43,6 @@ describe('AppComponent', () => {
                 ScrollTopComponent,
                 NavSortComponent,
                 FriendsPageComponent,
-                AuthPageComponent,
                 FriendPageComponent,
                 FriendDescription,
                 ErrorPageComponent

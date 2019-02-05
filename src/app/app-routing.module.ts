@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {FriendsPageComponent} from './page/friends-page/friends-page.component';
-import {AuthPageComponent} from './page/auth-page/auth-page.component';
 import {FriendsModule} from './module/friends.module';
+import {ErrorPageComponent} from './page/error-page/error-page.component';
 
 const appRoutes: Routes = [
     { path: '', component: FriendsPageComponent },
-    { path: 'auth', component: AuthPageComponent },
+    { path: '**', component: ErrorPageComponent },
 ];
 
 @NgModule({

@@ -27,6 +27,7 @@ import {RouterModule} from '@angular/router';
 import {HeaderComponent} from './container/header/header.component';
 import {NavComponent} from './container/nav/nav.component';
 import { LoaderComponent } from './component/loader/loader.component';
+import {ShareModule} from './module/share.module';
 // import {RouterModule} from '@angular/router';
 
 
@@ -41,8 +42,7 @@ import { LoaderComponent } from './component/loader/loader.component';
         FriendsPageComponent,
         FriendPageComponent,
         FriendDescription,
-        ErrorPageComponent,
-        LoaderComponent
+        ErrorPageComponent
     ],
     imports: [
         BrowserModule,
@@ -52,6 +52,7 @@ import { LoaderComponent } from './component/loader/loader.component';
         !environment.production ? StoreDevtoolsModule.instrument({ maxAge: 20 }) : [],
         EffectsModule.forRoot(effectsList),
         FriendsModule,
+        ShareModule
 /*        StoreModule.forRoot({
             router: routerReducer,
         }),*/

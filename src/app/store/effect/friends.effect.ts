@@ -2,15 +2,15 @@ import {Injectable} from '@angular/core';
 import {Actions, Effect} from '@ngrx/effects';
 import {Action, Store} from '@ngrx/store';
 import {from, Observable, of} from 'rxjs';
-import {map, switchMap, withLatestFrom} from 'rxjs/operators';
+import {catchError, map, switchMap, withLatestFrom} from 'rxjs/operators';
 import {friendsActionTypes} from '../type/index';
 import {
     LoadFriends,
     GetFriends,
     SetCountBookmarksFriends,
-    SetBookmarkFriends,
     GetCountBookmarksFriends,
     ShowBookmarksFriends,
+    ErrorsFriends, BookmarksFriends, RatingFriends,
 } from '../action';
 import {ofType} from '@ngrx/effects';
 import {FriendsService} from '../../service/friends.service';
@@ -56,7 +56,8 @@ export class LoadFriendsEffect {
 
                     })
                 );
-        })
+        }),
+        catchError(error => of(new ErrorsFriends(error)))
     );
 }
 
@@ -77,12 +78,13 @@ export class BookmarkFriendsEffect {
                 .pipe(
                     map(count => new SetCountBookmarksFriends(count))
                 );
-        })
+        }),
+        catchError(error => of(new ErrorsFriends(error)))
     );
 
     @Effect()
     SetBookmarkFriends$: Observable<Action> = this.actions$.pipe(
-        ofType<SetBookmarkFriends>(friendsActionTypes.SET_BOOKMARK_FRIENDS),
+        ofType<BookmarksFriends>(friendsActionTypes.BOOKMARKS_FRIENDS),
         withLatestFrom(this.store$.select('friends')),
         switchMap(([action, store]) => {
             this.friendsService.setBookmark(action.payload.id, action.payload.bookmark);
@@ -92,13 +94,13 @@ export class BookmarkFriendsEffect {
 
             // обновляем список друзей, когда на вкладке закладок
             if (store.configsFriends.showBookmark) {
-                // actions.push(new GetFriends({startView: 0}));
                 const friends = this.friendsService.getFilterBookmark(store.friends);
                 actions.push(new LoadFriends({configsFriends: store.configsFriends, friends: friends}));
             }
 
             return from(actions);
-        })
+        }),
+        catchError(error => of(new ErrorsFriends(error)))
     );
 
     @Effect()
@@ -107,7 +109,8 @@ export class BookmarkFriendsEffect {
         switchMap((action) => {
             action.payload = action.payload || false;
             return of(new GetFriends({showBookmark: action.payload}));
-        })
+        }),
+        catchError(error => of(new ErrorsFriends(error)))
     );
 }
 
@@ -121,7 +124,7 @@ export class RatingFriendsEffect {
 
     @Effect()
     SetRatingFriends$: Observable<Action> = this.actions$.pipe(
-        ofType<SetBookmarkFriends>(friendsActionTypes.RATING_FRIENDS),
+        ofType<RatingFriends>(friendsActionTypes.RATING_FRIENDS),
         withLatestFrom(this.store$.select('friends')),
         switchMap(([action, store]) => {
             this.friendsService.setRating(action.payload.id, action.payload.rating);
@@ -134,7 +137,7 @@ export class RatingFriendsEffect {
             }
 
             return from(actions);
-        })
+        }),
+        catchError(error => of(new ErrorsFriends(error)))
     );
-
 }

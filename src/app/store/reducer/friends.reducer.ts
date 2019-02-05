@@ -54,7 +54,7 @@ export function friendsReducer(state = initialState, action: FriendsAction) {
                 }
             };
 
-        case friendsActionTypes.SET_BOOKMARK_FRIENDS:
+        case friendsActionTypes.BOOKMARKS_FRIENDS:
         case friendsActionTypes.RATING_FRIENDS:
 
             return {
@@ -70,6 +70,10 @@ export function friendsReducer(state = initialState, action: FriendsAction) {
                 ...state,
                 ...{bookmarks : {count : action.payload}}
             };
+        case friendsActionTypes.ERRORS_FRIENDS:
+
+            return {...state};
+
         default:
             return state;
     }

@@ -39,8 +39,8 @@ export class SortFriends implements Action {
     constructor(public payload: number) {}
 }
 
-export class SetBookmarkFriends implements Action {
-    readonly type = friendsActionTypes.SET_BOOKMARK_FRIENDS;
+export class BookmarksFriends implements Action {
+    readonly type = friendsActionTypes.BOOKMARKS_FRIENDS;
 
     constructor(public payload: Friend) {}
 }
@@ -61,4 +61,9 @@ export class ShowBookmarksFriends implements Action {
     constructor(public payload: boolean) {}
 }
 
-// todo добавить экшен для ошибок
+export class ErrorsFriends implements Action {
+    readonly type = friendsActionTypes.ERRORS_FRIENDS;
+
+    constructor(public payload: Object | String) {}
+}
+

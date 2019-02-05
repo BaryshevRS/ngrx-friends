@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpResponse} from '@angular/common/http';
 import {Observable, of, throwError} from 'rxjs';
-import {map, catchError} from 'rxjs/operators';
+import {map, catchError, delay} from 'rxjs/operators';
 
 import {Friend} from '../class/friends';
 import {LocalSaveService} from './local-save.service';
@@ -27,6 +27,7 @@ export class FriendsService {
 
         return this.http.get(this.BASE_URL + 'friends')
             .pipe(
+                delay(1000),
                 map((friendsList: Friend[]) => this.getRating(friendsList)),
                 map((friendsList: Friend[]) => this.getBookmark(friendsList)),
                 map((friendsList: Friend[]) => this.setRatingSort(friendsList, typeSort)),

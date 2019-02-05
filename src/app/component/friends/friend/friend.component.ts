@@ -1,7 +1,7 @@
 import {Input, Component, OnInit, Output, EventEmitter} from '@angular/core';
 import {Friend} from '../../../class/friends/index';
 import {Store} from '@ngrx/store';
-import {RatingFriends, SetBookmarkFriends} from '../../../store/action';
+import {BookmarksFriends, RatingFriends} from '../../../store/action';
 
 //todo вынести состояние в контейнер
 
@@ -23,7 +23,7 @@ export class FriendComponent implements OnInit {
 
     bookmarkChange(value: number) {
         this.friend.bookmark = value;
-        this.store$.dispatch(new SetBookmarkFriends(this.friend));
+        this.store$.dispatch(new BookmarksFriends(this.friend));
     }
 
     ratingChange(value: number) {

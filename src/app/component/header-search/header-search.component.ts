@@ -2,6 +2,7 @@ import {Component, ElementRef, EventEmitter, OnInit, Output, ViewChild} from '@a
 import {of, Subject} from 'rxjs';
 import {debounceTime, switchMap, distinctUntilChanged} from 'rxjs/operators';
 
+// todo добавить обработку enter и переход на главную страницу для результатов поиска
 @Component({
     selector: 'app-header-search',
     templateUrl: './header-search.component.html',

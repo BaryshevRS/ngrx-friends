@@ -7,7 +7,6 @@ import {Friend} from '../class/friends';
 import {LocalSaveService} from './local-save.service';
 import {IGetFriends} from '../interface/friends';
 
-
 @Injectable({
     providedIn: 'root'
 })
@@ -20,14 +19,14 @@ export class FriendsService {
     public nameFriendsBookmark = 'friendsBookmark';
 
     constructor(private http: HttpClient,
-                private LocalSave: LocalSaveService ) {
+                private LocalSave: LocalSaveService) {
     }
 
-    getFriends({ typeSort = 0, searchValue = '', showBookmark = false, startView = 0, limitView = 0}: IGetFriends): Observable<Friend[]> {
+    getFriends({typeSort = 0, searchValue = '', showBookmark = false, startView = 0, limitView = 0}: IGetFriends): Observable<Friend[]> {
 
         return this.http.get(this.BASE_URL + 'friends')
             .pipe(
-                delay(1000),
+                delay(400), // todo test delay
                 map((friendsList: Friend[]) => this.getRating(friendsList)),
                 map((friendsList: Friend[]) => this.getBookmark(friendsList)),
                 map((friendsList: Friend[]) => this.setRatingSort(friendsList, typeSort)),
@@ -39,15 +38,14 @@ export class FriendsService {
     }
 
     // получаем число закладок друзей
-    public getCountBookmarskFriends(): Observable<number>  {
+    public getCountBookmarskFriends(): Observable<number> {
         return this.http.get(this.BASE_URL + 'friends')
             .pipe(
-               map((friendsList: Friend[]) => {
+                map((friendsList: Friend[]) => {
                     friendsList = this.getBookmark(friendsList);
-                    friendsList = this.getFilterBookmark(friendsList);
-                    return friendsList.reduce((a: number, friend: Friend) =>  friend.bookmark > 0 ? ++a : a, 0);
+                    friendsList = friendsList.filter(friend => friend.bookmark);
+                    return friendsList.reduce((a: number, friend: Friend) => friend.bookmark > 0 ? ++a : a, 0);
                 }),
-                // todo create logging errors
                 catchError(({status}: Response) => throwError(status))
             );
     }
@@ -76,12 +74,12 @@ export class FriendsService {
 
     // сохраняем локально пользователя в закладки
     public setBookmark(id: string, value: number): void {
-       this.LocalSave.set(this.nameFriendsBookmark, {[id] : value});
+        this.LocalSave.set(this.nameFriendsBookmark, {[id]: value});
     }
 
     // сохраняем рейтинг участника в закладки
     public setRating(id: string, value: number): void {
-        this.LocalSave.set(this.nameFriendsRating, {[id] : value});
+        this.LocalSave.set(this.nameFriendsRating, {[id]: value});
     }
 
     // делаем сортировку по рейтингу
@@ -99,12 +97,18 @@ export class FriendsService {
         });
     }
 
-    // фильтруем по закладкам
     public getFilterBookmark(friendsList: Friend[]): Friend[] {
-        return friendsList.filter(friend => friend.bookmark);
+        const list = friendsList.filter(friend => friend.bookmark);
+
+        console.log('info', list);
+
+        if (list.length === 0) {
+           // throw new ErrorMessage( 'info', 'Список избранного пуст');
+        }
+
+        return list;
     }
 
-    // фильтруем по поиску
     public getFilterSearch(friendsList: Friend[], search: string): Friend[] {
         return friendsList.filter(friend => {
             return (

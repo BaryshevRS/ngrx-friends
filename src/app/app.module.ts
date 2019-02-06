@@ -1,6 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-import {HttpClientModule} from '@angular/common/http';
+import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import {EffectsModule} from '@ngrx/effects';
@@ -28,8 +28,13 @@ import {HeaderComponent} from './container/header/header.component';
 import {NavComponent} from './container/nav/nav.component';
 import { LoaderComponent } from './component/loader/loader.component';
 import {ShareModule} from './module/share.module';
+import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 // import {RouterModule} from '@angular/router';
 
+export function HttpLoaderFactory(httpClient: HttpClient) {
+    return new TranslateHttpLoader(httpClient, "assets/i18n/", ".json");
+}
 
 @NgModule({
     declarations: [
@@ -52,14 +57,19 @@ import {ShareModule} from './module/share.module';
         !environment.production ? StoreDevtoolsModule.instrument({ maxAge: 20 }) : [],
         EffectsModule.forRoot(effectsList),
         FriendsModule,
-        ShareModule
+        ShareModule,
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: HttpLoaderFactory,
+                deps: [HttpClient]
+            }
+        })
 /*        StoreModule.forRoot({
             router: routerReducer,
         }),*/
        // StoreRouterConnectingModule.forRoot(),
        // RouterModule
-    ],
-    exports: [
     ],
     bootstrap: [AppComponent]
 })

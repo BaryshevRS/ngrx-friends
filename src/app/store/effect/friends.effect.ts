@@ -14,6 +14,7 @@ import {
 } from '../action';
 import {ofType} from '@ngrx/effects';
 import {FriendsService} from '../../service/friends.service';
+import {ErrorMessage} from '../../class/errors';
 
 @Injectable()
 export class LoadFriendsEffect {
@@ -25,16 +26,15 @@ export class LoadFriendsEffect {
 
     @Effect()
     getFriends$: Observable<Action> = this.actions$.pipe(
-        ofType<GetFriends>(
+        ofType<LoadFriends>(
             friendsActionTypes.GET_FRIENDS,
             friendsActionTypes.SORT_FRIENDS,
             friendsActionTypes.SEARCH_FRIENDS
         ),
-        // todo нужно взять данные из селекта
         withLatestFrom(this.store$.select('friends')),
         switchMap(([action, store]) => {
 
-            const params =  {...store.configsFriends, ...action.payload};
+            const params = {...store.configsFriends, ...action.payload};
 
             return this.friendsService
                 .getFriends(params)
@@ -54,10 +54,14 @@ export class LoadFriendsEffect {
 
                         return new LoadFriends({configsFriends: params, friends: friends});
 
-                    })
+                    }),
+                    catchError(error => {
+                        return of(
+                            new ErrorsFriends(new ErrorMessage('danger', 'errorMessage.networkConnect')))
+                        }
+                    )
                 );
-        }),
-        catchError(error => of(new ErrorsFriends(error)))
+        })
     );
 }
 
@@ -67,7 +71,8 @@ export class BookmarkFriendsEffect {
         private actions$: Actions,
         private store$: Store<any>,
         private friendsService: FriendsService
-    ) {}
+    ) {
+    }
 
     @Effect()
     GetCountBookmarskFriends$: Observable<Action> = this.actions$.pipe(
@@ -76,10 +81,14 @@ export class BookmarkFriendsEffect {
             return this.friendsService
                 .getCountBookmarskFriends()
                 .pipe(
-                    map(count => new SetCountBookmarksFriends(count))
+                    map(count => new SetCountBookmarksFriends(count)),
+                    catchError(error => {
+                        return of(
+                            new ErrorsFriends(new ErrorMessage('danger', 'errorMessage.networkConnect')))
+                        }
+                    )
                 );
-        }),
-        catchError(error => of(new ErrorsFriends(error)))
+        })
     );
 
     @Effect()
@@ -99,8 +108,7 @@ export class BookmarkFriendsEffect {
             }
 
             return from(actions);
-        }),
-        catchError(error => of(new ErrorsFriends(error)))
+        })
     );
 
     @Effect()
@@ -109,8 +117,7 @@ export class BookmarkFriendsEffect {
         switchMap((action) => {
             action.payload = action.payload || false;
             return of(new GetFriends({showBookmark: action.payload}));
-        }),
-        catchError(error => of(new ErrorsFriends(error)))
+        })
     );
 }
 
@@ -132,12 +139,11 @@ export class RatingFriendsEffect {
             const actions: Action[] = [];
             if (store.configsFriends.typeSort) {
 
-                const friends = this.friendsService.setRatingSort(store.friends, store.configsFriends.typeSort)
+                const friends = this.friendsService.setRatingSort(store.friends, store.configsFriends.typeSort);
                 actions.push(new LoadFriends({configsFriends: store.configsFriends, friends: friends}));
             }
 
             return from(actions);
-        }),
-        catchError(error => of(new ErrorsFriends(error)))
+        })
     );
 }

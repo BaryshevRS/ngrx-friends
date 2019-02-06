@@ -8,21 +8,26 @@ const initialState: Friends = {
         searchValue: '',
         showBookmark: false,
         startView: 0,
-        limitView: 4
+        limitView: 30
     },
     bookmarks: {
         count: 0
-    }
+    },
+    loading: false,
+    errors: null
 };
 
 export function friendsReducer(state = initialState, action: FriendsAction) {
     switch (action.type) {
+
         case friendsActionTypes.LOAD_FRIENDS:
 
             const store =  {
                 ...state,
                 friends : [...action.payload.friends],
-                configsFriends : {...action.payload.configsFriends}
+                configsFriends : {...action.payload.configsFriends},
+                loading: false,
+                errors: null
             };
 
             return store;
@@ -70,9 +75,10 @@ export function friendsReducer(state = initialState, action: FriendsAction) {
                 ...state,
                 ...{bookmarks : {count : action.payload}}
             };
+
         case friendsActionTypes.ERRORS_FRIENDS:
 
-            return {...state};
+            return {...state, errors : {...action.payload}};
 
         default:
             return state;

@@ -1,4 +1,5 @@
 ﻿import {Friend} from '../../class/friends';
+import {ErrorMessage} from '../../class/errors';
 
 export interface IGetFriends {
     typeSort?: number;
@@ -14,4 +15,6 @@ export interface Friends {
     bookmarks?: {
         count: number;
     };
+    loading?: boolean;
+    errors?: ErrorMessage;
 }

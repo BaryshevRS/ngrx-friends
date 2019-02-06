@@ -19,6 +19,7 @@ export class NavComponent implements OnInit {
     public friends: Friend[];
 
     showBookmark(active?: boolean): void {
+
         this.store$.dispatch(new ShowBookmarksFriends(active));
 
         this.activeBookmark = active || false;

@@ -6,7 +6,7 @@
         <div class="nav-friend">
 
             <nav class="nav nav-underline">
-                <a  routerLink="/" (click)="showBookmark()" [ngClass]="{'active': (!activeBookmark)}" class="nav-link active" href="#">Все</a>
+                <a  routerLink="/" (click)="showBookmark(false)" [ngClass]="{'active': (!activeBookmark)}" class="nav-link active" href="#">Все</a>
 
                 <a routerLink="/" (click)="showBookmark(true)" [ngClass]="{'active': (activeBookmark)}" class="nav-link" href="#">
                     Избранные

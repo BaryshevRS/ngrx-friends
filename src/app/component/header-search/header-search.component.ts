@@ -10,7 +10,6 @@ import {debounceTime, switchMap, distinctUntilChanged} from 'rxjs/operators';
 })
 export class HeaderSearchComponent implements OnInit {
 
-   // public searchBox: ElementRef<HTMLLinkElement>;
     private searchTerms = new Subject<string>();
     public search$;
 
@@ -36,8 +35,12 @@ export class HeaderSearchComponent implements OnInit {
             switchMap((term: string) => {
                 return of(term);
             }),
-        );
+        ).subscribe(term => this.initSearch.emit(term));
+    }
 
-        this.search$.subscribe(term => this.initSearch.emit(term));
+    ngOnDestroy() {
+        if(this.search$) {
+            this.search$.unsubscribe();
+        }
     }
 }

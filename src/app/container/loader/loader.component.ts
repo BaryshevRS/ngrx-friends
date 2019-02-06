@@ -1,4 +1,4 @@
-import {AfterViewInit, ChangeDetectorRef, Component, OnChanges, OnInit} from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, OnChanges, OnDestroy, OnInit} from '@angular/core';
 import {select, Store} from '@ngrx/store';
 import {FriendsAction} from '../../store/type';
 
@@ -7,26 +7,26 @@ import {FriendsAction} from '../../store/type';
   templateUrl: './loader.component.html',
   styleUrls: ['./loader.component.scss']
 })
-export class LoaderComponent implements OnInit, AfterViewInit {
+export class LoaderComponent implements OnDestroy, AfterViewInit {
 
   constructor(private store$: Store<FriendsAction>, private cd: ChangeDetectorRef){}
 
   public loading: false;
-
-  ngOnInit() {
-  }
+  public loading$;
 
   ngAfterViewInit(): void {
-    this.store$.pipe(select('friends')).subscribe(({loading}) => {
+    this.loading$ = this.store$.pipe(select('friends')).subscribe(({loading}) => {
       console.log('load', this.loading);
       this.loading = loading || false;
 
       this.cd.detectChanges();
-
-      // setTimeout(() => this.loading = loading, 0)
-
     });
+  }
 
+  ngOnDestroy() {
+    if(this.loading$) {
+      this.loading$.unsubscribe();
+    }
   }
 
 }

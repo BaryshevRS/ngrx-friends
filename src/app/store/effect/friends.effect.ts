@@ -112,8 +112,16 @@ export class BookmarkFriendsEffect {
 
             // обновляем список друзей, когда на вкладке закладок
             if (store.configsFriends.showBookmark) {
+                let errors = null;
                 const friends = this.friendsService.getFilterBookmark(store.friends);
-                actions.push(new LoadFriends({configsFriends: store.configsFriends, friends: friends}));
+
+                if(friends.length === 0) {
+                    errors = new ErrorMessage('info', 'errorMessage.bookmarkEmpty');
+                }
+
+                actions.push(
+                    new LoadFriends({configsFriends: store.configsFriends, friends: friends, errors: errors})
+                );
             }
 
             return from(actions);

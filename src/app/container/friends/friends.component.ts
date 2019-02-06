@@ -4,7 +4,8 @@ import {select, Store} from '@ngrx/store';
 import {Friend} from '../../class/friends';
 import {GetFriends} from '../../store/action';
 import {Observable} from 'rxjs';
-import {getFriends} from '../../store/selector/friends.selector';
+import { getFriends} from '../../store/selector/friends.selector';
+import {ErrorMessage} from '../../class/errors';
 
 // todo добавить лоадеры и вывод ошибок, если данные недоступны
 
@@ -18,6 +19,7 @@ export class FriendsComponent implements OnInit {
 
     public friends: Friend[];
     public friends$: Observable<Friend[]>;
+    public errors$: Observable<ErrorMessage>;
 
     constructor(
         private store$: Store<any>
@@ -31,6 +33,7 @@ export class FriendsComponent implements OnInit {
 
     ngOnInit() {
         this.friends$ = this.store$.pipe(select(getFriends));
+      //  this.errors$ = this.store$.pipe(select(getErrors));
         this.store$.dispatch(new GetFriends());
     }
 }

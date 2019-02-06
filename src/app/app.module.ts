@@ -26,7 +26,7 @@ import {routerReducer, StoreRouterConnectingModule} from '@ngrx/router-store';
 import {RouterModule} from '@angular/router';
 import {HeaderComponent} from './container/header/header.component';
 import {NavComponent} from './container/nav/nav.component';
-import { LoaderComponent } from './component/loader/loader.component';
+import { LoaderComponent } from './container/loader/loader.component';
 import {ShareModule} from './module/share.module';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';

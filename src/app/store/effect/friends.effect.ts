@@ -10,7 +10,9 @@ import {
     SetCountBookmarksFriends,
     GetCountBookmarksFriends,
     ShowBookmarksFriends,
-    ErrorsFriends, BookmarksFriends, RatingFriends,
+    ErrorsFriends,
+    BookmarksFriends,
+    RatingFriends,
 } from '../action';
 import {ofType} from '@ngrx/effects';
 import {FriendsService} from '../../service/friends.service';
@@ -22,7 +24,8 @@ export class LoadFriendsEffect {
         private actions$: Actions,
         private store$: Store<any>,
         private friendsService: FriendsService
-    ) {}
+    ) {
+    }
 
     @Effect()
     getFriends$: Observable<Action> = this.actions$.pipe(
@@ -40,26 +43,34 @@ export class LoadFriendsEffect {
                 .getFriends(params)
                 .pipe(
                     map(friends => {
+                        let errors = null;
+
+                        friends = friends || [];
 
                         if (friends && friends.length > 0) {
-
                             if (params.startView > 0) {
                                 friends = [...store.friends, ...friends];
                             }
-
                             params.startView = params.startView + params.limitView;
                         } else {
-                            friends = [...store.friends];
+                            if (params.startView > 0) {
+                                friends = [...store.friends];
+                            } else {
+                                if(params.showBookmark) {
+                                    errors = new ErrorMessage('info', 'errorMessage.bookmarkEmpty');
+                                } else {
+                                    errors = new ErrorMessage('info', 'errorMessage.friendEmpty');
+                                }
+                            }
                         }
 
-                        return new LoadFriends({configsFriends: params, friends: friends});
-
+                        return new LoadFriends(
+                            {configsFriends: params, friends: friends, errors: errors}
+                            );
                     }),
                     catchError(error => {
-                        return of(
-                            new ErrorsFriends(new ErrorMessage('danger', 'errorMessage.networkConnect')))
-                        }
-                    )
+                        return of(new ErrorsFriends(new ErrorMessage('danger', 'errorMessage.networkConnect')))
+                    })
                 );
         })
     );
@@ -83,10 +94,8 @@ export class BookmarkFriendsEffect {
                 .pipe(
                     map(count => new SetCountBookmarksFriends(count)),
                     catchError(error => {
-                        return of(
-                            new ErrorsFriends(new ErrorMessage('danger', 'errorMessage.networkConnect')))
-                        }
-                    )
+                        return of(new ErrorsFriends(new ErrorMessage('danger', 'errorMessage.networkConnect')))
+                    })
                 );
         })
     );

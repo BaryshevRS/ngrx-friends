@@ -6,22 +6,22 @@ import {
     EventEmitter,
     Inject,
     Input,
+    OnDestroy,
     Output,
 } from '@angular/core';
 import {DOCUMENT} from '@angular/common';
 import {fromEvent} from 'rxjs';
-import {pairwise, map,  filter, debounceTime} from 'rxjs/operators';
+import {pairwise, map, filter, debounceTime, distinct} from 'rxjs/operators';
 
 // todo поддержка привязки к контейнеру, а не документу
-// todo поддержка лоадера
 
 @Directive({
     selector: '[appInfinityScrollLoader]',
 })
-export class InfinityScrollLoaderDirective implements AfterViewInit, AfterViewChecked {
+export class InfinityScrollLoaderDirective implements AfterViewInit, AfterViewChecked, OnDestroy {
 
-    private scrollEvent$;
     private initScrollHeight = 0;
+    private scrollEvent$;
 
     @Input() scrollPercent = 90;
     // сообщение от контенейнера о том, что были добавленны новые данные
@@ -34,21 +34,28 @@ export class InfinityScrollLoaderDirective implements AfterViewInit, AfterViewCh
         @Inject(DOCUMENT) private document: any
     ) {}
 
-    // ngAfterContentInit(){
-
     ngAfterViewInit() {
 
         this.scrollEvent$ = fromEvent(window, 'scroll')
             .pipe (
                 // todo настроить задержку, первый раз не срабатывает
-                debounceTime(50),
                 map((e: any) => this.document.documentElement.scrollTop || this.document.body.scrollTop),
                 pairwise(),
                 filter(positions => this.isScrollingDown(positions)), // отфильтровываем если скрол в обратную сторону
+                debounceTime(200),
+                distinct(),
                 filter(_ => this.isScrollingActive()),
             ).subscribe(() => {
+                console.log('emit draw')
                 this.drawing.emit(true);
             });
+    }
+
+    ngOnDestroy() {
+
+        if(this.scrollEvent$) {
+           this.scrollEvent$.unsubscribe();
+        }
     }
 
     ngAfterViewChecked() {
@@ -63,10 +70,6 @@ export class InfinityScrollLoaderDirective implements AfterViewInit, AfterViewCh
 
             const initScrollHeight = this.elm.nativeElement.offsetHeight;
 
-               // console.log('this.elm.nativeElement.offsetHeight', this.elm.nativeElement.offsetHeight)
-               // console.log('this.elm.nativeElement.scrollHeight', this.elm.nativeElement.scrollHeight)
-               // console.log('this.elm.nativeElement.clientHeight', this.elm.nativeElement.clientHeight)
-
             if (initScrollHeight !== this.initScrollHeight) { // проверяем, что высота изменилась
                 this.initScrollHeight = initScrollHeight;
 
@@ -74,8 +77,6 @@ export class InfinityScrollLoaderDirective implements AfterViewInit, AfterViewCh
                 const clientHeight = this.document.documentElement.clientHeight;
                 // высота скролл до верха от контейнера
                 const scrollTop = this.elm.nativeElement.offsetTop;
-
-                 // console.log('clientHeight > initScrollHeight', (clientHeight) +' > '+ (scrollTop + this.initScrollHeight));
 
                 // когда высота экрана больше высоты компонента
                 if (clientHeight >= (scrollTop + this.initScrollHeight)) {
@@ -99,8 +100,8 @@ export class InfinityScrollLoaderDirective implements AfterViewInit, AfterViewCh
         const scrollTop = this.document.documentElement.scrollTop || this.document.body.scrollTop;
 
         if (this.scrollPercent) {
-            // console.log('scrollPercent', ((scrollTop + window.innerHeight) / scrollHeight));
             return ((scrollTop + window.innerHeight) / scrollHeight) >= (this.scrollPercent / 100);
+
         }
     }
 }

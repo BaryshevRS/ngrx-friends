@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {InfinityScrollLoaderDirective} from '../directive/infinity-scroll-loader.directive';
-import {LoaderComponent} from '../component/loader/loader.component';
+import {LoaderComponent} from '../container/loader/loader.component';
 import {ErrorsComponent} from '../container/errors/errors.component';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {HttpClient} from '@angular/common/http';

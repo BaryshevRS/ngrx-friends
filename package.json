@@ -25,6 +25,8 @@
     "@ngrx/router-store": "^6.1.2",
     "@ngrx/store": "^6.1.2",
     "@ngrx/store-devtools": "^6.1.2",
+    "@ngx-translate/core": "^11.0.1",
+    "@ngx-translate/http-loader": "^4.0.0",
     "bootstrap": "^4.1.1",
     "core-js": "^2.5.7",
     "jquery": "^3.3.1",

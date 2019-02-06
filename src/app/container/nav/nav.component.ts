@@ -21,7 +21,6 @@ export class NavComponent implements OnInit {
     showBookmark(active?: boolean): void {
 
         this.store$.dispatch(new ShowBookmarksFriends(active));
-
         this.activeBookmark = active || false;
     }
 
@@ -33,6 +32,7 @@ export class NavComponent implements OnInit {
         // todo подписаться только к закладкам и конфигу
         this.store$.pipe(select('friends')).subscribe(({bookmarks, configsFriends}) => {
             this.countBookmark = bookmarks.count || 0;
+            this.countBookmark = this.countBookmark < 0 ? 0 : this.countBookmark;
             this.typeSort = configsFriends.typeSort || 0;
         });
 

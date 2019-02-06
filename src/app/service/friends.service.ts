@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpResponse} from '@angular/common/http';
 import {Observable, of, throwError} from 'rxjs';
-import {map, catchError, delay} from 'rxjs/operators';
+import {map, catchError, delay, distinct} from 'rxjs/operators';
 
 import {Friend} from '../class/friends';
 import {LocalSaveService} from './local-save.service';
@@ -98,15 +98,7 @@ export class FriendsService {
     }
 
     public getFilterBookmark(friendsList: Friend[]): Friend[] {
-        const list = friendsList.filter(friend => friend.bookmark);
-
-        console.log('info', list);
-
-        if (list.length === 0) {
-           // throw new ErrorMessage( 'info', 'Список избранного пуст');
-        }
-
-        return list;
+        return friendsList.filter(friend => friend.bookmark);
     }
 
     public getFilterSearch(friendsList: Friend[], search: string): Friend[] {

@@ -17,10 +17,9 @@ export class ErrorsComponent implements OnInit {
 
     ngOnInit() {
         this.store$.pipe(select('friends')).subscribe(({errors}) => {
-         //   console.log(this.errors);
+            console.log(this.errors);
             this.errors = errors || null;
         });
-
     }
 
 }

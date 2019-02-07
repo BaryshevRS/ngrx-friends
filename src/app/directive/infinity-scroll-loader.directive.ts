@@ -38,7 +38,6 @@ export class InfinityScrollLoaderDirective implements AfterViewInit, AfterViewCh
 
         this.scrollEvent$ = fromEvent(window, 'scroll')
             .pipe (
-                // todo настроить задержку, первый раз не срабатывает
                 map((e: any) => this.document.documentElement.scrollTop || this.document.body.scrollTop),
                 pairwise(),
                 filter(positions => this.isScrollingDown(positions)), // отфильтровываем если скрол в обратную сторону

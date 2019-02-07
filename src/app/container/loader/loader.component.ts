@@ -16,9 +16,7 @@ export class LoaderComponent implements OnDestroy, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.loading$ = this.store$.pipe(select('friends')).subscribe(({loading}) => {
-      console.log('load', this.loading);
       this.loading = loading || false;
-
       this.cd.detectChanges();
     });
   }

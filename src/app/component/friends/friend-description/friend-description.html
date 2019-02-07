@@ -1,30 +1,29 @@
 <div class="media text-muted pt-3">
 
-   <!-- <app-bookmark (bookmarkChange)="bookmarkChange($event)" [value]="friend.bookmark" [id]="friend.id" ></app-bookmark>
+    <ul class="list-group">
+
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+
+            <div class="media">
+                <img data-src="https://robohash.org/{{ friend.id }}.jpg?size=50x50&set=set1" src="..." class="mr-3"
+                     alt="...">
+                <div class="media-body">
+                    <h5 class="mt-0">  {{ friend.first_name }} {{ friend.last_name }}</h5>
+                </div>
+            </div>
+
+
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            <app-rating (ratingChange)="ratingChange($event)" [id]="friend.id" [value]="friend.rating" ></app-rating>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            {{ friend.city }}
+            <span class="badge badge-primary badge-pill">2</span>
+        </li>
+
+    </ul>
+  <!--  {"id":"dc6a11ed422907eb269d4d5d17431e8ff03e369d","first_name":"Taite","last_name":"Muscott","email":"tmuscott0@upenn.edu","gender":"Male","ip_address":"https://robohash.org/nonisteautem.bmp?size=50x50&set=set1","city":"Sallanches"},
 -->
-
-    {{id}}
-
-    <div class="friend-img border rounded">
-        <a  routerLink="/friend" ><img
-                data-src="https://robohash.org/{{ friend.id }}.jpg?size=50x50&set=set1"
-                alt=""
-                class="mr-2 "
-        ></a>
-    </div>
-
-
-    <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
-
-
-      <!--  <app-rating (ratingChange)="ratingChange($event)" [id]="friend.id" [value]="friend.rating" ></app-rating>
--->
-        <strong  class="d-block text-gray-dark">
-          {{ friend.first_name }} {{ friend.last_name }}
-        </strong>
-
-        {{ friend.city }}
-
-    </p>
 
 </div>

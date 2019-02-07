@@ -6,6 +6,8 @@ import {ErrorsComponent} from '../container/errors/errors.component';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {HttpClient} from '@angular/common/http';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import {RatingComponent} from '../component/rating/rating.component';
+import {BookmarkComponent} from '../component/bookmark/bookmark.component';
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
     return new TranslateHttpLoader(httpClient, "assets/i18n/", ".json");
@@ -15,7 +17,9 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     declarations: [
         InfinityScrollLoaderDirective,
         LoaderComponent,
-        ErrorsComponent
+        ErrorsComponent,
+        RatingComponent,
+        BookmarkComponent
     ],
     imports: [
         CommonModule,
@@ -24,7 +28,9 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     exports: [
         InfinityScrollLoaderDirective,
         LoaderComponent,
-        ErrorsComponent
+        ErrorsComponent,
+        RatingComponent,
+        BookmarkComponent
     ]
 })
 export class ShareModule {

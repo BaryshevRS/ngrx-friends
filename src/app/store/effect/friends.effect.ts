@@ -13,6 +13,7 @@ import {
     ErrorsFriends,
     BookmarksFriends,
     RatingFriends,
+    GetFriend,
 } from '../action';
 import {ofType} from '@ngrx/effects';
 import {FriendsService} from '../../service/friends.service';
@@ -69,7 +70,30 @@ export class LoadFriendsEffect {
                             );
                     }),
                     catchError(error => {
-                        return of(new ErrorsFriends(new ErrorMessage('danger', 'errorMessage.networkConnect')))
+                        return of(new ErrorsFriends(new ErrorMessage('danger', 'errorMessage.networkConnect')));
+                    })
+                );
+        })
+    );
+
+    @Effect({dispatch:false})
+    getFriend$  = this.actions$.pipe(
+        ofType<GetFriend>(
+            friendsActionTypes.GET_FRIEND
+        ),
+        withLatestFrom(this.store$.select('friends')),
+        switchMap(([action, store]) => {
+
+            return this.friendsService
+                .getFriend(action.payload)
+                .pipe(
+                    map(friends => {
+
+                        console.log('friendsx', friends);
+                        return friends;
+                    }),
+                    catchError(error => {
+                        return of(new ErrorsFriends(new ErrorMessage('danger', 'errorMessage.networkConnect')));
                     })
                 );
         })
@@ -94,7 +118,7 @@ export class BookmarkFriendsEffect {
                 .pipe(
                     map(count => new SetCountBookmarksFriends(count)),
                     catchError(error => {
-                        return of(new ErrorsFriends(new ErrorMessage('danger', 'errorMessage.networkConnect')))
+                        return of(new ErrorsFriends(new ErrorMessage('danger', 'errorMessage.networkConnect')));
                     })
                 );
         })

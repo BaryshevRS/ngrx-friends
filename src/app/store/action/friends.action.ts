@@ -3,12 +3,6 @@ import {friendsActionTypes} from '../type/index';
 import {Friend} from '../../class/friends';
 import {Friends, IGetFriends} from '../../interface/friends';
 
-export class DeleteFriends implements Action {
-    readonly type = friendsActionTypes.DELETE_FRIENDS;
-
-    constructor(public payload: Friend) {}
-}
-
 export class LoadFriends implements Action {
     readonly type = friendsActionTypes.LOAD_FRIENDS;
 
@@ -19,6 +13,12 @@ export class GetFriends implements Action {
     readonly type = friendsActionTypes.GET_FRIENDS;
 
     constructor(public payload?: IGetFriends) {}
+}
+
+export class GetFriend implements Action {
+    readonly type = friendsActionTypes.GET_FRIEND;
+
+    constructor(public payload: string) {}
 }
 
 export class RatingFriends implements Action {

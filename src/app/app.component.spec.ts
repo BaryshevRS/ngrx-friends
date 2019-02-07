@@ -10,7 +10,7 @@ import {NavSortComponent} from './component/nav-sort/nav-sort.component';
 import {FriendsPageComponent} from './page/friends-page/friends-page.component';
 import {FriendDescription} from './component/friends/friend-description/friend-description';
 import {ErrorPageComponent} from './page/error-page/error-page.component';
-import {FriendPageComponent} from './page/friend-page/friend-page.component';
+import {FriendPageComponent} from './page/friends-page/friend-page/friend-page.component';
 import {FriendsModule} from './module/friends.module';
 import {HttpClientModule} from '@angular/common/http';
 import {AppRoutingModule} from './app-routing.module';

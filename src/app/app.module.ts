@@ -19,7 +19,7 @@ import {FriendsModule} from './module/friends.module';
 
 import {NavSortComponent} from './component/nav-sort/nav-sort.component';
 import {FriendsPageComponent} from './page/friends-page/friends-page.component';
-import {FriendPageComponent} from './page/friend-page/friend-page.component';
+import {FriendPageComponent} from './page/friends-page/friend-page/friend-page.component';
 import {FriendDescription} from './component/friends/friend-description/friend-description';
 import {ErrorPageComponent} from './page/error-page/error-page.component';
 import {routerReducer, StoreRouterConnectingModule} from '@ngrx/router-store';
@@ -30,6 +30,9 @@ import { LoaderComponent } from './container/loader/loader.component';
 import {ShareModule} from './module/share.module';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import { BreadcrumbComponent } from './component/breadcrumb/breadcrumb.component';
+import {RatingComponent} from './component/rating/rating.component';
+import {BookmarkComponent} from './component/bookmark/bookmark.component';
 // import {RouterModule} from '@angular/router';
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
@@ -47,13 +50,18 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
         FriendsPageComponent,
         FriendPageComponent,
         FriendDescription,
-        ErrorPageComponent
+        ErrorPageComponent,
+        BreadcrumbComponent
     ],
     imports: [
         BrowserModule,
         HttpClientModule,
         AppRoutingModule,
+        RouterModule.forRoot([
+            // routes
+        ]),
         StoreModule.forRoot(appReducer, {}),
+        StoreRouterConnectingModule.forRoot(),
         !environment.production ? StoreDevtoolsModule.instrument({ maxAge: 20 }) : [],
         EffectsModule.forRoot(effectsList),
         FriendsModule,
@@ -65,11 +73,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
                 deps: [HttpClient]
             }
         })
-/*        StoreModule.forRoot({
-            router: routerReducer,
-        }),*/
-       // StoreRouterConnectingModule.forRoot(),
-       // RouterModule
+
     ],
     bootstrap: [AppComponent]
 })

@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable, of, throwError} from 'rxjs';
-import {map, catchError, delay} from 'rxjs/operators';
+import {map, catchError, delay, filter} from 'rxjs/operators';
 
 import {Friend} from '../class/friends';
 import {LocalSaveService} from './local-save.service';
@@ -22,7 +22,7 @@ export class FriendsService {
                 private LocalSave: LocalSaveService) {
     }
 
-    getFriends({typeSort = 0, searchValue = '', showBookmark = false, startView = 0, limitView = 0}: IGetFriends): Observable<Friend[]> {
+    public getFriends({typeSort = 0, searchValue = '', showBookmark = false, startView = 0, limitView = 0}: IGetFriends): Observable<Friend[]> {
 
         return this.http.get(this.BASE_URL + 'friends')
             .pipe(
@@ -33,6 +33,14 @@ export class FriendsService {
                 map((friendsList: Friend[]) => showBookmark ? this.getFilterBookmark(friendsList) : friendsList),
                 map((friendsList: Friend[]) => searchValue ? this.getFilterSearch(friendsList, searchValue) : friendsList),
                 map((friendsList: Friend[]) => this.setLimitViewOnPage(friendsList, startView, limitView)),
+                catchError(({status}: Response) => throwError(status))
+            );
+    }
+
+    public getFriend(id: string): Observable<Friend> {
+        return this.http.get(this.BASE_URL + `friends?id=${id}`)
+            .pipe(
+                map((friendsList: Friend[]) => friendsList[0]),
                 catchError(({status}: Response) => throwError(status))
             );
     }

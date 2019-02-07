@@ -12,9 +12,7 @@ import {FriendsRoutingModule} from '../routing/friends-routing.module';
     declarations: [
         FriendsListComponent,
         FriendsComponent,
-        FriendComponent,
-        RatingComponent,
-        BookmarkComponent
+        FriendComponent
     ],
     imports: [
         CommonModule,

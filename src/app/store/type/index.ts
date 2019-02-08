@@ -9,7 +9,7 @@ import {
     BookmarksFriends,
     ShowBookmarksFriends,
     ErrorsFriends,
-    SetFriendDescription
+    SetFriendDescription, GetFriend
 } from '../action/index';
 
 export enum friendsActionTypes {
@@ -27,6 +27,6 @@ export enum friendsActionTypes {
     ERRORS_FRIENDS = '[Friends] ERRORS_FRIENDS'
 }
 
-export type FriendsAction = LoadFriends | RatingFriends | SortFriends | SearchFriends | GetFriends |
+export type FriendsAction = LoadFriends | RatingFriends | SortFriends | SearchFriends | GetFriends | GetFriend |
             SetCountBookmarksFriends | GetCountBookmarksFriends | BookmarksFriends | ShowBookmarksFriends |
             ErrorsFriends | SetFriendDescription;

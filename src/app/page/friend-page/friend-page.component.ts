@@ -28,8 +28,8 @@ export class FriendPageComponent implements OnInit {
     }
 
     ngOnDestroy() {
-        if(this.friend$) {
+        /*if(this.friend$) {
             this.friend$.unsubscribe();
-        }
+        }*/
     }
 }

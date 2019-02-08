@@ -27,7 +27,6 @@ export class SetFriendDescription implements Action {
     constructor(public payload: Friend) {}
 }
 
-
 export class RatingFriends implements Action {
     readonly type = friendsActionTypes.RATING_FRIENDS;
 

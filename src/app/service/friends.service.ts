@@ -40,7 +40,7 @@ export class FriendsService {
     public getFriend(id: string): Observable<Friend> {
         return this.http.get(this.BASE_URL + `friends?id=${id}`)
             .pipe(
-                delay(400), // todo test delay
+                delay(1000), // todo test delay
                 map((friendsList: Friend[]) => friendsList[0]),
                 catchError(({status}: Response) => throwError(status))
             );

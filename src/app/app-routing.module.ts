@@ -10,7 +10,7 @@ const appRoutes: Routes = [
 ];
 
 @NgModule({
-    exports: [ RouterModule],
+    exports: [RouterModule],
     declarations: [
     ],
     imports: [

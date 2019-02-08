@@ -36,6 +36,10 @@ export function friendsReducer(state = initialState, action: FriendsAction) {
 
             return {...state, loading: true};
 
+        case friendsActionTypes.GET_FRIEND:
+
+            return {...state, loading: true, friendDescription: null};
+
 
         case friendsActionTypes.SET_FRIEND_DESCRIPTION:
 

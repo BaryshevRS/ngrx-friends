@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Actions, Effect} from '@ngrx/effects';
 import {Action, Store} from '@ngrx/store';
 import {from, Observable, of} from 'rxjs';
-import {catchError, map, switchMap, withLatestFrom, filter, tap} from 'rxjs/operators';
+import {catchError, map, switchMap, withLatestFrom, filter, tap, delay} from 'rxjs/operators';
 import {friendsActionTypes} from '../type/index';
 import {
     LoadFriends,

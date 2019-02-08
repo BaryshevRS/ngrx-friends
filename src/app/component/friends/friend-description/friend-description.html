@@ -1,29 +1,55 @@
-<div class="media text-muted pt-3">
+<div class="row justify-content-center">
 
-    <ul class="list-group">
+    <div class="col-lg-6 col-sm-12 ">
+        <ul class="list-group">
 
-        <li class="list-group-item d-flex justify-content-between align-items-center">
+            <li class="list-group-item d-flex justify-content-center align-items-center">
 
-            <div class="media">
-                <img data-src="https://robohash.org/{{ friend.id }}.jpg?size=50x50&set=set1" src="..." class="mr-3"
-                     alt="...">
-                <div class="media-body">
-                    <h5 class="mt-0">  {{ friend.first_name }} {{ friend.last_name }}</h5>
+                <div class="media align-items-center">
+
+                    <app-bookmark
+                            (bookmarkChange)="bookmarkChange($event)"
+                            [value]="friend.bookmark"
+                            [id]="friend.id"
+                            class="mr-2">
+                    </app-bookmark>
+
+                    <div class="friend-img border rounded mr-3">
+                        <img data-src="https://robohash.org/{{ friend.id }}.jpg?size=50x50&set=set1" src="..."
+
+                             alt="...">
+                    </div>
+
+                    <h5 class="mt-0 mb-0 ">  {{ friend.first_name }} {{ friend.last_name }}</h5>
+
                 </div>
-            </div>
 
 
-        </li>
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-            <app-rating (ratingChange)="ratingChange($event)" [id]="friend.id" [value]="friend.rating" ></app-rating>
-        </li>
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-            {{ friend.city }}
-            <span class="badge badge-primary badge-pill">2</span>
-        </li>
+            </li>
+            <li class="list-group-item d-flex justify-content-center  align-items-center">
+                <app-rating
+                        (ratingChange)="ratingChange($event)"
+                        [id]="friend.id"
+                        [value]="friend.rating">
+                </app-rating>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                {{ friend.email }}
 
-    </ul>
-  <!--  {"id":"dc6a11ed422907eb269d4d5d17431e8ff03e369d","first_name":"Taite","last_name":"Muscott","email":"tmuscott0@upenn.edu","gender":"Male","ip_address":"https://robohash.org/nonisteautem.bmp?size=50x50&set=set1","city":"Sallanches"},
--->
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                {{ friend.city }}
+
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                {{ friend.gender }}
+
+            </li>
+
+
+        </ul>
+
+    </div>
 
 </div>
+

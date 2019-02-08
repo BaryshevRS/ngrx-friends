@@ -2,6 +2,7 @@ export class Friend {
 
     rating?: number;
     bookmark?: number;
+    loading?: false;
 
     constructor(
         public first_name?: string,

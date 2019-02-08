@@ -2,6 +2,7 @@
   "errorMessage" : {
     "networkConnect":  "Ошибка, нет связи с сервером",
     "bookmarkEmpty": "Список избранного пуст",
-    "friendEmpty": "Список друзей пуст"
+    "friendsEmpty": "Список друзей пуст",
+    "friendEmpty": "Такого друга нет"
   }
 }

@@ -7,5 +7,5 @@ import {Friend} from '../../../class/friends/index';
     styleUrls: ['./friend-description.scss']
 })
 export class FriendDescription {
-    @Input() friend: Friend =  new Friend();
+    @Input() friend: Friend;
 }

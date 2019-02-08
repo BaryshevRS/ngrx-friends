@@ -21,6 +21,13 @@ export class GetFriend implements Action {
     constructor(public payload: string) {}
 }
 
+export class SetFriendDescription implements Action {
+    readonly type = friendsActionTypes.SET_FRIEND_DESCRIPTION;
+
+    constructor(public payload: Friend) {}
+}
+
+
 export class RatingFriends implements Action {
     readonly type = friendsActionTypes.RATING_FRIENDS;
 

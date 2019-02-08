@@ -17,3 +17,11 @@ export const getErrors = createSelector(
     getFriendsState,
     fromGetFriendsErrors
 );
+
+
+const fromGetFriendsDescription = (state: Friends): Friend => state.friendDescription;
+
+export const getDescriptions = createSelector(
+    getFriendsState,
+    fromGetFriendsDescription
+);

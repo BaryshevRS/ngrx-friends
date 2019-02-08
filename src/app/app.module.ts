@@ -19,7 +19,7 @@ import {FriendsModule} from './module/friends.module';
 
 import {NavSortComponent} from './component/nav-sort/nav-sort.component';
 import {FriendsPageComponent} from './page/friends-page/friends-page.component';
-import {FriendPageComponent} from './page/friends-page/friend-page/friend-page.component';
+import {FriendPageComponent} from './page/friend-page/friend-page.component';
 import {FriendDescription} from './component/friends/friend-description/friend-description';
 import {ErrorPageComponent} from './page/error-page/error-page.component';
 import {routerReducer, StoreRouterConnectingModule} from '@ngrx/router-store';
@@ -60,8 +60,8 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
         RouterModule.forRoot([
             // routes
         ]),
-        StoreModule.forRoot(appReducer, {}),
-        StoreRouterConnectingModule.forRoot(),
+        StoreModule.forRoot(appReducer),
+        StoreRouterConnectingModule,
         !environment.production ? StoreDevtoolsModule.instrument({ maxAge: 20 }) : [],
         EffectsModule.forRoot(effectsList),
         FriendsModule,

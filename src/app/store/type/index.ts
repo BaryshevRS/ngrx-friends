@@ -8,7 +8,8 @@ import {
     GetCountBookmarksFriends,
     BookmarksFriends,
     ShowBookmarksFriends,
-    ErrorsFriends
+    ErrorsFriends,
+    SetFriendDescription
 } from '../action/index';
 
 export enum friendsActionTypes {
@@ -17,7 +18,8 @@ export enum friendsActionTypes {
     SEARCH_FRIENDS = '[Friends] SEARCH_FRIENDS',
     RATING_FRIENDS = '[Friends] RATING_FRIENDS',
     SORT_FRIENDS = '[Friends] SORT_FRIENDS',
-    GET_FRIEND = '[Friends] DELETE_FRIEND',
+    GET_FRIEND = '[Friends] GET_FRIEND',
+    SET_FRIEND_DESCRIPTION = '[Friends] SET_FRIEND_DESCRIPTION',
     BOOKMARKS_FRIENDS = '[Friends] BOOKMARKS_FRIENDS',
     GET_COUNT_BOOKMARKS_FRIENDS = '[Friends] GET_COUNT_BOOKMARKS_FRIENDS',
     SET_COUNT_BOOKMARKS_FRIENDS = '[Friends] SET_COUNT_BOOKMARKS_FRIENDS',
@@ -27,4 +29,4 @@ export enum friendsActionTypes {
 
 export type FriendsAction = LoadFriends | RatingFriends | SortFriends | SearchFriends | GetFriends |
             SetCountBookmarksFriends | GetCountBookmarksFriends | BookmarksFriends | ShowBookmarksFriends |
-            ErrorsFriends;
+            ErrorsFriends | SetFriendDescription;

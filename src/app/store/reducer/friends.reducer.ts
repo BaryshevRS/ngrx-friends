@@ -3,6 +3,7 @@ import {Friends} from '../../interface/friends';
 
 const initialState: Friends = {
     friends : [],
+    friendDescription: null,
     configsFriends: {
         typeSort: 0,
         searchValue: '',
@@ -34,6 +35,15 @@ export function friendsReducer(state = initialState, action: FriendsAction) {
         case friendsActionTypes.GET_FRIENDS:
 
             return {...state, loading: true};
+
+
+        case friendsActionTypes.SET_FRIEND_DESCRIPTION:
+
+            return {
+                ...state,
+                friendDescription: {...action.payload},
+                loading: false
+            };
 
         case friendsActionTypes.SORT_FRIENDS:
 

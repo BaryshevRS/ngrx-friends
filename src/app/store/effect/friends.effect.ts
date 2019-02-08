@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Actions, Effect} from '@ngrx/effects';
 import {Action, Store} from '@ngrx/store';
 import {from, Observable, of} from 'rxjs';
-import {catchError, map, switchMap, withLatestFrom} from 'rxjs/operators';
+import {catchError, map, switchMap, withLatestFrom, filter, tap} from 'rxjs/operators';
 import {friendsActionTypes} from '../type/index';
 import {
     LoadFriends,
@@ -13,11 +13,13 @@ import {
     ErrorsFriends,
     BookmarksFriends,
     RatingFriends,
-    GetFriend,
+    GetFriend, SetFriendDescription,
 } from '../action';
 import {ofType} from '@ngrx/effects';
 import {FriendsService} from '../../service/friends.service';
 import {ErrorMessage} from '../../class/errors';
+import {ROUTER_NAVIGATION, RouterNavigationAction} from '@ngrx/router-store';
+import {Router} from '@angular/router';
 
 @Injectable()
 export class LoadFriendsEffect {
@@ -57,27 +59,27 @@ export class LoadFriendsEffect {
                             if (params.startView > 0) {
                                 friends = [...store.friends];
                             } else {
-                                if(params.showBookmark) {
+                                if (params.showBookmark) {
                                     errors = new ErrorMessage('info', 'errorMessage.bookmarkEmpty');
                                 } else {
-                                    errors = new ErrorMessage('info', 'errorMessage.friendEmpty');
+                                    errors = new ErrorMessage('info', 'errorMessage.friendsEmpty');
                                 }
                             }
                         }
 
                         return new LoadFriends(
                             {configsFriends: params, friends: friends, errors: errors}
-                            );
+                        );
                     }),
                     catchError(error => {
-                        return of(new ErrorsFriends(new ErrorMessage('danger', 'errorMessage.networkConnect')));
+                        return of(new ErrorsFriends(new ErrorMessage('danger', 'errorMessage.friendEmpty')));
                     })
                 );
         })
     );
 
-    @Effect({dispatch:false})
-    getFriend$  = this.actions$.pipe(
+    @Effect()
+    getFriend$ = this.actions$.pipe(
         ofType<GetFriend>(
             friendsActionTypes.GET_FRIEND
         ),
@@ -87,10 +89,8 @@ export class LoadFriendsEffect {
             return this.friendsService
                 .getFriend(action.payload)
                 .pipe(
-                    map(friends => {
-
-                        console.log('friendsx', friends);
-                        return friends;
+                    map(friend => {
+                        return new SetFriendDescription(friend);
                     }),
                     catchError(error => {
                         return of(new ErrorsFriends(new ErrorMessage('danger', 'errorMessage.networkConnect')));
@@ -139,7 +139,7 @@ export class BookmarkFriendsEffect {
                 let errors = null;
                 const friends = this.friendsService.getFilterBookmark(store.friends);
 
-                if(friends.length === 0) {
+                if (friends.length === 0) {
                     errors = new ErrorMessage('info', 'errorMessage.bookmarkEmpty');
                 }
 
@@ -168,7 +168,8 @@ export class RatingFriendsEffect {
         private actions$: Actions,
         private store$: Store<any>,
         private friendsService: FriendsService
-    ) {}
+    ) {
+    }
 
     @Effect()
     SetRatingFriends$: Observable<Action> = this.actions$.pipe(
@@ -188,3 +189,26 @@ export class RatingFriendsEffect {
         })
     );
 }
+
+@Injectable()
+export class RouterEffects {
+    constructor(
+        private actions$: Actions,
+        private router: Router
+    ) {
+    }
+
+    @Effect()
+    routeChange$ = this.actions$.pipe(
+        ofType(ROUTER_NAVIGATION),
+        filter((
+            {payload: {routerState: {root: {firstChild: {routeConfig: {path}}}}}}: RouterNavigationAction) => path === 'friends/:id'
+        ),
+        switchMap((action: RouterNavigationAction) => {
+            const id = action.payload.routerState.root.firstChild.params.id;
+            return of(new GetFriend(id));
+        })
+    );
+}
+
+

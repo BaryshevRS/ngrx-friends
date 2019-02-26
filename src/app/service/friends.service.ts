@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Observable, of, throwError} from 'rxjs';
-import {map, catchError, delay, filter, tap} from 'rxjs/operators';
+import {Observable, throwError} from 'rxjs';
+import {map, catchError, delay} from 'rxjs/operators';
 
 import {Friend} from '../class/friends';
 import {LocalSaveService} from './local-save.service';
@@ -40,7 +40,9 @@ export class FriendsService {
     public getFriend(id: string) {
         return this.http.get(this.BASE_URL)
             .pipe(
-                delay(1000), // todo test delay
+                delay(400), // todo test delay
+                map((friendsList: Friend[]) => this.getRating(friendsList)),
+                map((friendsList: Friend[]) => this.getBookmark(friendsList)),
                 map((friendsList: Friend[]) => this.findId(id, friendsList)),
                 catchError(({status}: Response) => throwError(status))
             );
@@ -50,7 +52,6 @@ export class FriendsService {
         return friendsList.find( (friend: Friend) => id === friend.id)
     }
 
-    // получаем число закладок друзей
     public getCountBookmarskFriends(): Observable<number> {
         return this.http.get(this.BASE_URL)
             .pipe(
@@ -63,7 +64,7 @@ export class FriendsService {
             );
     }
 
-    public getRating(friendsList: Friend[]): Friend[] {
+    private getRating(friendsList: Friend[]): Friend[] {
         const friendsRating: object = this.LocalSave.get(this.nameFriendsRating);
         if (friendsRating) {
             return friendsList.map((friend, index) => {
@@ -74,7 +75,7 @@ export class FriendsService {
         return friendsList;
     }
 
-    public getBookmark(friendsList: Friend[]): Friend[] {
+    private getBookmark(friendsList: Friend[]): Friend[] {
         const friendsBookmark: object = this.LocalSave.get(this.nameFriendsBookmark);
         if (friendsBookmark) {
             return friendsList.map((friend, index) => {
@@ -114,7 +115,7 @@ export class FriendsService {
         return friendsList.filter(friend => friend.bookmark);
     }
 
-    public getFilterSearch(friendsList: Friend[], search: string): Friend[] {
+    private getFilterSearch(friendsList: Friend[], search: string): Friend[] {
         return friendsList.filter(friend => {
             return (
                 friend.first_name.trim().toLowerCase().indexOf(search.trim().toLowerCase()) >= 0 ||
@@ -123,7 +124,7 @@ export class FriendsService {
         });
     }
 
-    public setLimitViewOnPage(friendsList: Friend[], startView: number, limitView: number): Friend[] {
+    private setLimitViewOnPage(friendsList: Friend[], startView: number, limitView: number): Friend[] {
         return friendsList.slice(startView, (startView + limitView));
     }
 }

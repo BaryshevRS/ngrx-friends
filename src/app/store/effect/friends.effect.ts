@@ -59,7 +59,9 @@ export class LoadFriendsEffect {
                             if (params.startView > 0) {
                                 friends = [...store.friends];
                             } else {
-                                if (params.showBookmark) {
+                                if (params.searchValue) {
+                                    errors = new ErrorMessage('info', 'errorMessage.searchEmpty');
+                                } else if (params.showBookmark) {
                                     errors = new ErrorMessage('info', 'errorMessage.bookmarkEmpty');
                                 } else {
                                     errors = new ErrorMessage('info', 'errorMessage.friendsEmpty');

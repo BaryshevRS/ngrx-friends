@@ -36,10 +36,10 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     declarations: [
         AppComponent,
         HeaderComponent,
-        NavComponent,
         HeaderSearchComponent,
-        ScrollTopComponent,
+        NavComponent,
         NavSortComponent,
+        ScrollTopComponent,
         ErrorPageComponent
     ],
     imports: [

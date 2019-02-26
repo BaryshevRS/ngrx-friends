@@ -72,6 +72,7 @@ export function friendsReducer(state = initialState, action: FriendsAction) {
         case friendsActionTypes.SHOW_BOOKMARKS_FRIENDS:
 
             return {...state,
+                friends: [],
                 configsFriends : {
                     ...state.configsFriends,
                     ...{showBookmark : action.payload, startView: 0}

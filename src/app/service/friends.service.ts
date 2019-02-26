@@ -40,7 +40,7 @@ export class FriendsService {
     public getFriend(id: string) {
         return this.http.get(this.BASE_URL)
             .pipe(
-                delay(400), // todo test delay
+                delay(1000), // todo test delay
                 map((friendsList: Friend[]) => this.getRating(friendsList)),
                 map((friendsList: Friend[]) => this.getBookmark(friendsList)),
                 map((friendsList: Friend[]) => this.findId(id, friendsList)),

@@ -2,13 +2,13 @@
 <form class="header-search form-inline my-2 my-lg-0">
 
     <div *ngIf="searchBox.value" class="reset">
-        <i (click)="resetSearch()"  class="material-icons reset  ">close</i>
+        <i (click)="resetSearch()" class="material-icons reset">close</i>
     </div>
 
     <input
             #searchBox
             (input)="search(searchBox.value)"
-            class="form-control mr-sm-2"
+            class="form-control search-box"
             type="text"
             placeholder="Поиск"
             aria-label="Поиск"

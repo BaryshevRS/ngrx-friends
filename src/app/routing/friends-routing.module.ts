@@ -9,9 +9,9 @@ const appRoutes: Routes = [
 ];
 
 @NgModule({
-    exports: [ RouterModule ],
     imports: [
-        RouterModule.forRoot(appRoutes)
-    ]
+        RouterModule.forChild(appRoutes)
+    ],
+    exports: [ RouterModule ]
 })
 export class FriendsRoutingModule {}

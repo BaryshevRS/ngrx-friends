@@ -1,3 +1,6 @@
+:host {
+  display: flex;
+}
 
 .sort-block {
   display: flex;
@@ -32,3 +35,15 @@
 .sort-name {
   display: inline;
 }
+
+
+@media (max-width: 415px) {
+
+  :host {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+  }
+
+}
+

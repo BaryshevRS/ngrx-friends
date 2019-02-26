@@ -10,3 +10,16 @@
   }
 
 }
+
+@media (max-width: 415px) {
+  .nav-friend {
+    display: flex;
+    flex-wrap: wrap;
+    padding-bottom: 10px;
+    .nav {
+      justify-content: center;
+      width: 100%;
+    }
+  }
+}
+

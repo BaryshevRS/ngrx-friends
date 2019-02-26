@@ -15,12 +15,9 @@ import {ScrollTopComponent} from './component/scroll-top/scroll-top.component';
 import {appReducer} from './store/reducer';
 import {environment} from '../environments/environment.prod';
 import {effectsList} from './store/effect';
-import {FriendsModule} from './module/friends.module';
+import {FriendsPageModule} from './module/friends-page.module';
 
 import {NavSortComponent} from './component/nav-sort/nav-sort.component';
-import {FriendsPageComponent} from './page/friends-page/friends-page.component';
-import {FriendPageComponent} from './page/friend-page/friend-page.component';
-import {FriendDescription} from './component/friends/friend-description/friend-description';
 import {ErrorPageComponent} from './page/error-page/error-page.component';
 import {StoreRouterConnectingModule} from '@ngrx/router-store';
 import {RouterModule} from '@angular/router';
@@ -29,7 +26,7 @@ import {NavComponent} from './container/nav/nav.component';
 import {ShareModule} from './module/share.module';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
-import { BreadcrumbComponent } from './component/breadcrumb/breadcrumb.component';
+import {FriendPageModule} from './module/friend-page.module';
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
     return new TranslateHttpLoader(httpClient, "assets/i18n/", ".json");
@@ -43,11 +40,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
         HeaderSearchComponent,
         ScrollTopComponent,
         NavSortComponent,
-        FriendsPageComponent,
-        FriendPageComponent,
-        FriendDescription,
-        ErrorPageComponent,
-        BreadcrumbComponent
+        ErrorPageComponent
     ],
     imports: [
         BrowserModule,
@@ -60,16 +53,16 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
         StoreRouterConnectingModule,
         !environment.production ? StoreDevtoolsModule.instrument({ maxAge: 20 }) : [],
         EffectsModule.forRoot(effectsList),
-        FriendsModule,
-        ShareModule,
         TranslateModule.forRoot({
             loader: {
                 provide: TranslateLoader,
                 useFactory: HttpLoaderFactory,
                 deps: [HttpClient]
             }
-        })
-
+        }),
+        ShareModule,
+        FriendsPageModule,
+        FriendPageModule,
     ],
     bootstrap: [AppComponent]
 })

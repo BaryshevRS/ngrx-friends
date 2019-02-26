@@ -72,7 +72,7 @@ export class LoadFriendsEffect {
                         );
                     }),
                     catchError(error => {
-                        return of(new ErrorsFriends(new ErrorMessage('danger', 'errorMessage.friendEmpty')));
+                        return of(new ErrorsFriends(new ErrorMessage('danger', 'errorMessage.friendsEmpty')));
                     })
                 );
         })
@@ -90,6 +90,7 @@ export class LoadFriendsEffect {
                 .getFriend(action.payload)
                 .pipe(
                     map(friend => {
+                        console.log('friend123', friend)
                         return new SetFriendDescription(friend);
                     }),
                     catchError(error => {
@@ -206,6 +207,7 @@ export class RouterEffects {
         ),
         switchMap((action: RouterNavigationAction) => {
             const id = action.payload.routerState.root.firstChild.params.id;
+            console.log('id', id)
             return of(new GetFriend(id));
         })
     );

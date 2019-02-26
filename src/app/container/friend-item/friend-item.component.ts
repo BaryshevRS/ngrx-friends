@@ -1,16 +1,16 @@
 import {Input, Component, OnInit, Output, EventEmitter} from '@angular/core';
-import {Friend} from '../../../class/friends/index';
+import {Friend} from '../../class/friends';
 import {Store} from '@ngrx/store';
-import {BookmarksFriends, RatingFriends} from '../../../store/action';
+import {BookmarksFriends, RatingFriends} from '../../store/action';
 
 //todo вынести состояние в контейнер
 
 @Component({
     selector: 'app-friend',
-    templateUrl: './friend.component.html',
-    styleUrls: ['./friend.component.scss']
+    templateUrl: './friend-item.component.html',
+    styleUrls: ['./friend-item.component.scss']
 })
-export class FriendComponent implements OnInit {
+export class FriendItemComponent implements OnInit {
 
     @Input() friend: Friend;
 
@@ -27,7 +27,6 @@ export class FriendComponent implements OnInit {
     }
 
     ratingChange(value: number) {
-        // this.friendsService.setRating(this.friend.id, value);
         this.friend.rating = value;
         this.store$.dispatch(new RatingFriends(this.friend));
     }

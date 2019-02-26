@@ -8,10 +8,10 @@ import {HeaderSearchComponent} from './component/header-search/header-search.com
 import {ScrollTopComponent} from './component/scroll-top/scroll-top.component';
 import {NavSortComponent} from './component/nav-sort/nav-sort.component';
 import {FriendsPageComponent} from './page/friends-page/friends-page.component';
-import {FriendDescription} from './component/friends/friend-description/friend-description';
+import {FriendDescription} from './container/friend-description/friend-description';
 import {ErrorPageComponent} from './page/error-page/error-page.component';
 import {FriendPageComponent} from './page/friend-page/friend-page.component';
-import {FriendsModule} from './module/friends.module';
+import {FriendsPageModule} from './module/friends-page.module';
 import {HttpClientModule} from '@angular/common/http';
 import {AppRoutingModule} from './app-routing.module';
 import {StoreModule} from '@ngrx/store';
@@ -33,7 +33,7 @@ describe('AppComponent', () => {
                 // ReactiveFormsModule,
                 StoreModule.forRoot(appReducer, {}),
                 EffectsModule.forRoot(effectsList),
-                FriendsModule,
+                FriendsPageModule,
             ],
             declarations: [
                 AppComponent,

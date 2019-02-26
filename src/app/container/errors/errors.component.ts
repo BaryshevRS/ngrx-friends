@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {select, Store} from '@ngrx/store';
 import {FriendsAction} from '../../store/type';
 import {ErrorMessage} from '../../class/errors';
@@ -6,7 +6,8 @@ import {ErrorMessage} from '../../class/errors';
 @Component({
     selector: 'app-errors',
     templateUrl: './errors.component.html',
-    styleUrls: ['./errors.component.scss']
+    styleUrls: ['./errors.component.scss'],
+    // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ErrorsComponent implements OnInit {
 

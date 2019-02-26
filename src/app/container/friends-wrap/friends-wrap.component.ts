@@ -2,17 +2,17 @@ import {Component, OnInit} from '@angular/core';
 import {select, Store} from '@ngrx/store';
 import {Friend} from '../../class/friends';
 import {GetFriends} from '../../store/action';
-import {Observable, Subscribable} from 'rxjs';
+import {Observable} from 'rxjs';
 import {getErrors, getFriends} from '../../store/selector/friends.selector';
 import {ErrorMessage} from '../../class/errors';
 
 @Component({
     selector: 'app-friends',
-    templateUrl: './friends.component.html',
-    styleUrls: ['./friends.component.scss']
+    templateUrl: './friends-wrap.html',
+    styleUrls: ['./friends-wrap.component.scss']
 })
 
-export class FriendsComponent implements OnInit {
+export class FriendsWrapComponent implements OnInit {
 
     public friends: Friend[];
     public friends$: Observable<Friend[]>;
@@ -23,7 +23,7 @@ export class FriendsComponent implements OnInit {
         private store$: Store<any>
     ) {}
 
-    // дозаполнение страницы, если выведенного контента меньше, чем высота экрана и при скроле
+    // fill up page, if height content not more, than height screen
     drawing() {
         console.log('drawing');
         this.store$.dispatch(new GetFriends());
@@ -31,7 +31,7 @@ export class FriendsComponent implements OnInit {
 
     ngOnInit() {
         this.friends$ = this.store$.pipe(select(getFriends));
-        this.errors$ = this.store$.pipe(select(getErrors)) .subscribe((ErrorMessage:ErrorMessage) => {
+        this.errors$ = this.store$.pipe(select(getErrors)).subscribe((ErrorMessage:ErrorMessage) => {
              this.errorMsg = ErrorMessage && ErrorMessage.text ? true : false;
         });
         this.store$.dispatch(new GetFriends());

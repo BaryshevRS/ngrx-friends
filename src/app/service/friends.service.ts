@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable, of, throwError} from 'rxjs';
-import {map, catchError, delay, filter} from 'rxjs/operators';
+import {map, catchError, delay, filter, tap} from 'rxjs/operators';
 
 import {Friend} from '../class/friends';
 import {LocalSaveService} from './local-save.service';
@@ -13,7 +13,7 @@ import {IGetFriends} from '../interface/friends';
 
 export class FriendsService {
 
-    public BASE_URL = 'http://localhost:3000/';
+    public BASE_URL = 'http://localhost:4200/assets/mosk/data.json';
 
     public nameFriendsRating = 'friendsRating';
     public nameFriendsBookmark = 'friendsBookmark';
@@ -24,7 +24,7 @@ export class FriendsService {
 
     public getFriends({typeSort = 0, searchValue = '', showBookmark = false, startView = 0, limitView = 0}: IGetFriends): Observable<Friend[]> {
 
-        return this.http.get(this.BASE_URL + 'friends')
+        return this.http.get(this.BASE_URL)
             .pipe(
                 delay(400), // todo test delay
                 map((friendsList: Friend[]) => this.getRating(friendsList)),
@@ -37,18 +37,22 @@ export class FriendsService {
             );
     }
 
-    public getFriend(id: string): Observable<Friend> {
-        return this.http.get(this.BASE_URL + `friends?id=${id}`)
+    public getFriend(id: string) {
+        return this.http.get(this.BASE_URL)
             .pipe(
                 delay(1000), // todo test delay
-                map((friendsList: Friend[]) => friendsList[0]),
+                map((friendsList: Friend[]) => this.findId(id, friendsList)),
                 catchError(({status}: Response) => throwError(status))
             );
     }
 
+    private findId(id: string, friendsList: Friend[]): Friend {
+        return friendsList.find( (friend: Friend) => id === friend.id)
+    }
+
     // получаем число закладок друзей
     public getCountBookmarskFriends(): Observable<number> {
-        return this.http.get(this.BASE_URL + 'friends')
+        return this.http.get(this.BASE_URL)
             .pipe(
                 map((friendsList: Friend[]) => {
                     friendsList = this.getBookmark(friendsList);

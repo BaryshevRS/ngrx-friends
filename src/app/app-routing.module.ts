@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {FriendsPageComponent} from './page/friends-page/friends-page.component';
-import {FriendsModule} from './module/friends.module';
+import {FriendsPageModule} from './module/friends-page.module';
 import {ErrorPageComponent} from './page/error-page/error-page.component';
 
 const appRoutes: Routes = [
@@ -15,7 +15,7 @@ const appRoutes: Routes = [
     ],
     imports: [
         RouterModule.forRoot(appRoutes),
-        FriendsModule
+        FriendsPageModule
     ]
 })
 export class AppRoutingModule {}

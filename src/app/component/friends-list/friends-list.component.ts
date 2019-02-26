@@ -1,7 +1,7 @@
 import {Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy} from '@angular/core';
 
-import {fadeStateTrigger} from '../../../fade.animation';
-import {Friend} from '../../../class/friends';
+import {fadeStateTrigger} from '../../fade.animation';
+import {Friend} from '../../class/friends';
 
 // todo changeDetection: ChangeDetectionStrategy.OnPush
 

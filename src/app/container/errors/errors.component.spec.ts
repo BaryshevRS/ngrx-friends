@@ -1,6 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ErrorsComponent } from './errors.component';
+import {StoreModule} from '@ngrx/store';
+import {appReducer} from '../../store/reducer';
+import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import {HttpClient} from '@angular/common/http';
+import {HttpLoaderFactory} from '../../app.component.spec';
 
 describe('ErrorsComponent', () => {
   let component: ErrorsComponent;
@@ -8,7 +13,17 @@ describe('ErrorsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ErrorsComponent ]
+      declarations: [ ErrorsComponent ],
+      imports: [
+        StoreModule.forRoot(appReducer, {}),
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useFactory: HttpLoaderFactory,
+            deps: [HttpClient]
+          }
+        }),
+      ],
     })
     .compileComponents();
   }));

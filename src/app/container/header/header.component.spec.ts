@@ -3,6 +3,7 @@ import {HeaderComponent} from './header.component';
 import {HeaderSearchComponent} from '../../component/header-search/header-search.component';
 import {StoreModule} from '@ngrx/store';
 import {appReducer} from '../../store/reducer';
+import {RouterTestingModule} from '@angular/router/testing';
 
 describe('HeaderComponent', () => {
     let component: HeaderComponent;
@@ -12,6 +13,7 @@ describe('HeaderComponent', () => {
         TestBed.configureTestingModule({
             imports: [
                 StoreModule.forRoot(appReducer, {}),
+                RouterTestingModule
             ],
             declarations: [
                 HeaderComponent,

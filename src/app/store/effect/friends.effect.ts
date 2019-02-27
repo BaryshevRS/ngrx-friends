@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Actions, Effect} from '@ngrx/effects';
 import {Action, Store} from '@ngrx/store';
 import {from, Observable, of} from 'rxjs';
-import {catchError, map, switchMap, withLatestFrom, filter, tap, delay} from 'rxjs/operators';
+import {catchError, map, switchMap, withLatestFrom, filter} from 'rxjs/operators';
 import {friendsActionTypes} from '../type/index';
 import {
     LoadFriends,
@@ -92,7 +92,6 @@ export class LoadFriendsEffect {
                 .getFriend(action.payload)
                 .pipe(
                     map(friend => {
-                        console.log('friend123', friend)
                         return new SetFriendDescription(friend);
                     }),
                     catchError(error => {
@@ -137,7 +136,7 @@ export class BookmarkFriendsEffect {
 
             const actions: Action[] = [new SetCountBookmarksFriends(count)];
 
-            // обновляем список друзей, когда на вкладке закладок
+            // update friend list when show bookmark
             if (store.configsFriends.showBookmark) {
                 let errors = null;
                 const friends = this.friendsService.getFilterBookmark(store.friends);
@@ -209,7 +208,6 @@ export class RouterEffects {
         ),
         switchMap((action: RouterNavigationAction) => {
             const id = action.payload.routerState.root.firstChild.params.id;
-            console.log('id', id)
             return of(new GetFriend(id));
         })
     );

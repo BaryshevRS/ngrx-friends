@@ -18,7 +18,6 @@ export const getErrors = createSelector(
     fromGetFriendsErrors
 );
 
-
 const fromGetFriendsDescription = (state: Friends): Friend => state.friendDescription;
 
 export const getDescriptions = createSelector(

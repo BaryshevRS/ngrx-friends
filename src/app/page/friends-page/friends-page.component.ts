@@ -24,7 +24,6 @@ export class FriendsPageComponent implements OnInit {
 
     // fill up page, if height content not more, than height screen
     drawing() {
-        console.log('drawing');
         this.store$.dispatch(new GetFriends());
     }
 

@@ -1,14 +1,13 @@
-import {Input, Component, OnInit, Output, EventEmitter} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
 import {Friend} from '../../class/friends';
 import {Store} from '@ngrx/store';
 import {BookmarksFriends, RatingFriends} from '../../store/action';
 
-//todo вынести состояние в контейнер
-
 @Component({
     selector: 'app-friend',
     templateUrl: './friend-item.component.html',
-    styleUrls: ['./friend-item.component.scss']
+    styleUrls: ['./friend-item.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FriendItemComponent implements OnInit {
 

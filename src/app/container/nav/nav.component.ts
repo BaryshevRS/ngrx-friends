@@ -1,7 +1,7 @@
-import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {select, Store} from '@ngrx/store';
 import {FriendsAction} from '../../store/type/index';
-import {GetCountBookmarksFriends, GetFriends, ShowBookmarksFriends, SortFriends} from '../../store/action';
+import {GetCountBookmarksFriends, ShowBookmarksFriends, SortFriends} from '../../store/action';
 import {Friend} from '../../class/friends';
 
 @Component({
@@ -30,7 +30,6 @@ export class NavComponent implements OnInit {
     }
 
     ngOnInit() {
-        // todo подписаться только к закладкам и конфигу
         this.nav$ = this.store$.pipe(select('friends')).subscribe(({bookmarks, configsFriends}) => {
             this.countBookmark = bookmarks.count || 0;
             this.countBookmark = this.countBookmark < 0 ? 0 : this.countBookmark;

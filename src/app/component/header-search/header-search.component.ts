@@ -1,12 +1,12 @@
-import {Component, ElementRef, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
+import {ChangeDetectionStrategy, Component, ElementRef, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import {of, Subject} from 'rxjs';
-import {debounceTime, switchMap, distinctUntilChanged} from 'rxjs/operators';
+import {debounceTime, distinctUntilChanged, switchMap} from 'rxjs/operators';
 
-// todo добавить обработку enter и переход на главную страницу для результатов поиска
 @Component({
     selector: 'app-header-search',
     templateUrl: './header-search.component.html',
-    styleUrls: ['./header-search.component.scss']
+    styleUrls: ['./header-search.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeaderSearchComponent implements OnInit {
 
@@ -16,8 +16,6 @@ export class HeaderSearchComponent implements OnInit {
     @Output() initSearch: EventEmitter<string> = new EventEmitter();
 
     @ViewChild('searchBox') searchBox: ElementRef;
-
-    constructor() {}
 
     search(term: string): void {
         this.searchTerms.next(term);

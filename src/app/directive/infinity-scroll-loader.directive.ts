@@ -13,8 +13,6 @@ import {DOCUMENT} from '@angular/common';
 import {fromEvent} from 'rxjs';
 import {pairwise, map, filter, debounceTime, distinct} from 'rxjs/operators';
 
-// todo поддержка привязки к контейнеру, а не документу
-
 @Directive({
     selector: '[appInfinityScrollLoader]',
 })
@@ -24,9 +22,9 @@ export class InfinityScrollLoaderDirective implements AfterViewInit, AfterViewCh
     private scrollEvent$;
 
     @Input() scrollPercent = 90;
-    // сообщение от контенейнера о том, что были добавленны новые данные
+    // message that data has been added
     @Input() contents: any[];
-    // общее событие для скролла и заполнения
+    // event that needs to be drawn content
     @Output() drawing: EventEmitter<boolean> = new EventEmitter();
 
     constructor(
@@ -45,7 +43,6 @@ export class InfinityScrollLoaderDirective implements AfterViewInit, AfterViewCh
                 distinct(),
                 filter(_ => this.isScrollingActive()),
             ).subscribe(() => {
-                console.log('emit draw')
                 this.drawing.emit(true);
             });
     }
@@ -60,41 +57,42 @@ export class InfinityScrollLoaderDirective implements AfterViewInit, AfterViewCh
         this.checkFilling();
     }
 
-    // делаем проверку, что текущий контент перекрывает текущий экран
     private checkFilling = () => {
 
-        // в контейнер добавлен контент
+        console.log('checkFilling')
+
         if (this.contents.length > 0) {
+
+            console.log('checkFilling 1')
 
             const initScrollHeight = this.elm.nativeElement.offsetHeight;
 
-            if (initScrollHeight !== this.initScrollHeight) { // проверяем, что высота изменилась
+            // check that the height has changed
+            if (initScrollHeight !== this.initScrollHeight) {
                 this.initScrollHeight = initScrollHeight;
 
-                // высота документа без прокрутки
+                // document height without scrolling
                 const clientHeight = this.document.documentElement.clientHeight;
-                // высота скролл до верха от контейнера
+                // height from container to top
                 const scrollTop = this.elm.nativeElement.offsetTop;
 
-                // когда высота экрана больше высоты компонента
+                // when screen height is greater than component height
                 if (clientHeight >= (scrollTop + this.initScrollHeight)) {
-                    // console.log('no fill');
                     this.drawing.emit(true);
                 }
             }
         }
     }
 
-    // проверка, что скрол идёт не в обратном порядке
+    // check that the scrolling is not in the reverse order
     private isScrollingDown = (positions) => {
         return positions[0] < positions[1];
     }
 
-    // проверка, что величина прокрутки достигла точки подгрузки нового контента
     private isScrollingActive = () => {
-        // полная высота документа с учётом прокрутки
+        // full document height with scroll
         const scrollHeight = this.document.documentElement.scrollHeight;
-        // высота прокрутки
+        // scroll height
         const scrollTop = this.document.documentElement.scrollTop || this.document.body.scrollTop;
 
         if (this.scrollPercent) {

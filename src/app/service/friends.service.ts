@@ -26,7 +26,7 @@ export class FriendsService {
 
         return this.http.get(this.BASE_URL)
             .pipe(
-                delay(400), // todo test delay
+                delay(400), // test delay
                 map((friendsList: Friend[]) => this.getRating(friendsList)),
                 map((friendsList: Friend[]) => this.getBookmark(friendsList)),
                 map((friendsList: Friend[]) => this.setRatingSort(friendsList, typeSort)),
@@ -40,7 +40,7 @@ export class FriendsService {
     public getFriend(id: string) {
         return this.http.get(this.BASE_URL)
             .pipe(
-                delay(1000), // todo test delay
+                delay(400), // test delay
                 map((friendsList: Friend[]) => this.getRating(friendsList)),
                 map((friendsList: Friend[]) => this.getBookmark(friendsList)),
                 map((friendsList: Friend[]) => this.findId(id, friendsList)),
@@ -86,17 +86,16 @@ export class FriendsService {
         return friendsList;
     }
 
-    // сохраняем локально пользователя в закладки
+    // save locally user bookmarks
     public setBookmark(id: string, value: number): void {
         this.LocalSave.set(this.nameFriendsBookmark, {[id]: value});
     }
 
-    // сохраняем рейтинг участника в закладки
+    // save locally user rating
     public setRating(id: string, value: number): void {
         this.LocalSave.set(this.nameFriendsRating, {[id]: value});
     }
 
-    // делаем сортировку по рейтингу
     public setRatingSort(friendsList: Friend[], typeSort: number): Friend[] {
 
         return friendsList.sort((a: Friend, b: Friend): number => {

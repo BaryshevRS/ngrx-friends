@@ -1,25 +1,19 @@
-import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy} from '@angular/core';
 
 @Component({
     selector: 'app-nav-sort',
     templateUrl: './nav-sort.component.html',
-    styleUrls: ['./nav-sort.component.scss']
+    styleUrls: ['./nav-sort.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class NavSortComponent implements OnInit {
-
-    constructor() {}
+export class NavSortComponent {
 
     @Output() changeSort: EventEmitter<number> = new EventEmitter();
     @Input() typeSort = 0;
 
-    // todo не запускать сортировку, если уже стоит такая
-    // выбираем тип сортировки и эмитируем событие в родительский компонент
     setSort(sortType?: number): void {
         this.typeSort = sortType;
         this.changeSort.emit(<number>sortType);
-    }
-
-    ngOnInit() {
     }
 
 }

@@ -62,6 +62,7 @@ export function friendsReducer(state = initialState, action: FriendsAction) {
         case friendsActionTypes.SEARCH_FRIENDS:
 
             return {...state,
+                friends: [],
                 configsFriends : {
                     ...state.configsFriends,
                     ...{searchValue : action.payload, startView: 0}

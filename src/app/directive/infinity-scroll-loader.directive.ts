@@ -58,12 +58,7 @@ export class InfinityScrollLoaderDirective implements AfterViewInit, AfterViewCh
     }
 
     private checkFilling = () => {
-
-        console.log('checkFilling')
-
         if (this.contents.length > 0) {
-
-            console.log('checkFilling 1')
 
             const initScrollHeight = this.elm.nativeElement.offsetHeight;
 
@@ -81,6 +76,8 @@ export class InfinityScrollLoaderDirective implements AfterViewInit, AfterViewCh
                     this.drawing.emit(true);
                 }
             }
+        } else {
+            this.initScrollHeight = 0;
         }
     }
 

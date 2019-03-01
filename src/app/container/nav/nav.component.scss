@@ -1,0 +1,12 @@
+.nav-friend {
+  display: flex;
+  align-content: center;
+  justify-content: space-between;
+
+  .nav-link {
+    &.active {
+      color: #2ECDE6;
+    }
+  }
+
+}

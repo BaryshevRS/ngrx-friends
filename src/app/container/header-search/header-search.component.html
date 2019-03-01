@@ -1,0 +1,21 @@
+
+<form [formGroup]="form" class="header-search form-inline my-2 my-lg-0">
+
+    <div *ngIf="search" class="reset">
+        <i (click)="resetSearch()"  class="material-icons reset  ">close</i>
+    </div>
+
+    <input formControlName="search"
+           class="form-control mr-sm-2"
+           type="text"
+           placeholder="Поиск"
+           aria-label="Поиск"
+    >
+
+ <!--   [disabled]="search.length < 3"-->
+
+    <button  (click)="setSearch()"
+            class="btn btn-outline-light my-2 my-sm-0" type="submit">Поиск
+    </button>
+</form>
+

@@ -1,0 +1,27 @@
+
+.star-block {
+
+  &:hover .material-icons {
+    color: #2ECDE6 ;
+  }
+
+  .material-icons {
+    cursor: pointer;
+    font-size: 20px;
+    color: #CCCCCC;
+
+    &.active {
+      color: #2ECDE6;
+    }
+
+    &:hover {
+      color: #2ECDE6;
+    }
+
+    * ~ &:hover{color:#2ECDE6 ;}
+
+    &:hover ~ * {
+      color: #CCCCCC;
+    }
+  }
+}

@@ -1,0 +1,25 @@
+<div class="  bg-white box-shadow ">
+
+    <div class="container">
+
+
+        <div class="nav-friend">
+
+            <nav class="nav nav-underline">
+                <a  (click)="showBookmark()" [ngClass]="{'active': (!activeBookmark)}" class="nav-link active" href="#">Все</a>
+
+                <a  (click)="showBookmark(true)" [ngClass]="{'active': (activeBookmark)}" class="nav-link" href="#">
+                    Избранные
+                    <span class="badge badge-pill bg-light align-text-bottom">{{countBookmark}}</span>
+                </a>
+
+            </nav>
+
+            <app-nav-sort [typeSort]="typeSort" (changeSort)="changeSort($event)"></app-nav-sort>
+
+
+        </div>
+
+
+    </div>
+</div>

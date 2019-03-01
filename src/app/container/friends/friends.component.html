@@ -1,0 +1,14 @@
+<div class="my-3 p-3 bg-white rounded box-shadow">
+
+    <h6 class="border-bottom border-gray pb-2 mb-0">Список друзей</h6>
+
+    <app-friends-list
+            appInfinityScrollLoader
+            [friends]="friends"
+            [issetContent]="issetContent"
+            (scrollingActive)="setScrollingActive($event)"
+            (initFilling)="initFilling($event)"
+    ></app-friends-list>
+
+    <br>
+</div>

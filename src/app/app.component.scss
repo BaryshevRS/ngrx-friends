@@ -1,0 +1,11 @@
+.open {
+
+    left: 1rem;
+    .form-inline {
+        justify-content: center;
+    }
+
+    &.offcanvas-collapse {
+        background-color: rgba(0,0,0,0.8);
+    }
+}

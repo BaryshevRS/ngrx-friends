@@ -1,0 +1,24 @@
+.bookmark-block {
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 10px 0 0;
+  cursor: pointer;
+  min-height: 50px;
+
+  .material-icons {
+    user-select: none;
+
+    &.active {
+      color: #2ECDE6;
+    }
+
+    &:hover  {
+      text-shadow: 1px 1px 4px #ccc;
+    }
+
+  }
+}
+
+

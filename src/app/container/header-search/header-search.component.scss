@@ -1,0 +1,21 @@
+.reset {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  i {
+    cursor: pointer;
+    color: #fff;
+    margin-right: 7px;
+  }
+
+}
+
+.header-search {
+
+}
+
+@media (max-width: 1024px) {
+  .header-search {
+      display: none;
+  }
+}

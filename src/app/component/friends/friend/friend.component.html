@@ -1,0 +1,22 @@
+<div  class="media text-muted pt-3">
+
+    <app-bookmark (bookmarkChange)="bookmarkChange($event)" [value]="friend.bookmark" [id]="friend.id" ></app-bookmark>
+
+    <img
+            src="https://robohash.org/{{ friend.id }}.jpg?size=50x50&set=set1"
+            alt=""
+            class="mr-2 border rounded"
+    >
+
+    <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+
+
+        <app-rating (ratingChange)="ratingChange($event)" [id]="friend.id" [value]="friend.rating" ></app-rating>
+
+        <strong class="d-block text-gray-dark">{{ friend.first_name }} {{ friend.last_name }}</strong>
+
+        {{ friend.city }}
+
+    </p>
+
+</div>

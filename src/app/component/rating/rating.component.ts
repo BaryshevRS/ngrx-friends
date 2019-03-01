@@ -24,9 +24,9 @@ export class RatingComponent implements OnInit {
 
     private setRatingSize() {
         const ratingSize = this.ratingSize || this.defaultRatingSize;
-        let ratingSizeView: number[] = [];
+        const ratingSizeView: number[] = [];
 
-        for(let i = 1; i <= ratingSize; i++) {
+        for (let i = 1; i <= ratingSize; i++) {
             ratingSizeView.push(i);
         }
 

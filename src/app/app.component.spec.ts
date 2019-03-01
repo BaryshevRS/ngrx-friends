@@ -31,7 +31,7 @@ import {NavComponent} from './container/nav/nav.component';
 import {ErrorPageComponent} from './page/error-page/error-page.component';
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
-    return new TranslateHttpLoader(httpClient, "assets/i18n/", ".json");
+    return new TranslateHttpLoader(httpClient, 'assets/i18n/', '.json');
 }
 
 import {APP_BASE_HREF} from '@angular/common';

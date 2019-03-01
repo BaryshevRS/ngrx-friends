@@ -10,7 +10,7 @@ export class AppComponent {
 
     constructor(translate: TranslateService) {
 
-        translate.addLangs([ "ru"]);
+        translate.addLangs(['ru']);
         translate.setDefaultLang('ru');
     }
 

@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, ElementRef, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
+import {ChangeDetectionStrategy, Component, ElementRef, EventEmitter, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
 import {of, Subject} from 'rxjs';
 import {debounceTime, distinctUntilChanged, switchMap} from 'rxjs/operators';
 
@@ -8,7 +8,7 @@ import {debounceTime, distinctUntilChanged, switchMap} from 'rxjs/operators';
     styleUrls: ['./header-search.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HeaderSearchComponent implements OnInit {
+export class HeaderSearchComponent implements OnInit, OnDestroy {
 
     private searchTerms = new Subject<string>();
     public search$;
@@ -37,7 +37,7 @@ export class HeaderSearchComponent implements OnInit {
     }
 
     ngOnDestroy() {
-        if(this.search$) {
+        if (this.search$) {
             this.search$.unsubscribe();
         }
     }

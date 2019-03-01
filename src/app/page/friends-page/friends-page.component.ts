@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {select, Store} from '@ngrx/store';
 import {Friend} from '../../class/friends';
 import {GetFriends} from '../../store/action';
@@ -11,7 +11,7 @@ import {ErrorMessage} from '../../class/errors';
     templateUrl: './friends-page.component.html'
 })
 
-export class FriendsPageComponent implements OnInit {
+export class FriendsPageComponent implements OnInit, OnDestroy {
 
     public friends: Friend[];
     public friends$: Observable<Friend[]>;
@@ -29,13 +29,13 @@ export class FriendsPageComponent implements OnInit {
 
     ngOnInit() {
         this.friends$ = this.store$.pipe(select(getFriends));
-        this.errors$ = this.store$.pipe(select(getErrors)).subscribe((ErrorMessage:ErrorMessage) => {
-            this.errorMsg = ErrorMessage && ErrorMessage.text ? true : false;
+        this.errors$ = this.store$.pipe(select(getErrors)).subscribe((error: ErrorMessage) => {
+            this.errorMsg = error && error.text ? true : false;
         });
         this.store$.dispatch(new GetFriends());
     }
 
-    ngOnDestroy(){
+    ngOnDestroy() {
         this.errors$.unsubscribe();
     }
 

@@ -20,7 +20,6 @@ describe('HeaderComponent', () => {
                 HeaderSearchComponent
             ]
         });
-        //.compileComponents();
     }));
 
     beforeEach(() => {
@@ -36,8 +35,8 @@ describe('HeaderComponent', () => {
     });
 
     it('should create', () => {
-        let fixture = TestBed.createComponent(HeaderComponent);
-        const component = fixture.debugElement.componentInstance;
-        expect(component).toBeTruthy();
+        const el = fixture.debugElement.componentInstance;
+        expect(el).toBeTruthy();
     });
 });
+

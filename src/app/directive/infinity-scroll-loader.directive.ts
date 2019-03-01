@@ -48,7 +48,7 @@ export class InfinityScrollLoaderDirective implements AfterViewInit, AfterViewCh
     }
 
     ngOnDestroy() {
-        if(this.scrollEvent$) {
+        if (this.scrollEvent$) {
            this.scrollEvent$.unsubscribe();
         }
     }

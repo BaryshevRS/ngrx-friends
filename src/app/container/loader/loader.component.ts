@@ -1,7 +1,6 @@
-import {AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, OnDestroy} from '@angular/core';
 import {select, Store} from '@ngrx/store';
 import {FriendsAction} from '../../store/type';
-import {Subscribable} from 'rxjs';
 
 @Component({
   selector: 'app-loader',
@@ -10,9 +9,11 @@ import {Subscribable} from 'rxjs';
 })
 export class LoaderComponent implements OnDestroy, AfterViewInit {
 
-  constructor(private store$: Store<FriendsAction>, private cd: ChangeDetectorRef){}
+  constructor(
+      private store$: Store<FriendsAction>, private cd: ChangeDetectorRef
+  ) {}
 
-  public loading: boolean = false;
+  public loading = false;
   public loading$;
 
   ngAfterViewInit(): void {
@@ -21,7 +22,7 @@ export class LoaderComponent implements OnDestroy, AfterViewInit {
 
       this.loading = loading;
 
-        if(errors && !(Object.keys(errors).length === 0 && errors.constructor === Object)) {
+        if (errors && !(Object.keys(errors).length === 0 && errors.constructor === Object)) {
           this.loading = false;
         }
 
@@ -30,7 +31,7 @@ export class LoaderComponent implements OnDestroy, AfterViewInit {
   }
 
   ngOnDestroy() {
-    if(this.loading$) {
+    if (this.loading$) {
       this.loading$.unsubscribe();
     }
   }

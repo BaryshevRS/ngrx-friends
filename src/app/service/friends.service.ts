@@ -6,6 +6,7 @@ import {map, catchError, delay} from 'rxjs/operators';
 import {Friend} from '../class/friends';
 import {LocalSaveService} from './local-save.service';
 import {IGetFriends} from '../interface/friends';
+import {environment} from '../../environments/environment';
 
 @Injectable({
     providedIn: 'root'
@@ -13,7 +14,7 @@ import {IGetFriends} from '../interface/friends';
 
 export class FriendsService {
 
-    public BASE_URL = 'http://localhost:4200/assets/mosk/data.json';
+    public BASE_URL = environment.api.baseUrl + environment.api.friendData;
 
     public nameFriendsRating = 'friendsRating';
     public nameFriendsBookmark = 'friendsBookmark';
@@ -22,7 +23,9 @@ export class FriendsService {
                 private LocalSave: LocalSaveService) {
     }
 
-    public getFriends({typeSort = 0, searchValue = '', showBookmark = false, startView = 0, limitView = 0}: IGetFriends): Observable<Friend[]> {
+    public getFriends(
+        {typeSort = 0, searchValue = '', showBookmark = false, startView = 0, limitView = 0}: IGetFriends
+    ): Observable<Friend[]> {
 
         return this.http.get(this.BASE_URL)
             .pipe(
@@ -49,7 +52,7 @@ export class FriendsService {
     }
 
     private findId(id: string, friendsList: Friend[]): Friend {
-        return friendsList.find( (friend: Friend) => id === friend.id)
+        return friendsList.find( (friend: Friend) => id === friend.id);
     }
 
     public getCountBookmarskFriends(): Observable<number> {

@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {select, Store} from '@ngrx/store';
 import {getDescriptions} from '../../store/selector/friends.selector';
 import {Friend} from '../../class/friends';
@@ -8,7 +8,7 @@ import {Friend} from '../../class/friends';
     templateUrl: './friend-page.component.html'
 })
 
-export class FriendPageComponent implements OnInit {
+export class FriendPageComponent implements OnInit, OnDestroy {
 
     private friend$;
     public friend: Friend;

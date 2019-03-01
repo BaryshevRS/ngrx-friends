@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {select, Store} from '@ngrx/store';
 import {FriendsAction} from '../../store/type/index';
 import {GetCountBookmarksFriends, ShowBookmarksFriends, SortFriends} from '../../store/action';
@@ -9,7 +9,7 @@ import {Friend} from '../../class/friends';
     templateUrl: './nav.component.html',
     styleUrls: ['./nav.component.scss']
 })
-export class NavComponent implements OnInit {
+export class NavComponent implements OnInit, OnDestroy {
 
     constructor(private store$: Store<FriendsAction>) {}
 
@@ -40,7 +40,7 @@ export class NavComponent implements OnInit {
     }
 
     ngOnDestroy() {
-        if(this.nav$) {
+        if (this.nav$) {
             this.nav$.unsubscribe();
         }
     }

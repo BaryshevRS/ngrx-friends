@@ -11,7 +11,7 @@ import {Friend} from '../../class/friends';
 
 export class FriendsListComponent {
 
-    @Input('contents') friends: Friend[];
+    @Input() contents: Friend[];
 
     trackByFn(index: number, item: Friend) {
         return item.id;

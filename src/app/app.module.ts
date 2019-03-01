@@ -29,7 +29,7 @@ import {NavComponent} from './container/nav/nav.component';
 import {ErrorPageComponent} from './page/error-page/error-page.component';
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
-    return new TranslateHttpLoader(httpClient, "assets/i18n/", ".json");
+    return new TranslateHttpLoader(httpClient, 'assets/i18n/', '.json');
 }
 
 @NgModule({
@@ -49,7 +49,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
         RouterModule.forRoot([]),
         StoreModule.forRoot(appReducer),
         StoreRouterConnectingModule,
-        !environment.production ? StoreDevtoolsModule.instrument({ maxAge: 20 }) : [],
+        !environment.production ? StoreDevtoolsModule.instrument({maxAge: 20}) : [],
         EffectsModule.forRoot(effectsList),
         TranslateModule.forRoot({
             loader: {

@@ -1,0 +1,24 @@
+language: node_js
+node_js:
+  - 9
+dist: trusty
+sudo: required
+branches:
+  only:
+    - master
+    - develop
+before_script:
+  - npm install -g @angular/cli
+script:
+  - ng lint
+  - ng test --watch=false --browsers=ChromeHeadless # unit test
+  - ng build --prod --base-href "https://baryshevrs.github.io/ngrx-friends/"
+deploy:
+  provider: pages # github pages
+  skip-cleanup: true # save build
+  github-token: $GITHUB_TOKEN
+  keep-history: false # use git push --force
+  local_dir: dist/ngrx-friends/
+  on:
+    branch: master
+    node: 9

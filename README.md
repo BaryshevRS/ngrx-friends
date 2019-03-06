@@ -1,13 +1,17 @@
-## Тестовое задание на Angular/NgRx
+[![GitHub license](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/BaryshevRS/ngrx-friends/blob/master/LICENSE)
+[![Build Status](https://travis-ci.com/BaryshevRS/ngrx-friends.svg?branch=master)](https://travis-ci.com/BaryshevRS/ngrx-friends)
+
+## Test project Angular/NgRx
 
 ### Запуск
 
 Запустить можно выполнив команды `ng serve`.
+
 Проект можно будет найти по адресу `http://localhost:4200/`.  
  
 ### Описание
 
-Это проект реализация тестового задания, где нужно было вывести список друзей из json-файла.
+Этот проект реализация тестового задания, где нужно было вывести список друзей из json-файла.
 
 Что должно было быть реализовано:
 

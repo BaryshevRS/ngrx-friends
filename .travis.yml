@@ -13,6 +13,7 @@ script:
   - ng lint
   - ng test --watch=false --browsers=ChromeHeadless # unit test
   - ng build --prod --base-href "https://baryshevrs.github.io/ngrx-friends/"
+codecov: true
 deploy:
   provider: pages # github pages
   skip-cleanup: true # save build

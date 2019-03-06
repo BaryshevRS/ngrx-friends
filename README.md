@@ -1,5 +1,6 @@
 [![GitHub license](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/BaryshevRS/ngrx-friends/blob/master/LICENSE)
 [![Build Status](https://travis-ci.com/BaryshevRS/ngrx-friends.svg?branch=master)](https://travis-ci.com/BaryshevRS/ngrx-friends)
+[![codecov](https://codecov.io/gh/BaryshevRS/ngrx-friends/branch/master/graph/badge.svg)](https://codecov.io/gh/BaryshevRS/ngrx-friends)
 
 ## Test project Angular/NgRx
 

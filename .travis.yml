@@ -11,15 +11,14 @@ before_script:
   - npm install -g @angular/cli
 script:
   - ng lint
-  - ng test --code-coverage --watch=false --browsers=ChromeHeadless # unit test
+  - ng test --code-coverage --watch=false --browsers=ChromeHeadless
   - ng build --prod --base-href "https://baryshevrs.github.io/ngrx-friends/"
 after_success:
   ./node_modules/.bin/codecov
 deploy:
-  provider: pages # github pages
-  skip-cleanup: true # save build
+  provider: pages
+  skip-cleanup: true
   github-token: $GITHUB_TOKEN
-  keep-history: false # use git push --force
   local_dir: dist/ngrx-friends/
   on:
     branch: master

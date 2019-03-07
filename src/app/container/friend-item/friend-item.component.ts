@@ -1,24 +1,20 @@
-import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
 import {Friend} from '../../class/friends';
 import {Store} from '@ngrx/store';
 import {BookmarksFriends, RatingFriends} from '../../store/action';
 
 @Component({
-    selector: 'app-friend',
+    selector: 'app-friend-item',
     templateUrl: './friend-item.component.html',
-    styleUrls: ['./friend-item.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class FriendItemComponent implements OnInit {
+export class FriendItemComponent {
 
     @Input() friend: Friend;
 
     constructor(
         private store$: Store<any>
     ) {}
-
-    ngOnInit() {
-    }
 
     bookmarkChange(value: number) {
         this.friend.bookmark = value;

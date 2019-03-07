@@ -1,8 +1,8 @@
 <div class="friends-list">
 
-    <app-friend
+    <app-friend-item
             *ngFor="let friend of contents; trackBy: trackByFn"
             [friend]="friend">
-    </app-friend>
+    </app-friend-item>
 
 </div>

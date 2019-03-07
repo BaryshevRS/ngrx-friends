@@ -1,4 +1,4 @@
-<div class="media text-muted pt-3">
+<div *ngIf="friend" class="media text-muted pt-3">
 
     <app-bookmark (bookmarkChange)="bookmarkChange($event)" [value]="friend.bookmark" [id]="friend.id" ></app-bookmark>
 
@@ -7,7 +7,7 @@
             <img
                 data-src="https://robohash.org/{{ friend.id }}.jpg?size=50x50&set=set1"
                 alt=""
-                class="mr-2 "
+                class="mr-2"
         ></a>
     </div>
 

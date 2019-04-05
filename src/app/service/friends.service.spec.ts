@@ -1,6 +1,6 @@
 import {TestBed, inject} from '@angular/core/testing';
 import {FriendsService} from './friends.service';
-import {HttpClientModule} from '@angular/common/http';
+import {HttpClient, HttpClientModule} from '@angular/common/http';
 
 describe('FriendsService', () => {
     beforeEach(() => {

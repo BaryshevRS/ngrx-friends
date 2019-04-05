@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, ElementRef, EventEmitter, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
-import {of, Subject} from 'rxjs';
-import {debounceTime, distinctUntilChanged, switchMap} from 'rxjs/operators';
+import {Observable, of, Subject} from 'rxjs';
+import {debounceTime, distinctUntilChanged, switchMap, takeUntil} from 'rxjs/operators';
 
 @Component({
     selector: 'app-header-search',
@@ -11,13 +11,15 @@ import {debounceTime, distinctUntilChanged, switchMap} from 'rxjs/operators';
 export class HeaderSearchComponent implements OnInit, OnDestroy {
 
     private searchTerms = new Subject<string>();
-    public search$;
+    public search$: Observable<string>;
+    private unsubscribe$: Subject<void> = new Subject<void>();
 
     @Output() initSearch: EventEmitter<string> = new EventEmitter();
 
     @ViewChild('searchBox') searchBox: ElementRef;
 
     search(term: string): void {
+        console.log('search', term);
         this.searchTerms.next(term);
     }
 
@@ -33,12 +35,14 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
             switchMap((term: string) => {
                 return of(term);
             }),
-        ).subscribe(term => this.initSearch.emit(term));
+            takeUntil(this.unsubscribe$)
+        );
+
+        this.search$.subscribe(term => this.initSearch.emit(term));
     }
 
     ngOnDestroy() {
-        if (this.search$) {
-            this.search$.unsubscribe();
-        }
+        this.unsubscribe$.next();
+        this.unsubscribe$.complete();
     }
 }

@@ -6,7 +6,6 @@ import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {RouterModule} from '@angular/router';
 
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
-import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 
 import {environment} from '../environments/environment.prod';
 
@@ -30,11 +29,8 @@ import {HeaderComponent} from './container/header/header.component';
 import {NavComponent} from './container/nav/nav.component';
 import {ErrorPageComponent} from './page/error-page/error-page.component';
 
-export function HttpLoaderFactory(httpClient: HttpClient) {
-    return new TranslateHttpLoader(httpClient, 'assets/i18n/', '.json');
-}
-
 import {APP_BASE_HREF} from '@angular/common';
+import {HttpLoaderFactory} from './factory/translate-http-loader';
 
 describe('AppComponent', () => {
     beforeEach(async(() => {

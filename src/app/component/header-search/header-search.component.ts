@@ -19,7 +19,7 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
     @ViewChild('searchBox') searchBox: ElementRef;
 
     search(term: string): void {
-        console.log('search', term);
+        // console.log('search', term);
         this.searchTerms.next(term);
     }
 

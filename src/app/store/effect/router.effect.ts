@@ -16,9 +16,13 @@ export class RouterEffects {
     @Effect()
     routeChange$ = this.actions$.pipe(
         ofType(ROUTER_NAVIGATION),
-        filter((
-            {payload: {routerState: {root: {firstChild: {routeConfig: {path}}}}}}: RouterNavigationAction) => path === 'friends/:id'
-        ),
+        filter((payload: RouterNavigationAction) => {
+            if (payload) {
+                const {payload: {routerState: {root: {firstChild: {routeConfig: {path}}}}}} = payload;
+                return path === 'friends/:id';
+            }
+            return false;
+        }),
         switchMap((action: RouterNavigationAction) => {
             const id = action.payload.routerState.root.firstChild.params.id;
             return of(new GetFriend(id));

@@ -12,6 +12,9 @@ import {
 } from '../action';
 import {RouterEffects} from './router.effect';
 import {ROUTER_NAVIGATION} from '@ngrx/router-store';
+import {NO_ERRORS_SCHEMA} from '@angular/core';
+import {APP_BASE_HREF} from '@angular/common';
+import {RouterTestingModule} from '@angular/router/testing';
 
 describe('RouterEffects', () => {
 
@@ -46,7 +49,8 @@ describe('RouterEffects', () => {
                 {provide: FriendsService, useValue: mockFriendsService},
                 provideMockStore({initialState}),
                 provideMockActions(() => actionsMarble)
-            ]
+            ],
+            schemas: [NO_ERRORS_SCHEMA],
         });
 
         effects = TestBed.get(RouterEffects);
@@ -60,8 +64,24 @@ describe('RouterEffects', () => {
     });
 
     it('should be load friend when routing', () => {
+
+        const payload = {
+            routerState: {
+                root: {
+                    firstChild: {
+                        routeConfig: {
+                            path: 'friends/:id'
+                        },
+                        params: {
+                            id: '1'
+                        }
+                    }
+                }
+            }
+        };
+
         actionsMarble = new ReplaySubject(1);
-        actionsMarble.next({type: ROUTER_NAVIGATION, payload: {}});
+        actionsMarble.next({type: ROUTER_NAVIGATION, payload});
 
         effects.routeChange$.subscribe(result => {
             expect(result).toEqual(new GetFriend('1'));

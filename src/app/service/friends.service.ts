@@ -40,7 +40,7 @@ export class FriendsService {
             );
     }
 
-    public getFriend(id: string) {
+    public getFriend(id: string): Observable<Friend> {
         return this.http.get(this.BASE_URL)
             .pipe(
                 delay(400), // test delay

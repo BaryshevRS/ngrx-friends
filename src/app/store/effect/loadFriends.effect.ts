@@ -9,9 +9,6 @@ import {
     ErrorsFriends,
     GetFriend,
     SetFriendDescription,
-    GetFriends,
-    SortFriends,
-    SearchFriends
 } from '../action';
 import {ofType} from '@ngrx/effects';
 import {FriendsService} from '../../service/friends.service';

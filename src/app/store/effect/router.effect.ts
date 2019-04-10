@@ -5,13 +5,11 @@ import {switchMap, filter} from 'rxjs/operators';
 import {GetFriend} from '../action';
 import {ofType} from '@ngrx/effects';
 import {ROUTER_NAVIGATION, RouterNavigationAction} from '@ngrx/router-store';
-import {Router} from '@angular/router';
 
 @Injectable()
 export class RouterEffects {
     constructor(
-        private actions$: Actions,
-        private router: Router
+        private actions$: Actions
     ) {
     }
 

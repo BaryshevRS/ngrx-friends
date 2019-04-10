@@ -3,25 +3,20 @@ import {MockStore, provideMockStore} from '@ngrx/store/testing';
 import {FriendsService} from '../../service/friends.service';
 import {TestBed} from '@angular/core/testing';
 import {cold, hot} from 'jasmine-marbles';
-import {Observable, of, ReplaySubject, throwError} from 'rxjs';
+import {Observable, of} from 'rxjs';
 import {Friend} from '../../class/friends';
-import {LoadFriendsEffect} from './loadFriends.effect';
 import {EffectsMetadata, getEffectsMetadata} from '@ngrx/effects';
 import {HttpClientModule} from '@angular/common/http';
 import {provideMockActions} from '@ngrx/effects/testing';
 import {
     BookmarksFriends,
-    ErrorsFriends,
     GetCountBookmarksFriends,
-    GetFriend,
     GetFriends,
     LoadFriends,
     SetCountBookmarksFriends,
-    SetFriendDescription, ShowBookmarksFriends
+    ShowBookmarksFriends
 } from '../action';
-import {ErrorMessage} from '../../class/errors';
 import {BookmarkFriendsEffect} from './bookmarkFriends.effect';
-import {catchError, map} from 'rxjs/operators';
 
 describe('BookmarkFriendsEffect', () => {
 
@@ -57,7 +52,6 @@ describe('BookmarkFriendsEffect', () => {
                 return moskStore.friends.friends;
             }
         };
-
 
         let effects: BookmarkFriendsEffect;
         let metadata: EffectsMetadata<BookmarkFriendsEffect>;

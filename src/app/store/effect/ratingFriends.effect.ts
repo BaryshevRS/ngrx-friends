@@ -31,7 +31,7 @@ export class RatingFriendsEffect {
             if (store.configsFriends.typeSort) {
 
                 const friends = this.friendsService.setRatingSort(store.friends, store.configsFriends.typeSort);
-                actions.push(new LoadFriends({configsFriends: store.configsFriends, friends: friends}));
+                actions.push(new LoadFriends({configsFriends: store.configsFriends, friends: friends, errors: null}));
             }
 
             return from(actions);

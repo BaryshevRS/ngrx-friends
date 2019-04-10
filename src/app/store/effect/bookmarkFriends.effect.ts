@@ -47,7 +47,8 @@ export class BookmarkFriendsEffect {
         withLatestFrom(this.store$.select('friends')),
         switchMap(([action, store]) => {
             this.friendsService.setBookmark(action.payload.id, action.payload.bookmark);
-            const count = action.payload.bookmark ? ++store.bookmarks.count : --store.bookmarks.count;
+            let count = action.payload.bookmark ? ++store.bookmarks.count : --store.bookmarks.count;
+            count = count < 0 ? 0 : count;
 
             const actions: Action[] = [new SetCountBookmarksFriends(count)];
 

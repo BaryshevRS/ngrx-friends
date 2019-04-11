@@ -23,7 +23,6 @@ import {ShareModule} from './module/share.module';
 
 import {AppComponent} from './app.component';
 import {HeaderSearchComponent} from './component/header-search/header-search.component';
-import {ScrollTopComponent} from './component/scroll-top/scroll-top.component';
 import {NavSortComponent} from './component/nav-sort/nav-sort.component';
 import {HeaderComponent} from './container/header/header.component';
 import {NavComponent} from './container/nav/nav.component';
@@ -62,7 +61,6 @@ describe('AppComponent', () => {
                 HeaderSearchComponent,
                 NavComponent,
                 NavSortComponent,
-                ScrollTopComponent,
                 ErrorPageComponent
             ],
             providers: [{provide: APP_BASE_HREF, useValue: '/'}],

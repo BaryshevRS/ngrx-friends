@@ -10,8 +10,8 @@ import {
     Output,
 } from '@angular/core';
 import {DOCUMENT} from '@angular/common';
-import {fromEvent} from 'rxjs';
-import {pairwise, map, filter, debounceTime, distinct} from 'rxjs/operators';
+import {fromEvent, Observable, Subject} from 'rxjs';
+import {pairwise, map, filter, debounceTime, distinct, tap, takeUntil} from 'rxjs/operators';
 
 @Directive({
     selector: '[appInfinityScrollLoader]',
@@ -20,6 +20,7 @@ export class InfinityScrollLoaderDirective implements AfterViewInit, AfterViewCh
 
     private initScrollHeight = 0;
     private scrollEvent$;
+    private unsubscribe$: Subject<void> = new Subject<void>();
 
     @Input() scrollPercent = 90;
     // message that data has been added
@@ -36,25 +37,31 @@ export class InfinityScrollLoaderDirective implements AfterViewInit, AfterViewCh
 
         this.scrollEvent$ = fromEvent(window, 'scroll')
             .pipe (
-                map((e: any) => this.document.documentElement.scrollTop || this.document.body.scrollTop),
+                map((e: any) => this.scrollTop()),
                 pairwise(),
-                filter(positions => this.isScrollingDown(positions)), // отфильтровываем если скрол в обратную сторону
+                filter(positions => this.isScrollingDown(positions)),
                 debounceTime(200),
                 distinct(),
                 filter(_ => this.isScrollingActive()),
-            ).subscribe(() => {
-                this.drawing.emit(true);
-            });
+                takeUntil(this.unsubscribe$)
+            );
+
+        this.scrollEvent$.subscribe(() => {
+            this.drawing.emit(true);
+        });
     }
 
     ngOnDestroy() {
-        if (this.scrollEvent$) {
-           this.scrollEvent$.unsubscribe();
-        }
+        this.unsubscribe$.next();
+        this.unsubscribe$.complete();
     }
 
     ngAfterViewChecked() {
         this.checkFilling();
+    }
+
+    private scrollTop() {
+        return Math.max(window.pageYOffset, document.documentElement.scrollTop, document.body.scrollTop);
     }
 
     private checkFilling = () => {
@@ -89,12 +96,9 @@ export class InfinityScrollLoaderDirective implements AfterViewInit, AfterViewCh
     private isScrollingActive = () => {
         // full document height with scroll
         const scrollHeight = this.document.documentElement.scrollHeight;
-        // scroll height
-        const scrollTop = this.document.documentElement.scrollTop || this.document.body.scrollTop;
 
         if (this.scrollPercent) {
-            return ((scrollTop + window.innerHeight) / scrollHeight) >= (this.scrollPercent / 100);
-
+            return ((this.scrollTop() + window.innerHeight) / scrollHeight) >= (this.scrollPercent / 100);
         }
     }
 }

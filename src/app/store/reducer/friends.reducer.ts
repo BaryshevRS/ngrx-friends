@@ -9,7 +9,7 @@ const initialState: Friends = {
         searchValue: '',
         showBookmark: false,
         startView: 0,
-        limitView: 4
+        limitView: 20
     },
     bookmarks: {
         count: 0

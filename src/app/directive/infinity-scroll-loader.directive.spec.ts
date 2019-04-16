@@ -2,7 +2,7 @@ import {InfinityScrollLoaderDirective} from './infinity-scroll-loader.directive'
 import {DOCUMENT} from '@angular/common';
 import {Friend} from '../class/friends';
 import {Component, DebugElement, ViewChild} from '@angular/core';
-import {ComponentFixture, TestBed, async, fakeAsync, tick} from '@angular/core/testing';
+import {ComponentFixture, TestBed, async, tick} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
 
 describe('InfinityScrollLoaderDirective', () => {
@@ -75,21 +75,24 @@ describe('InfinityScrollLoaderDirective', () => {
             expect(directive).toBeTruthy();
         });
 
-        it('should create drawing', fakeAsync(() => {
+        it('should create drawing',  (async() => {
 
-            const drawingSpy = spyOn(component, 'drawing');
+            fixture.whenStable().then(() => {
+                const drawingSpy = spyOn(component, 'drawing');
 
-            window.scrollTo(0, 100);
-            window.dispatchEvent(new Event('scroll'));
-            tick(300);
+                window.scrollTo(0, 100);
+                window.dispatchEvent(new Event('scroll'));
 
-            fixture.detectChanges();
+                tick(1000);
 
-            window.scrollTo(0, 200);
-            window.dispatchEvent(new Event('scroll'));
-            tick(300);
+                fixture.detectChanges();
 
-            expect(drawingSpy).toHaveBeenCalled();
+                window.scrollTo(0, 200);
+                window.dispatchEvent(new Event('scroll'));
+                tick(1000);
+
+                expect(drawingSpy).toHaveBeenCalled();
+            });
 
         }));
     });
@@ -151,7 +154,7 @@ describe('InfinityScrollLoaderDirective', () => {
             fixture = null;
         });
 
-        it('should create drawing',   (  async () => {
+        it('should create ngAfterViewChecked',   (  async () => {
 
             fixture.whenStable().then(() => {
                 const drawingSpy = spyOn(component, 'drawing');

@@ -7,7 +7,10 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "compodoc": "compodoc -p src/tsconfig.app.json",
+    "analyze": "ng build --stats-json && webpack-bundle-analyzer ./dist/ngrx-friends/stats.json",
+    "watch": "ng test --browsers ChromeHeadless --watch"
   },
   "private": true,
   "dependencies": {
@@ -34,7 +37,7 @@
     "zone.js": "^0.8.29"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^0.13.0",
+    "@angular-devkit/build-angular": "^0.13.8",
     "@angular/cli": "^7.3.0",
     "@angular/compiler-cli": "^7.2.3",
     "@angular/language-service": "^7.2.3",
@@ -43,6 +46,7 @@
     "@types/node": "~8.9.4",
     "codecov": "^3.2.0",
     "codelyzer": "~4.2.1",
+    "compodoc": "0.0.41",
     "jasmine-core": "~2.99.1",
     "jasmine-marbles": "^0.4.1",
     "jasmine-spec-reporter": "~4.2.1",
@@ -55,6 +59,7 @@
     "rxjs-tslint": "^0.1.5",
     "ts-node": "~5.0.1",
     "tslint": "~5.9.1",
-    "typescript": "~3.2.4"
+    "typescript": "~3.2.4",
+    "webpack-bundle-analyzer": "^3.3.2"
   }
 }

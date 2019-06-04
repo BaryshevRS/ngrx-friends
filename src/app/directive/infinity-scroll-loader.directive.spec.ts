@@ -42,7 +42,7 @@ describe('InfinityScrollLoaderDirective', () => {
 
             public contents = moskFriends;
 
-            @ViewChild(InfinityScrollLoaderDirective, { static: true }) directive: InfinityScrollLoaderDirective;
+            @ViewChild(InfinityScrollLoaderDirective, {static: true}) directive: InfinityScrollLoaderDirective;
 
             drawing($event) {
             }
@@ -53,13 +53,11 @@ describe('InfinityScrollLoaderDirective', () => {
         let des: DebugElement;
         let directive;
 
-        beforeEach(async(() => {
+        beforeEach(async() => {
             TestBed.configureTestingModule({
                 declarations: [TestComponent, InfinityScrollLoaderDirective]
             }).compileComponents();
-        }));
 
-        beforeEach(() => {
             fixture = TestBed.createComponent(TestComponent);
             component = fixture.componentInstance;
             fixture.detectChanges();
@@ -75,25 +73,29 @@ describe('InfinityScrollLoaderDirective', () => {
             expect(directive).toBeTruthy();
         });
 
-        it('should create drawing',  fakeAsync(() => {
+        it('should create drawing', (() => {
+
+            fixture.detectChanges();
+
+            const drawingSpy = spyOn(component, 'drawing');
 
             fixture.whenStable().then(() => {
-                const drawingSpy = spyOn(component, 'drawing');
 
                 window.scrollTo(0, 100);
                 window.dispatchEvent(new Event('scroll'));
 
                 tick(1000);
-
                 fixture.detectChanges();
 
                 window.scrollTo(0, 200);
                 window.dispatchEvent(new Event('scroll'));
+
                 tick(1000);
+                fixture.detectChanges();
 
                 expect(drawingSpy).toHaveBeenCalled();
-            });
 
+            });
         }));
     });
 
@@ -128,7 +130,7 @@ describe('InfinityScrollLoaderDirective', () => {
 
             public contents = moskFriends;
 
-            @ViewChild(InfinityScrollLoaderDirective, { static: true }) directive: InfinityScrollLoaderDirective;
+            @ViewChild(InfinityScrollLoaderDirective, {static: true}) directive: InfinityScrollLoaderDirective;
 
             drawing($event) {
                 console.log('drawing2');
@@ -154,7 +156,7 @@ describe('InfinityScrollLoaderDirective', () => {
             fixture = null;
         });
 
-        it('should create ngAfterViewChecked',   (  async () => {
+        it('should create ngAfterViewChecked', (async () => {
 
             fixture.whenStable().then(() => {
                 const drawingSpy = spyOn(component, 'drawing');

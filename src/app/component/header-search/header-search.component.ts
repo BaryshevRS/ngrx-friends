@@ -16,7 +16,7 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
 
     @Output() initSearch: EventEmitter<string> = new EventEmitter();
 
-    @ViewChild('searchBox') searchBox: ElementRef;
+    @ViewChild('searchBox', { static: true }) searchBox: ElementRef;
 
     search(term: string): void {
         // console.log('search', term);

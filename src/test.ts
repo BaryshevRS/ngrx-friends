@@ -8,6 +8,21 @@ import {
 } from '@angular/platform-browser-dynamic/testing';
 
 declare const require: any;
+declare const jasmine;
+
+import { addMatchers, getTestScheduler, initTestScheduler, resetTestScheduler } from 'jasmine-marbles';
+
+// configure matchers for jasmine-marbles
+jasmine.getEnv().beforeAll(() => {
+  return addMatchers();
+});
+jasmine.getEnv().beforeEach(() => {
+  initTestScheduler();
+});
+jasmine.getEnv().afterEach(() => {
+  getTestScheduler().flush();
+  resetTestScheduler();
+});
 
 // First, initialize the Angular testing environment.
 getTestBed().initTestEnvironment(

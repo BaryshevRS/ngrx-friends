@@ -4,3 +4,4 @@ package-lock.json
 .git
 coverage
 dist
+documentation

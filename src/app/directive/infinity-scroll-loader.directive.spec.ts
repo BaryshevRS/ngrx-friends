@@ -2,7 +2,7 @@ import {InfinityScrollLoaderDirective} from './infinity-scroll-loader.directive'
 import {DOCUMENT} from '@angular/common';
 import {Friend} from '../class/friends';
 import {Component, DebugElement, ViewChild} from '@angular/core';
-import {ComponentFixture, TestBed, async, tick} from '@angular/core/testing';
+import {ComponentFixture, TestBed, async, tick, fakeAsync} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
 
 describe('InfinityScrollLoaderDirective', () => {
@@ -42,7 +42,7 @@ describe('InfinityScrollLoaderDirective', () => {
 
             public contents = moskFriends;
 
-            @ViewChild(InfinityScrollLoaderDirective) directive: InfinityScrollLoaderDirective;
+            @ViewChild(InfinityScrollLoaderDirective, { static: true }) directive: InfinityScrollLoaderDirective;
 
             drawing($event) {
             }
@@ -75,7 +75,7 @@ describe('InfinityScrollLoaderDirective', () => {
             expect(directive).toBeTruthy();
         });
 
-        it('should create drawing',  (async() => {
+        it('should create drawing',  fakeAsync(() => {
 
             fixture.whenStable().then(() => {
                 const drawingSpy = spyOn(component, 'drawing');
@@ -128,7 +128,7 @@ describe('InfinityScrollLoaderDirective', () => {
 
             public contents = moskFriends;
 
-            @ViewChild(InfinityScrollLoaderDirective) directive: InfinityScrollLoaderDirective;
+            @ViewChild(InfinityScrollLoaderDirective, { static: true }) directive: InfinityScrollLoaderDirective;
 
             drawing($event) {
                 console.log('drawing2');

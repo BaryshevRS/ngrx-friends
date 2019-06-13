@@ -9,6 +9,7 @@ branches:
     - develop
 before_script:
   - npm install -g @angular/cli
+  - npm install typescript@3.4
 script:
   - ng lint
   - ng test --code-coverage --watch=false --browsers=ChromeHeadless

@@ -46,7 +46,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
         AppRoutingModule,
         RouterModule.forRoot([]),
         StoreModule.forRoot(appReducer),
-        StoreRouterConnectingModule,
+        StoreRouterConnectingModule.forRoot(),
         !environment.production ? StoreDevtoolsModule.instrument({maxAge: 20}) : [],
         EffectsModule.forRoot(effectsList),
         TranslateModule.forRoot({

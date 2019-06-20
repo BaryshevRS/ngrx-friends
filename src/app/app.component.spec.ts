@@ -12,7 +12,7 @@ import {environment} from '../environments/environment.prod';
 import {EffectsModule} from '@ngrx/effects';
 import {StoreModule} from '@ngrx/store';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
-import {StoreRouterConnectingModule} from '@ngrx/router-store';
+import {RouterStateSerializer, StoreRouterConnectingModule} from '@ngrx/router-store';
 import {appReducer} from './store/reducer';
 import {effectsList} from './store/effect';
 
@@ -41,7 +41,7 @@ describe('AppComponent', () => {
                 AppRoutingModule,
                 RouterModule.forRoot([]),
                 StoreModule.forRoot(appReducer),
-                StoreRouterConnectingModule,
+                StoreRouterConnectingModule.forRoot(),
                 !environment.production ? StoreDevtoolsModule.instrument({ maxAge: 20 }) : [],
                 EffectsModule.forRoot(effectsList),
                 TranslateModule.forRoot({

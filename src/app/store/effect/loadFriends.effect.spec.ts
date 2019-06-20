@@ -83,11 +83,11 @@ describe('LoadFriendsEffect', () => {
         });
 
         it('should register getFriends$ that dispatches an action', () => {
-            expect(metadata.getFriends$).toEqual({dispatch: true});
+            expect(metadata.getFriends$).toEqual({dispatch: true, resubscribeOnError: true});
         });
 
         it('should register getFriend$ that dispatches an action', () => {
-            expect(metadata.getFriend$).toEqual({dispatch: true});
+            expect(metadata.getFriend$).toEqual({dispatch: true, resubscribeOnError: true});
         });
 
     });

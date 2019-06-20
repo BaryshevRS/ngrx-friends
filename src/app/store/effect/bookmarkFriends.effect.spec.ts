@@ -115,15 +115,15 @@ describe('BookmarkFriendsEffect', () => {
         });
 
         it('should register GetCountBookmarskFriends$ that dispatches an action', () => {
-            expect(metadata.GetCountBookmarskFriends$).toEqual({dispatch: true});
+            expect(metadata.GetCountBookmarskFriends$).toEqual({dispatch: true, resubscribeOnError: true});
         });
 
         it('should register SetBookmarkFriends$ that dispatches an action', () => {
-            expect(metadata.SetBookmarkFriends$).toEqual({dispatch: true});
+            expect(metadata.SetBookmarkFriends$).toEqual({dispatch: true, resubscribeOnError: true});
         });
 
         it('should register ShowBookmarkFriends$ that dispatches an action', () => {
-            expect(metadata.ShowBookmarkFriends$).toEqual({dispatch: true});
+            expect(metadata.ShowBookmarkFriends$).toEqual({dispatch: true, resubscribeOnError: true});
         });
 
     });

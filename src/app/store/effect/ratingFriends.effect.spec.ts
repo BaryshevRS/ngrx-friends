@@ -5,7 +5,7 @@ import {TestBed} from '@angular/core/testing';
 import {cold} from 'jasmine-marbles';
 import {Observable, of} from 'rxjs';
 import {Friend} from '../../class/friends';
-import {EffectsMetadata, getEffectsMetadata} from '@ngrx/effects';
+import {Effect, EffectsMetadata, getEffectsMetadata} from '@ngrx/effects';
 import {HttpClientModule} from '@angular/common/http';
 import {provideMockActions} from '@ngrx/effects/testing';
 import {
@@ -77,7 +77,7 @@ describe('RatingFriendsEffect', () => {
         });
 
         it('should register GetCountBookmarskFriends$ that dispatches an action', () => {
-            expect(metadata.SetRatingFriends$).toEqual({dispatch: true});
+            expect(metadata.SetRatingFriends$).toEqual({dispatch: true, resubscribeOnError: true});
         });
 
     });

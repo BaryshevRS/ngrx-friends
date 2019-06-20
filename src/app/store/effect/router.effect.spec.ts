@@ -89,7 +89,7 @@ describe('RouterEffects', () => {
     });
 
     it('should register routeChange$ that dispatches an action', () => {
-        expect(metadata.routeChange$).toEqual({dispatch: true});
+        expect(metadata.routeChange$).toEqual({dispatch: true, resubscribeOnError: true});
     });
 
 });

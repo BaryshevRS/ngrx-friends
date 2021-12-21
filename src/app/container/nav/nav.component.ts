@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {select, Store} from '@ngrx/store';
-import {FriendsAction} from '../../store/type/index';
+import {FriendsAction} from '../../store/type';
 import {GetCountBookmarksFriends, ShowBookmarksFriends, SortFriends} from '../../store/action';
 import {Friend} from '../../class/friends';
 

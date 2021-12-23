@@ -22,7 +22,7 @@ describe('BookmarkFriendsEffect', () => {
 
     describe('Bookmarks friends', () => {
 
-        const moskStore = {
+        const mockStore = {
             friends: {
                 friends: [new Friend('1', 'first_name', 'last_name')],
                 configsFriends: {typeSort: 0, searchValue: '', showBookmark: false, startView: 0, limitView: 0},
@@ -37,19 +37,19 @@ describe('BookmarkFriendsEffect', () => {
 
         const mockFriendsService = {
             getFriends: function (): Observable<Friend[]> {
-                return of(moskStore.friends.friends);
+                return of(mockStore.friends.friends);
             },
             getFriend: function (): Observable<Friend> {
-                return of(moskStore.friends.friends[0]);
+                return of(mockStore.friends.friends[0]);
             },
             setBookmark: function (): void {
 
             },
-            getCountBookmarskFriends: function (): Observable<number>  {
+            getCountBookmarksFriends: function (): Observable<number>  {
                 return of(countBookmarskFriends);
             },
             getFilterBookmark: function (): Friend[]  {
-                return moskStore.friends.friends;
+                return mockStore.friends.friends;
             }
         };
 
@@ -58,7 +58,7 @@ describe('BookmarkFriendsEffect', () => {
         let actionsMarble: Observable<any>;
 
         let store: MockStore<any>;
-        const initialState = moskStore;
+        const initialState = mockStore;
 
         beforeEach(() => {
             TestBed.configureTestingModule({
@@ -89,11 +89,11 @@ describe('BookmarkFriendsEffect', () => {
             actionsMarble = cold('--a-', {a: action});
             const expected = cold('--b', {b: completion});
 
-            expect(effects.GetCountBookmarskFriends$).toBeObservable(expected);
+            expect(effects.GetCountBookmarksFriends$).toBeObservable(expected);
         });
 
         it('should be set bookmark for friend', () => {
-            const action = new BookmarksFriends(moskStore.friends.friends[0]);
+            const action = new BookmarksFriends(mockStore.friends.friends[0]);
             actionsMarble = hot('--a-', {a: action});
 
             const expected = cold('--(c)', {
@@ -114,8 +114,8 @@ describe('BookmarkFriendsEffect', () => {
             expect(effects.ShowBookmarkFriends$).toBeObservable(expected);
         });
 
-        it('should register GetCountBookmarskFriends$ that dispatches an action', () => {
-            expect(metadata.GetCountBookmarskFriends$).toEqual({dispatch: true, resubscribeOnError: true});
+        it('should register GetCountBookmarksFriends$ that dispatches an action', () => {
+            expect(metadata.GetCountBookmarksFriends$).toEqual({dispatch: true, resubscribeOnError: true});
         });
 
         it('should register SetBookmarkFriends$ that dispatches an action', () => {
@@ -130,7 +130,7 @@ describe('BookmarkFriendsEffect', () => {
 
     describe('Bookmarks Friends on bookmarks page', () => {
 
-        const moskStore = {
+        const mockStore = {
             friends: {
                 friends: [new Friend('1', 'first_name', 'last_name')],
                 configsFriends: {typeSort: 0, searchValue: '', showBookmark: true, startView: 0, limitView: 0},
@@ -141,11 +141,11 @@ describe('BookmarkFriendsEffect', () => {
             }
         };
 
-        const moskStoreLoad = {
+        const mockStoreLoad = {
             friends: {
                 friends: [new Friend('1', 'first_name', 'last_name')],
-                configsFriends: {typeSort: 0, searchValue: '', showBookmark: true, startView: 0, limitView: 0},
-                errors: null,
+                // configsFriends: {typeSort: 0, searchValue: '', showBookmark: true, startView: 0, limitView: 0},
+                // errors: null,
             }
         };
 
@@ -153,19 +153,19 @@ describe('BookmarkFriendsEffect', () => {
 
         const mockFriendsService = {
             getFriends: function (): Observable<Friend[]> {
-                return of(moskStore.friends.friends);
+                return of(mockStore.friends.friends);
             },
             getFriend: function (): Observable<Friend> {
-                return of(moskStore.friends.friends[0]);
+                return of(mockStore.friends.friends[0]);
             },
             setBookmark: function (): void {
 
             },
-            getCountBookmarskFriends: function (): Observable<number>  {
+            getCountBookmarksFriends: function (): Observable<number>  {
                 return of(countBookmarskFriends);
             },
             getFilterBookmark: function (): Friend[]  {
-                return moskStore.friends.friends;
+                return mockStore.friends.friends;
             }
         };
 
@@ -175,7 +175,7 @@ describe('BookmarkFriendsEffect', () => {
         let actionsMarble: Observable<any>;
 
         let store: MockStore<any>;
-        const initialState = moskStore;
+        const initialState = mockStore;
 
         beforeEach(() => {
             TestBed.configureTestingModule({
@@ -196,12 +196,12 @@ describe('BookmarkFriendsEffect', () => {
         });
 
         it('should be set bookmark', () => {
-            const action = new BookmarksFriends(moskStore.friends.friends[0]);
+            const action = new BookmarksFriends(mockStore.friends.friends[0]);
             actionsMarble = hot('--a-', {a: action});
 
             const expected = cold('--(bc)', {
                 b: new SetCountBookmarksFriends(0),
-                c: new LoadFriends(moskStoreLoad.friends)
+                c: new LoadFriends(mockStoreLoad.friends)
             });
 
             expect(effects.SetBookmarkFriends$).toBeObservable(expected);

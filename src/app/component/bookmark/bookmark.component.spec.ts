@@ -46,7 +46,7 @@ describe('BookmarkComponent', () => {
     });
 
     it('should bookmark not show active', () => {
-        component.value = undefined;
+        component.value = 0;
         fixture.detectChanges();
         expect(getBookmarkIcon().nativeElement.classList.contains('active')).toBeFalsy();
     });

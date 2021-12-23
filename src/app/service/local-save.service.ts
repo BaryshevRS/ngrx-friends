@@ -1,50 +1,43 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class LocalSaveService {
+  constructor() {
+  }
 
-    constructor() {
+  public get(name: string): object {
+    let itemValue = {};
+
+    const values = localStorage.getItem(name);
+
+    if (values) {
+      try {
+        itemValue = JSON.parse(<string>values);
+      } catch (e) {
+      }
     }
 
-    public get(name: string): object {
+    return itemValue;
+  }
 
-        let itemValue = {};
+  public set(name: string, savedValue: object): object {
+    const values = localStorage.getItem(name);
 
-        const values = localStorage.getItem(name);
+    if (values) {
+      let itemValue = {};
 
-        if (values) {
-            try {
-                itemValue = JSON.parse(<string>values);
-            } catch (e) {
-                itemValue = null;
-            }
-        } else {
-            itemValue = null;
-        }
-
-        return itemValue;
+      try {
+        itemValue = JSON.parse(<string>values);
+        localStorage.setItem(name, JSON.stringify({...itemValue, ...savedValue}));
+      } catch (e) {
+        localStorage.setItem(name, JSON.stringify(savedValue));
+      }
+    } else {
+      localStorage.setItem(name, JSON.stringify(savedValue));
     }
 
-    public set(name: string, savedValue: object): object {
-
-        const values = localStorage.getItem(name);
-
-        if (values) {
-            let itemValue = {};
-
-            try {
-                itemValue = JSON.parse(<string>values);
-                localStorage.setItem(name, JSON.stringify({...itemValue, ...savedValue}));
-            } catch (e) {
-                localStorage.setItem(name, JSON.stringify(savedValue));
-            }
-        } else {
-            localStorage.setItem(name, JSON.stringify(savedValue));
-        }
-
-        return savedValue;
-    }
-
+    return savedValue;
+  }
 }

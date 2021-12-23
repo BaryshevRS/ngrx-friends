@@ -81,7 +81,7 @@ describe('FriendsService', () => {
 
         httpClientSpy.get.and.returnValue(of(serviceMoskFriends));
 
-        friendsService.getCountBookmarskFriends().subscribe(count => {
+        friendsService.getCountBookmarksFriends().subscribe(count => {
             expect(count).toBe(1);
         }, fail);
 

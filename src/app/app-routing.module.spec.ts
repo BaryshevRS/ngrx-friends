@@ -7,7 +7,7 @@ describe('AppRoutingModule', () => {
     appRoutingModule = new AppRoutingModule();
   });
 
-  it('should create an instance', () => {
+  it('Should create an instance', () => {
     expect(appRoutingModule).toBeTruthy();
   });
 });

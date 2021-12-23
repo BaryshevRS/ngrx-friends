@@ -24,7 +24,7 @@ export class RouterEffects {
             return false;
         }),
         switchMap((action: RouterNavigationAction) => {
-            const id = action.payload.routerState.root.firstChild.params.id;
+            const {id} = action.payload.routerState.root.firstChild.params;
             return of(new GetFriend(id));
         })
     );

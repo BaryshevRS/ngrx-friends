@@ -1,6 +1,7 @@
 import {AfterViewInit, ChangeDetectorRef, Component, OnDestroy} from '@angular/core';
 import {select, Store} from '@ngrx/store';
 import {FriendsAction} from '../../store/type';
+import { getFriendsState } from '../../store/selector/friends.selector';
 
 @Component({
   selector: 'app-loader',
@@ -18,7 +19,7 @@ export class LoaderComponent implements OnDestroy, AfterViewInit {
 
   ngAfterViewInit(): void {
 
-    this.loading$ = this.store$.pipe(select('friends')).subscribe(({loading, errors}) => {
+    this.loading$ = this.store$.pipe(select(getFriendsState)).subscribe(({loading, errors}) => {
 
       this.loading = loading;
 

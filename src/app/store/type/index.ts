@@ -10,7 +10,7 @@ import {
     ShowBookmarksFriends,
     ErrorsFriends,
     SetFriendDescription, GetFriend
-} from '../action/index';
+} from '../action';
 
 export enum friendsActionTypes {
     GET_FRIENDS = '[Friends] GET_FRIENDS',

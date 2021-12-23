@@ -96,9 +96,6 @@ export class InfinityScrollLoaderDirective implements AfterViewInit, AfterViewCh
     private isScrollingActive = () => {
         // full document height with scroll
         const scrollHeight = this.document.documentElement.scrollHeight;
-
-        if (this.scrollPercent) {
-            return ((this.scrollTop() + window.innerHeight) / scrollHeight) >= (this.scrollPercent / 100);
-        }
+        return ((this.scrollTop() + window.innerHeight) / scrollHeight) >= (this.scrollPercent / 100);
     }
 }

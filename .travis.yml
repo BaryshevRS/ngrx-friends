@@ -23,4 +23,4 @@ deploy:
   local_dir: dist/ngrx-friends/
   on:
     branch: master
-    node: 12
+    node: 16

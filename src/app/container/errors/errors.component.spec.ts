@@ -37,7 +37,6 @@ describe('ErrorsComponent', () => {
   }));
 
   beforeEach(() => {
-
     store = TestBed.get(Store);
 
     spyOn(store, 'dispatch').and.callThrough();
@@ -53,20 +52,18 @@ describe('ErrorsComponent', () => {
   });
 
   it('should display a errors after the data is loaded', () => {
-
     const errors = new ErrorMessage('info', 'errorMessage.searchEmpty');
     const action = new ErrorsFriends(errors);
 
     store.dispatch(action);
 
     component.errors$.subscribe(data => {
-
       fixture.detectChanges();
       const debugElement: DebugElement = fixture.debugElement;
       const bindingElement = debugElement.query(By.css('.alert'));
 
       expect(bindingElement.nativeElement.classList.contains('alert-info')).toBeTruthy();
-      expect({...data.errors}).toEqual({...errors});
+      expect({...data}).toEqual({...errors});
     });
 
   });

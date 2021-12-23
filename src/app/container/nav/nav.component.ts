@@ -3,6 +3,7 @@ import {select, Store} from '@ngrx/store';
 import {FriendsAction} from '../../store/type';
 import {GetCountBookmarksFriends, ShowBookmarksFriends, SortFriends} from '../../store/action';
 import {Friend} from '../../class/friends';
+import { getFriendsState } from '../../store/selector/friends.selector';
 
 @Component({
     selector: 'app-nav',
@@ -20,7 +21,6 @@ export class NavComponent implements OnInit, OnDestroy {
     public nav$;
 
     showBookmark(active?: boolean): void {
-
         this.store$.dispatch(new ShowBookmarksFriends(active));
         this.activeBookmark = active || false;
     }
@@ -30,7 +30,9 @@ export class NavComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.nav$ = this.store$.pipe(select('friends')).subscribe(({bookmarks, configsFriends}) => {
+        this.nav$ = this.store$.pipe(
+          select(getFriendsState)
+        ).subscribe(({bookmarks, configsFriends}) => {
             this.countBookmark = bookmarks.count || 0;
             this.countBookmark = this.countBookmark < 0 ? 0 : this.countBookmark;
             this.typeSort = configsFriends.typeSort || 0;
@@ -44,5 +46,4 @@ export class NavComponent implements OnInit, OnDestroy {
             this.nav$.unsubscribe();
         }
     }
-
 }

@@ -1,5 +1,5 @@
 import {Action} from '@ngrx/store';
-import {friendsActionTypes} from '../type/index';
+import {friendsActionTypes} from '../type';
 import {Friend} from '../../class/friends';
 import {Friends, IGetFriends} from '../../interface/friends';
 

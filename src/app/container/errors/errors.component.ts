@@ -4,7 +4,7 @@ import { FriendsAction } from '../../store/type';
 import { ErrorMessage } from '../../class/errors';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { Friends } from '../../interface/friends';
+import { getErrors } from 'src/app/store/selector/friends.selector';
 
 @Component({
   selector: 'app-errors',
@@ -14,18 +14,18 @@ export class ErrorsComponent implements OnInit, OnDestroy {
   private unsubscribe$: Subject<void> = new Subject<void>();
 
   errors: ErrorMessage | null;
-  errors$: Observable<Friends>;
+  errors$: Observable<ErrorMessage>;
 
   constructor(private store$: Store<FriendsAction>) {
   }
 
   ngOnInit() {
     this.errors$ = this.store$.pipe(
-      select('friends'),
+      select(getErrors),
       takeUntil(this.unsubscribe$)
     );
 
-    this.errors$.subscribe(({errors}) => {
+    this.errors$.subscribe((errors) => {
       this.errors = errors || null;
     });
   }

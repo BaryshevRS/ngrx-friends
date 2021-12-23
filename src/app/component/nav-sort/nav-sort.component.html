@@ -4,9 +4,9 @@
         <button type="button" class="btn  dropdown-toggle" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
 
-            <div *ngIf="!typeSort || typeSort == 0" class="sort-name">Сортировка</div>
-            <div *ngIf="typeSort == 1" class="sort-name">Популярные</div>
-            <div *ngIf="typeSort == 2" class="sort-name">Не популярные</div>
+            <div *ngIf="!typeSort || typeSort === 0" class="sort-name">Сортировка</div>
+            <div *ngIf="typeSort === 1" class="sort-name">Популярные</div>
+            <div *ngIf="typeSort === 2" class="sort-name">Не популярные</div>
 
 
         </button>

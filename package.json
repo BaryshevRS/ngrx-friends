@@ -11,7 +11,7 @@
     "test": "ng test",
     "compodoc": "compodoc -p src/tsconfig.app.json",
     "analyze": "ng build --stats-json && webpack-bundle-analyzer ./dist/ngrx-friends/stats.json",
-    "eslint": "npx eslint 'src/**/*.{js,jsx,ts,tsx,html,css,scss}' --quiet --fix",
+    "eslint": "npx eslint 'src/**/*.{js,ts,html}' --quiet --fix",
     "prettier": "npx prettier 'src/**/*.{js,jsx,ts,tsx,html,css,scss}' --write"
   },
   "husky": {

@@ -2,12 +2,7 @@ import { InfinityScrollLoaderDirective } from './infinity-scroll-loader.directiv
 import { DOCUMENT } from '@angular/common';
 import { Friend } from '../class/friends';
 import { Component, DebugElement, ViewChild } from '@angular/core';
-import {
-  ComponentFixture,
-  TestBed,
-  async,
-  tick
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed, async, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 describe('InfinityScrollLoaderDirective', () => {
@@ -34,7 +29,8 @@ describe('InfinityScrollLoaderDirective', () => {
         </div>
       `,
       styles: [
-        `.row {
+        `
+          .row {
             width: 100px;
             height: 100px;
           }

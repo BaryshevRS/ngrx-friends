@@ -4,5 +4,8 @@ import { RouterEffects } from './router.effect';
 import { RatingFriendsEffect } from './ratingFriends.effect';
 
 export const effectsList = [
-    LoadFriendsEffect, BookmarkFriendsEffect, RatingFriendsEffect, RouterEffects
+  LoadFriendsEffect,
+  BookmarkFriendsEffect,
+  RatingFriendsEffect,
+  RouterEffects
 ];

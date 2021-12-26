@@ -6,10 +6,9 @@ export const environment = {
   production: false,
   api: {
     baseUrl: 'http://localhost:4200',
-    friendData: '/assets/mosk/data.json',
+    friendData: '/assets/mosk/data.json'
   }
 };
-
 
 /*
  * In development mode, to ignore zone related error stack frames such as

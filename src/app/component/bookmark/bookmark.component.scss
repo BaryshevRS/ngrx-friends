@@ -1,5 +1,4 @@
 .bookmark-block {
-
   display: flex;
   justify-content: center;
   align-items: center;
@@ -11,14 +10,11 @@
     user-select: none;
 
     &.active {
-      color: #2ECDE6;
+      color: #2ecde6;
     }
 
-    &:hover  {
+    &:hover {
       text-shadow: 1px 1px 4px #ccc;
     }
-
   }
 }
-
-

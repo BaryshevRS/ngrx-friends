@@ -1,22 +1,22 @@
 <div class="sort-block">
-
-    <div class="btn-group">
-        <button type="button" class="btn  dropdown-toggle" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
-
-            <div *ngIf="!typeSort || typeSort === 0" class="sort-name">Сортировка</div>
-            <div *ngIf="typeSort === 1" class="sort-name">Популярные</div>
-            <div *ngIf="typeSort === 2" class="sort-name">Не популярные</div>
-
-
-        </button>
-        <div class="dropdown-menu">
-
-            <a (click)="setSort(0)" class="dropdown-item" href="#">По умолчанию</a>
-            <a (click)="setSort(1)" class="dropdown-item" href="#">Популярные</a>
-            <a (click)="setSort(2)" class="dropdown-item" href="#">Не популярные</a>
-
-        </div>
+  <div class="btn-group">
+    <button
+      type="button"
+      class="btn dropdown-toggle"
+      data-toggle="dropdown"
+      aria-haspopup="true"
+      aria-expanded="false"
+    >
+      <div *ngIf="!typeSort || typeSort === 0" class="sort-name">
+        Сортировка
+      </div>
+      <div *ngIf="typeSort === 1" class="sort-name">Популярные</div>
+      <div *ngIf="typeSort === 2" class="sort-name">Не популярные</div>
+    </button>
+    <div class="dropdown-menu">
+      <a (click)="setSort(0)" class="dropdown-item" href="#">По умолчанию</a>
+      <a (click)="setSort(1)" class="dropdown-item" href="#">Популярные</a>
+      <a (click)="setSort(2)" class="dropdown-item" href="#">Не популярные</a>
     </div>
-
+  </div>
 </div>

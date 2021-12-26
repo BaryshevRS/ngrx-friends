@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { select, Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 import { FriendsAction } from '../../store/type';
 import { ErrorMessage } from '../../class/errors';
 import { Observable, Subject } from 'rxjs';
@@ -16,8 +16,7 @@ export class ErrorsComponent implements OnInit, OnDestroy {
   errors: ErrorMessage | null;
   errors$: Observable<ErrorMessage>;
 
-  constructor(private store$: Store<FriendsAction>) {
-  }
+  constructor(private store$: Store<FriendsAction>) {}
 
   ngOnInit() {
     this.errors$ = this.store$.pipe(

@@ -1,4 +1,9 @@
 <span data-id="" class="star-block">
-    <i *ngFor="let rating of ratingSizeView" [ngClass]="{'active': (rating <= value)}"
-       (click)="setValue(rating)" class="material-icons star">grade</i>
+  <i
+    *ngFor="let rating of ratingSizeView"
+    [ngClass]="{ active: rating <= value }"
+    (click)="setValue(rating)"
+    class="material-icons star"
+    >grade
+  </i>
 </span>

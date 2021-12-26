@@ -1,8 +1,8 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 
 import { LoaderComponent } from './loader.component';
-import {StoreModule} from '@ngrx/store';
-import {appReducer} from '../../store/reducer';
+import { StoreModule } from '@ngrx/store';
+import { appReducer } from '../../store/reducer';
 
 describe('LoaderComponent', () => {
   let component: LoaderComponent;
@@ -10,12 +10,9 @@ describe('LoaderComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        StoreModule.forRoot(appReducer, {}),
-      ],
-      declarations: [ LoaderComponent ]
-    })
-    .compileComponents();
+      imports: [StoreModule.forRoot(appReducer, {})],
+      declarations: [LoaderComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

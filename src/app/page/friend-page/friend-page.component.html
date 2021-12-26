@@ -1,11 +1,11 @@
 <div *ngIf="friend">
-    <app-breadcrumb [currentPage]="friend.last_name + ' ' + friend.first_name"></app-breadcrumb>
+  <app-breadcrumb
+    [currentPage]="friend.last_name + ' ' + friend.first_name"
+  ></app-breadcrumb>
 
-    <h1>{{friend.last_name}} {{friend.first_name}}</h1>
+  <h1>{{ friend.last_name }} {{ friend.first_name }}</h1>
 
-    <app-friend-description [friend]="friend"></app-friend-description>
+  <app-friend-description [friend]="friend"></app-friend-description>
 </div>
 
 <app-loader></app-loader>
-
-

@@ -1,6 +1,11 @@
-import {AfterViewInit, ChangeDetectorRef, Component, OnDestroy} from '@angular/core';
-import {select, Store} from '@ngrx/store';
-import {FriendsAction} from '../../store/type';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  OnDestroy
+} from '@angular/core';
+import { Store, select } from '@ngrx/store';
+import { FriendsAction } from '../../store/type';
 import { getFriendsState } from '../../store/selector/friends.selector';
 
 @Component({
@@ -9,26 +14,29 @@ import { getFriendsState } from '../../store/selector/friends.selector';
   styleUrls: ['./loader.component.scss']
 })
 export class LoaderComponent implements OnDestroy, AfterViewInit {
-
   constructor(
-      private store$: Store<FriendsAction>, private cd: ChangeDetectorRef
+    private store$: Store<FriendsAction>,
+    private cd: ChangeDetectorRef
   ) {}
 
   public loading = false;
   public loading$;
 
   ngAfterViewInit(): void {
+    this.loading$ = this.store$
+      .pipe(select(getFriendsState))
+      .subscribe(({ loading, errors }) => {
+        this.loading = loading;
 
-    this.loading$ = this.store$.pipe(select(getFriendsState)).subscribe(({loading, errors}) => {
-
-      this.loading = loading;
-
-        if (errors && !(Object.keys(errors).length === 0 && errors.constructor === Object)) {
+        if (
+          errors &&
+          !(Object.keys(errors).length === 0 && errors.constructor === Object)
+        ) {
           this.loading = false;
         }
 
-       this.cd.detectChanges();
-    });
+        this.cd.detectChanges();
+      });
   }
 
   ngOnDestroy() {
@@ -36,5 +44,4 @@ export class LoaderComponent implements OnDestroy, AfterViewInit {
       this.loading$.unsubscribe();
     }
   }
-
 }

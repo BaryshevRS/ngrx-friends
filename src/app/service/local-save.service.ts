@@ -4,8 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class LocalSaveService {
-  constructor() {
-  }
+  constructor() {}
 
   public get(name: string): object {
     let itemValue = {};
@@ -15,8 +14,7 @@ export class LocalSaveService {
     if (values) {
       try {
         itemValue = JSON.parse(<string>values);
-      } catch (e) {
-      }
+      } catch (e) {}
     }
 
     return itemValue;
@@ -30,7 +28,10 @@ export class LocalSaveService {
 
       try {
         itemValue = JSON.parse(<string>values);
-        localStorage.setItem(name, JSON.stringify({...itemValue, ...savedValue}));
+        localStorage.setItem(
+          name,
+          JSON.stringify({ ...itemValue, ...savedValue })
+        );
       } catch (e) {
         localStorage.setItem(name, JSON.stringify(savedValue));
       }

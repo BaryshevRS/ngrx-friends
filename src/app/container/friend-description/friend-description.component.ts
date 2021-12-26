@@ -11,8 +11,7 @@ import { Store } from '@ngrx/store';
 export class FriendDescriptionComponent {
   @Input() friend: Friend;
 
-  constructor(private store$: Store<any>) {
-  }
+  constructor(private store$: Store<any>) {}
 
   bookmarkChange(value: number) {
     this.friend.bookmark = value;

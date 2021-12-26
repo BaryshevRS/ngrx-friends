@@ -1,17 +1,17 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-import {DebugElement} from '@angular/core';
-import {By} from '@angular/platform-browser';
-import {HttpClient, HttpClientModule} from '@angular/common/http';
+import { ComponentFixture, TestBed, async } from '@angular/core/testing';
+import { DebugElement } from '@angular/core';
+import { By } from '@angular/platform-browser';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
-import {Store, StoreModule} from '@ngrx/store';
-import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import { Store, StoreModule } from '@ngrx/store';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 import { ErrorsComponent } from './errors.component';
-import {appReducer} from '../../store/reducer';
-import {ErrorMessage} from '../../class/errors';
-import {HttpLoaderFactory} from '../../factory/translate-http-loader';
-import {ErrorsFriends} from '../../store/action';
-import {FriendsAction} from '../../store/type';
+import { appReducer } from '../../store/reducer';
+import { ErrorMessage } from '../../class/errors';
+import { HttpLoaderFactory } from '../../factory/translate-http-loader';
+import { ErrorsFriends } from '../../store/action';
+import { FriendsAction } from '../../store/type';
 
 describe('ErrorsComponent', () => {
   let component: ErrorsComponent;
@@ -20,7 +20,7 @@ describe('ErrorsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ErrorsComponent ],
+      declarations: [ErrorsComponent],
       imports: [
         HttpClientModule,
         StoreModule.forRoot(appReducer, {}),
@@ -30,10 +30,9 @@ describe('ErrorsComponent', () => {
             useFactory: HttpLoaderFactory,
             deps: [HttpClient]
           }
-        }),
-      ],
-    })
-    .compileComponents();
+        })
+      ]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -57,15 +56,15 @@ describe('ErrorsComponent', () => {
 
     store.dispatch(action);
 
-    component.errors$.subscribe(data => {
+    component.errors$.subscribe((data) => {
       fixture.detectChanges();
       const debugElement: DebugElement = fixture.debugElement;
       const bindingElement = debugElement.query(By.css('.alert'));
 
-      expect(bindingElement.nativeElement.classList.contains('alert-info')).toBeTruthy();
-      expect({...data}).toEqual({...errors});
+      expect(
+        bindingElement.nativeElement.classList.contains('alert-info')
+      ).toBeTruthy();
+      expect({ ...data }).toEqual({ ...errors });
     });
-
   });
-
 });

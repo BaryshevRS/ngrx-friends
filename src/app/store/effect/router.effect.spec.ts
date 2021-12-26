@@ -1,95 +1,94 @@
-import {Store} from '@ngrx/store';
-import {MockStore, provideMockStore} from '@ngrx/store/testing';
-import {FriendsService} from '../../service/friends.service';
-import {TestBed} from '@angular/core/testing';
-import {Observable, of, ReplaySubject} from 'rxjs';
-import {Friend} from '../../class/friends';
-import {EffectsMetadata, getEffectsMetadata} from '@ngrx/effects';
-import {HttpClientModule} from '@angular/common/http';
-import {provideMockActions} from '@ngrx/effects/testing';
-import {
-    GetFriend
-} from '../action';
-import {RouterEffects} from './router.effect';
-import {ROUTER_NAVIGATION} from '@ngrx/router-store';
-import {NO_ERRORS_SCHEMA} from '@angular/core';
-import {APP_BASE_HREF} from '@angular/common';
-import {RouterTestingModule} from '@angular/router/testing';
+import { Store } from '@ngrx/store';
+import { MockStore, provideMockStore } from '@ngrx/store/testing';
+import { FriendsService } from '../../service/friends.service';
+import { TestBed } from '@angular/core/testing';
+import { Observable, ReplaySubject, of } from 'rxjs';
+import { Friend } from '../../class/friends';
+import { EffectsMetadata, getEffectsMetadata } from '@ngrx/effects';
+import { HttpClientModule } from '@angular/common/http';
+import { provideMockActions } from '@ngrx/effects/testing';
+import { GetFriend } from '../action';
+import { RouterEffects } from './router.effect';
+import { ROUTER_NAVIGATION } from '@ngrx/router-store';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('RouterEffects', () => {
+  const moskStore = {
+    friends: {
+      friends: [new Friend('1', 'first_name', 'last_name')],
+      configsFriends: {
+        typeSort: 1,
+        searchValue: '',
+        showBookmark: false,
+        startView: 0,
+        limitView: 0
+      },
+      errors: null
+    }
+  };
 
-    const moskStore = {
-        friends: {
-            friends: [new Friend('1', 'first_name', 'last_name')],
-            configsFriends: {typeSort: 1, searchValue: '', showBookmark: false, startView: 0, limitView: 0},
-            errors: null
-        }
-    };
+  const mockFriendsService = {
+    getFriends: function (): Observable<Friend[]> {
+      return of(moskStore.friends.friends);
+    }
+  };
 
-    const mockFriendsService = {
-        getFriends: function (): Observable<Friend[]> {
-            return of(moskStore.friends.friends);
-        }
-    };
+  let effects: RouterEffects;
+  let metadata: EffectsMetadata<RouterEffects>;
+  let actionsMarble: ReplaySubject<any>;
 
-    let effects: RouterEffects;
-    let metadata: EffectsMetadata<RouterEffects>;
-    let actionsMarble: ReplaySubject<any>;
+  let store: MockStore<any>;
+  const initialState = moskStore;
 
-    let store: MockStore<any>;
-    const initialState = moskStore;
-
-    beforeEach(() => {
-        TestBed.configureTestingModule({
-            imports: [
-                HttpClientModule
-            ],
-            providers: [
-                RouterEffects,
-                {provide: FriendsService, useValue: mockFriendsService},
-                provideMockStore({initialState}),
-                provideMockActions(() => actionsMarble)
-            ],
-            schemas: [NO_ERRORS_SCHEMA],
-        });
-
-        effects = TestBed.get(RouterEffects);
-        metadata = getEffectsMetadata(effects);
-        store = TestBed.get(Store);
-
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [HttpClientModule],
+      providers: [
+        RouterEffects,
+        { provide: FriendsService, useValue: mockFriendsService },
+        provideMockStore({ initialState }),
+        provideMockActions(() => actionsMarble)
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
     });
 
-    it('should be created', () => {
-        expect(effects).toBeTruthy();
-    });
+    effects = TestBed.get(RouterEffects);
+    metadata = getEffectsMetadata(effects);
+    store = TestBed.get(Store);
+  });
 
-    it('should be load friend when routing', () => {
+  it('should be created', () => {
+    expect(effects).toBeTruthy();
+  });
 
-        const payload = {
-            routerState: {
-                root: {
-                    firstChild: {
-                        routeConfig: {
-                            path: 'friends/:id'
-                        },
-                        params: {
-                            id: '1'
-                        }
-                    }
-                }
+  it('should be load friend when routing', () => {
+    const payload = {
+      routerState: {
+        root: {
+          firstChild: {
+            routeConfig: {
+              path: 'friends/:id'
+            },
+            params: {
+              id: '1'
             }
-        };
+          }
+        }
+      }
+    };
 
-        actionsMarble = new ReplaySubject(1);
-        actionsMarble.next({type: ROUTER_NAVIGATION, payload});
+    actionsMarble = new ReplaySubject(1);
+    actionsMarble.next({ type: ROUTER_NAVIGATION, payload });
 
-        effects.routeChange$.subscribe(result => {
-            expect(result).toEqual(new GetFriend('1'));
-        });
+    effects.routeChange$.subscribe((result) => {
+      expect(result).toEqual(new GetFriend('1'));
     });
+  });
 
-    it('should register routeChange$ that dispatches an action', () => {
-        expect(metadata.routeChange$).toEqual({dispatch: true, resubscribeOnError: true});
+  it('should register routeChange$ that dispatches an action', () => {
+    expect(metadata.routeChange$).toEqual({
+      dispatch: true,
+      resubscribeOnError: true
     });
-
+  });
 });

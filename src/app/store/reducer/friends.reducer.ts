@@ -20,27 +20,25 @@ const initialState: Friends = {
 
 export function friendsReducer(state = initialState, action: FriendsAction) {
   switch (action.type) {
-
     case friendsActionTypes.LOAD_FRIENDS:
       return {
         ...state,
         friends: [...action.payload.friends],
-        configsFriends: {...action.payload.configsFriends},
+        configsFriends: { ...action.payload.configsFriends },
         loading: false,
-        errors: {...action.payload.errors}
+        errors: { ...action.payload.errors }
       };
 
-
     case friendsActionTypes.GET_FRIENDS:
-      return {...state, loading: true};
+      return { ...state, loading: true };
 
     case friendsActionTypes.GET_FRIEND:
-      return {...state, loading: true, friendDescription: null};
+      return { ...state, loading: true, friendDescription: null };
 
     case friendsActionTypes.SET_FRIEND_DESCRIPTION:
       return {
         ...state,
-        friendDescription: {...action.payload},
+        friendDescription: { ...action.payload },
         loading: false
       };
 
@@ -49,7 +47,7 @@ export function friendsReducer(state = initialState, action: FriendsAction) {
         ...state,
         configsFriends: {
           ...state.configsFriends,
-          ...{typeSort: action.payload, startView: 0}
+          ...{ typeSort: action.payload, startView: 0 }
         },
         loading: true
       };
@@ -60,7 +58,7 @@ export function friendsReducer(state = initialState, action: FriendsAction) {
         friends: [],
         configsFriends: {
           ...state.configsFriends,
-          ...{searchValue: action.payload, startView: 0}
+          ...{ searchValue: action.payload, startView: 0 }
         },
         loading: true
       };
@@ -71,7 +69,7 @@ export function friendsReducer(state = initialState, action: FriendsAction) {
         friends: [],
         configsFriends: {
           ...state.configsFriends,
-          ...{showBookmark: action.payload, startView: 0}
+          ...{ showBookmark: action.payload, startView: 0 }
         },
         loading: true
       };
@@ -80,7 +78,7 @@ export function friendsReducer(state = initialState, action: FriendsAction) {
     case friendsActionTypes.RATING_FRIENDS:
       return {
         ...state,
-        friends: state.friends.map(friend => {
+        friends: state.friends.map((friend) => {
           return friend.id === action.payload.id ? action.payload : friend;
         })
       };
@@ -88,11 +86,11 @@ export function friendsReducer(state = initialState, action: FriendsAction) {
     case friendsActionTypes.SET_COUNT_BOOKMARKS_FRIENDS:
       return {
         ...state,
-        ...{bookmarks: {count: action.payload}}
+        ...{ bookmarks: { count: action.payload } }
       };
 
     case friendsActionTypes.ERRORS_FRIENDS:
-      return {...state, errors: {...action.payload}};
+      return { ...state, errors: { ...action.payload } };
 
     default:
       return state;

@@ -1,13 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
 import { Action, Store } from '@ngrx/store';
-import { from, Observable } from 'rxjs';
+import { Observable, from } from 'rxjs';
 import { switchMap, withLatestFrom } from 'rxjs/operators';
 import { friendsActionTypes } from '../type';
-import {
-  LoadFriends,
-  RatingFriends
-} from '../action';
+import { LoadFriends, RatingFriends } from '../action';
 import { ofType } from '@ngrx/effects';
 import { FriendsService } from '../../service/friends.service';
 
@@ -17,8 +14,7 @@ export class RatingFriendsEffect {
     private actions$: Actions,
     private store$: Store<any>,
     private friendsService: FriendsService
-  ) {
-  }
+  ) {}
 
   @Effect()
   SetRatingFriends$: Observable<Action> = this.actions$.pipe(
@@ -29,8 +25,17 @@ export class RatingFriendsEffect {
 
       const actions: Action[] = [];
       if (store.configsFriends.typeSort) {
-        const friends = this.friendsService.setRatingSort(store.friends, store.configsFriends.typeSort);
-        actions.push(new LoadFriends({configsFriends: store.configsFriends, friends: friends, errors: null}));
+        const friends = this.friendsService.setRatingSort(
+          store.friends,
+          store.configsFriends.typeSort
+        );
+        actions.push(
+          new LoadFriends({
+            configsFriends: store.configsFriends,
+            friends: friends,
+            errors: null
+          })
+        );
       }
 
       return from(actions);

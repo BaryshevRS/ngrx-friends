@@ -1,19 +1,23 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output
+} from '@angular/core';
 
 @Component({
-    selector: 'app-bookmark',
-    templateUrl: './bookmark.component.html',
-    styleUrls: ['./bookmark.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+  selector: 'app-bookmark',
+  templateUrl: './bookmark.component.html',
+  styleUrls: ['./bookmark.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BookmarkComponent {
+  @Input() id: string;
+  @Input() value: number;
+  @Output() bookmarkChange: EventEmitter<number> = new EventEmitter();
 
-    @Input() id: string;
-    @Input() value: number;
-    @Output() bookmarkChange: EventEmitter<number> = new EventEmitter();
-
-    public setValue(): void {
-        this.bookmarkChange.emit(<number>(this.value ? 0 : 1));
-    }
-
+  public setValue(): void {
+    this.bookmarkChange.emit(<number>(this.value ? 0 : 1));
+  }
 }

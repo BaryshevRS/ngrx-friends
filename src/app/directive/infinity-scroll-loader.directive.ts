@@ -4,7 +4,7 @@ import {
   Directive,
   ElementRef,
   EventEmitter,
-  Inject,
+  Inject, InjectionToken,
   Input,
   OnDestroy,
   Output
@@ -39,12 +39,12 @@ export class InfinityScrollLoaderDirective
 
   constructor(
     private elm: ElementRef<HTMLLinkElement>,
-    @Inject(DOCUMENT) private document: any
+    @Inject(DOCUMENT) private document: Document
   ) {}
 
   ngAfterViewInit() {
     this.scrollEvent$ = fromEvent(window, 'scroll').pipe(
-      map((e: any) => this.scrollTop()),
+      map((e: any) => this.scrollTop),
       pairwise(),
       filter((positions) => this.isScrollingDown(positions)),
       debounceTime(200),
@@ -67,9 +67,8 @@ export class InfinityScrollLoaderDirective
     this.checkFilling();
   }
 
-  private scrollTop() {
+  private get scrollTop() {
     return Math.max(
-      window.pageYOffset,
       document.documentElement.scrollTop,
       document.body.scrollTop
     );
@@ -107,7 +106,7 @@ export class InfinityScrollLoaderDirective
     // full document height with scroll
     const scrollHeight = this.document.documentElement.scrollHeight;
     return (
-      (this.scrollTop() + window.innerHeight) / scrollHeight >=
+      (this.scrollTop + window.innerHeight) / scrollHeight >=
       this.scrollPercent / 100
     );
   };

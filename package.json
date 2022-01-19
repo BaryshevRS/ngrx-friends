@@ -9,7 +9,7 @@
     "e2e": "ng e2e",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "compodoc": "compodoc -p src/tsconfig.app.json",
+    "compodoc": "compodoc -p tsconfig.json",
     "analyze": "ng build --stats-json && webpack-bundle-analyzer ./dist/ngrx-friends/stats.json",
     "eslint": "npx eslint 'src/**/*.{js,ts,html}' --quiet --fix",
     "prettier": "npx prettier 'src/**/*.{js,jsx,ts,tsx,html,css,scss}' --write"

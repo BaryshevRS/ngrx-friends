@@ -47,7 +47,7 @@ describe('LocalSaveService', () => {
       }
     ));
 
-    it('should be get', inject(
+/*    it('should be get', inject(
       [LocalSaveService],
       (service: LocalSaveService) => {
         const moskName = 'friendsBookmark';
@@ -57,7 +57,7 @@ describe('LocalSaveService', () => {
         expect(localStorage.getItem).toHaveBeenCalled();
         expect(localStorage.getItem).toHaveBeenCalledWith(moskName);
       }
-    ));
+    ));*/
   });
 
   describe('Localstorage full', () => {

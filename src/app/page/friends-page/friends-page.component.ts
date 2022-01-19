@@ -28,7 +28,7 @@ export class FriendsPageComponent implements OnInit, OnDestroy {
     this.errors$ = this.store$
       .pipe(select(getErrors))
       .subscribe((error: ErrorMessage) => {
-        this.errorMsg = error && error.text ? true : false;
+        this.errorMsg = !!(error && error.text);
       });
     this.store$.dispatch(new GetFriends());
   }

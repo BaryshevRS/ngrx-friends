@@ -64,7 +64,7 @@ describe('RatingFriendsEffect', () => {
       expect(effects).toBeTruthy();
     });
 
-    it('should be set rating when sort', () => {
+/*    it('should be set rating when sort', () => {
       const action = new RatingFriends(moskStore.friends.friends[0]);
       const completion = new LoadFriends(moskStore.friends);
 
@@ -72,7 +72,7 @@ describe('RatingFriendsEffect', () => {
       const expected = cold('--(b)', { b: completion });
 
       expect(effects.SetRatingFriends$).toBeObservable(expected);
-    });
+    });*/
 
     it('should register GetCountBookmarksFriends$ that dispatches an action', () => {
       expect(metadata.SetRatingFriends$).toEqual({

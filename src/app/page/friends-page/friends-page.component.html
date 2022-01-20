@@ -1,11 +1,10 @@
-<div class="p-3 bg-white rounded box-shadow" *ngIf="!errorMsg">
+<div class="p-3 bg-white rounded box-shadow">
   <h6 class="border-bottom border-gray pb-2 mb-0">Список друзей</h6>
 
   <app-friends-list
     appInfinityScrollLoader
     [contents]="friends$ | async"
-    (drawing)="drawing()"
-  >
+    (drawing)="drawing()">
   </app-friends-list>
 
   <app-loader></app-loader>

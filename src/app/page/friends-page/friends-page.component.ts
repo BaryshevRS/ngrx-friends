@@ -4,18 +4,18 @@ import { Friend } from '../../class/friends';
 import { Observable } from 'rxjs';
 import { getErrors, getFriends } from '../../store/selector/friends.selector';
 import * as FriendsActions from '../../store/action';
+import { FriendsState } from '../../interface/friends';
 
 @Component({
   selector: 'app-friends',
   templateUrl: './friends-page.component.html'
 })
 export class FriendsPageComponent implements OnInit, OnDestroy {
-  public friends: Friend[];
   public friends$: Observable<Friend[]>;
-  public errors$;
+  public errors$
   public errorMsg: boolean;
 
-  constructor(private store$: Store<any>) {}
+  constructor(private store$: Store<FriendsState>) {}
 
   // fill up page, if height content not more, than height screen
   drawing() {
@@ -23,14 +23,21 @@ export class FriendsPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    // @ts-ignore
-    this.friends$ = this.store$.pipe(select(getFriends));
+    this.friends$ = this.store$
+      .pipe(select(getFriends)
+      );
+
+    this.friends$.subscribe((xx) => {
+      console.error('x', xx)
+    })
+
     this.errors$ = this.store$
       .pipe(select(getErrors))
       .subscribe((error) => {
         this.errorMsg = !!(error && error.text);
       });
-    this.store$.dispatch(FriendsActions.GetFriends({}));
+
+    this.store$.dispatch(FriendsActions.GetFriends({configsFriends: {startView: 0}}));
   }
 
   ngOnDestroy() {

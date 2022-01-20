@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Friend } from '../../class/friends';
 import { Store } from '@ngrx/store';
 import * as FriendsActions from '../../store/action';
+import { FriendsState } from '../../interface/friends';
 
 @Component({
   selector: 'app-friend-item',
@@ -11,7 +12,7 @@ import * as FriendsActions from '../../store/action';
 export class FriendItemComponent {
   @Input() friend: Friend;
 
-  constructor(private store$: Store<any>) {}
+  constructor(private store$: Store<FriendsState>) {}
 
   bookmarkChange(value: number) {
     this.friend.bookmark = value;

@@ -7,18 +7,19 @@ import * as FriendsAction from '../action';
 import { ofType } from '@ngrx/effects';
 import { FriendsService } from '../../service/friends.service';
 import { ErrorMessage } from '../../class/errors';
+import { AppState } from '../reducer';
 
 @Injectable()
-export class LoadFriendsEffect {
+export class FriendsEffect {
   constructor(
     private actions$: Actions,
-    private store$: Store<any>,
+    private store$: Store<AppState>,
     private friendsService: FriendsService
   ) {}
 
-  getFriends$: Observable<Action> = createEffect(() => this.actions$.pipe(
+  getFriends$ = createEffect(() => this.actions$.pipe(
     ofType(
-      FriendsAction.GetFriend,
+      FriendsAction.GetFriends,
       FriendsAction.SortFriends,
       FriendsAction.SearchFriends,
       FriendsAction.ShowBookmarksFriends
@@ -51,12 +52,11 @@ export class LoadFriendsEffect {
             }
           }
 
-          return FriendsAction.LoadFriends({
-            ...store,
-            configsFriends: params,
-            friends: friends,
-            errors: errors
-          });
+          return FriendsAction.LoadFriends({friends: {
+              configsFriends: params,
+              friends,
+              errors
+            }});
         }),
         catchError(() => of(
             FriendsAction.ErrorsFriends(

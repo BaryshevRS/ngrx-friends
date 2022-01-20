@@ -12,10 +12,9 @@ import { FriendsState } from '../../interface/friends';
 export class NavComponent implements OnInit, OnDestroy {
   constructor(private store$: Store<FriendsState>) {}
 
-  public typeSort: number;
+  public typeSort: number = 0;
   public countBookmark = 0;
   public activeBookmark: boolean;
-  public friends: Friend[];
   public nav$;
 
   showBookmark(showBookmark?: boolean): void {
@@ -30,13 +29,14 @@ export class NavComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.nav$ = this.store$
       .subscribe(({ bookmarks, configsFriends }) => {
-        this.countBookmark = bookmarks.count || 0;
-        this.countBookmark = this.countBookmark < 0 ? 0 : this.countBookmark;
-        this.typeSort = configsFriends.typeSort || 0;
+        console.log('nav', configsFriends)
+        // this.countBookmark = bookmarks.count || 0;
+        // this.countBookmark = this.countBookmark < 0 ? 0 : this.countBookmark;
+        // this.typeSort = configsFriends.typeSort || 0;
       });
 
     // todo: delete
-    this.store$.dispatch(FriendsActions.GetCountBookmarksFriends());
+    // this.store$.dispatch(FriendsActions.GetCountBookmarksFriends()); //
   }
 
   ngOnDestroy() {

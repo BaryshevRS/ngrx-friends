@@ -13,7 +13,7 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { appReducer } from './store/reducer';
-import { effectsList } from './store/effect';
+import { appEffects } from './store/effect';
 
 import { AppRoutingModule } from './app-routing.module';
 import { FriendsPageModule } from './module/friends-page.module';
@@ -46,11 +46,13 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     AppRoutingModule,
     RouterModule.forRoot([]),
     StoreModule.forRoot(appReducer),
+    EffectsModule.forRoot(appEffects),
     StoreRouterConnectingModule.forRoot(),
-    !environment.production
-      ? StoreDevtoolsModule.instrument({ maxAge: 20 })
-      : [],
-    EffectsModule.forRoot(effectsList),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25, // Retains last 25 states
+      logOnly: environment.production, // Restrict extension to log-only mode
+      autoPause: true, // Pauses recording actions and state changes when the extension window is not open
+    }),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

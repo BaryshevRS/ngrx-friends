@@ -5,7 +5,7 @@ import { TestBed } from '@angular/core/testing';
 import { cold } from 'jasmine-marbles';
 import { Observable, of, throwError } from 'rxjs';
 import { Friend } from '../../class/friends';
-import { LoadFriendsEffect } from './loadFriends.effect';
+import { FriendsEffect } from './friends.effect';
 import { EffectsMetadata, getEffectsMetadata } from '@ngrx/effects';
 import { HttpClientModule } from '@angular/common/http';
 import { provideMockActions } from '@ngrx/effects/testing';
@@ -18,7 +18,7 @@ import {
 } from '../action';
 import { ErrorMessage } from '../../class/errors';
 
-describe('LoadFriendsEffect', () => {
+describe('FriendsEffect', () => {
   describe('Load Friends', () => {
     const moskStore = {
       friends: {
@@ -43,8 +43,8 @@ describe('LoadFriendsEffect', () => {
       }
     };
 
-    let effects: LoadFriendsEffect;
-    let metadata: EffectsMetadata<LoadFriendsEffect>;
+    let effects: FriendsEffect;
+    let metadata: EffectsMetadata<FriendsEffect>;
     let actionsMarble: Observable<any>;
 
     let store: MockStore<any>;
@@ -54,14 +54,14 @@ describe('LoadFriendsEffect', () => {
       TestBed.configureTestingModule({
         imports: [HttpClientModule],
         providers: [
-          LoadFriendsEffect,
+          FriendsEffect,
           { provide: FriendsService, useValue: mockFriendsService },
           provideMockStore({ initialState }),
           provideMockActions(() => actionsMarble)
         ]
       });
 
-      effects = TestBed.get(LoadFriendsEffect);
+      effects = TestBed.inject(FriendsEffect);
       metadata = getEffectsMetadata(effects);
       store = TestBed.get(Store);
     });
@@ -126,8 +126,8 @@ describe('LoadFriendsEffect', () => {
       }
     };
 
-    let effects: LoadFriendsEffect;
-    let metadata: EffectsMetadata<LoadFriendsEffect>;
+    let effects: FriendsEffect;
+    let metadata: EffectsMetadata<FriendsEffect>;
     let actionsMarble: Observable<any>;
 
     let store: MockStore<any>;
@@ -137,14 +137,14 @@ describe('LoadFriendsEffect', () => {
       TestBed.configureTestingModule({
         imports: [HttpClientModule],
         providers: [
-          LoadFriendsEffect,
+          FriendsEffect,
           { provide: FriendsService, useValue: mockFriendsService },
           provideMockStore({ initialState }),
           provideMockActions(() => actionsMarble)
         ]
       });
 
-      effects = TestBed.get(LoadFriendsEffect);
+      effects = TestBed.get(FriendsEffect);
       metadata = getEffectsMetadata(effects);
       store = TestBed.get(Store);
     });
@@ -183,8 +183,8 @@ describe('LoadFriendsEffect', () => {
       }
     };
 
-    let effects: LoadFriendsEffect;
-    let metadata: EffectsMetadata<LoadFriendsEffect>;
+    let effects: FriendsEffect;
+    let metadata: EffectsMetadata<FriendsEffect>;
     let actionsMarble: Observable<any>;
 
     let store: MockStore<any>;
@@ -194,14 +194,14 @@ describe('LoadFriendsEffect', () => {
       TestBed.configureTestingModule({
         imports: [HttpClientModule],
         providers: [
-          LoadFriendsEffect,
+          FriendsEffect,
           { provide: FriendsService, useValue: mockFriendsService },
           provideMockStore({ initialState }),
           provideMockActions(() => actionsMarble)
         ]
       });
 
-      effects = TestBed.get(LoadFriendsEffect);
+      effects = TestBed.get(FriendsEffect);
       metadata = getEffectsMetadata(effects);
       store = TestBed.get(Store);
     });
@@ -247,8 +247,8 @@ describe('LoadFriendsEffect', () => {
       }
     };
 
-    let effects: LoadFriendsEffect;
-    let metadata: EffectsMetadata<LoadFriendsEffect>;
+    let effects: FriendsEffect;
+    let metadata: EffectsMetadata<FriendsEffect>;
     let actionsMarble: Observable<any>;
 
     let store: MockStore<any>;
@@ -258,14 +258,14 @@ describe('LoadFriendsEffect', () => {
       TestBed.configureTestingModule({
         imports: [HttpClientModule],
         providers: [
-          LoadFriendsEffect,
+          FriendsEffect,
           { provide: FriendsService, useValue: mockFriendsService },
           provideMockStore({ initialState }),
           provideMockActions(() => actionsMarble)
         ]
       });
 
-      effects = TestBed.get(LoadFriendsEffect);
+      effects = TestBed.get(FriendsEffect);
       metadata = getEffectsMetadata(effects);
       store = TestBed.get(Store);
     });
@@ -311,8 +311,8 @@ describe('LoadFriendsEffect', () => {
       }
     };
 
-    let effects: LoadFriendsEffect;
-    let metadata: EffectsMetadata<LoadFriendsEffect>;
+    let effects: FriendsEffect;
+    let metadata: EffectsMetadata<FriendsEffect>;
     let actionsMarble: Observable<any>;
 
     let store: MockStore<any>;
@@ -322,14 +322,14 @@ describe('LoadFriendsEffect', () => {
       TestBed.configureTestingModule({
         imports: [HttpClientModule],
         providers: [
-          LoadFriendsEffect,
+          FriendsEffect,
           { provide: FriendsService, useValue: mockFriendsService },
           provideMockStore({ initialState }),
           provideMockActions(() => actionsMarble)
         ]
       });
 
-      effects = TestBed.get(LoadFriendsEffect);
+      effects = TestBed.get(FriendsEffect);
       metadata = getEffectsMetadata(effects);
       store = TestBed.get(Store);
     });

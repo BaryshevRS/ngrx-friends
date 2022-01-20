@@ -32,7 +32,6 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
   @ViewChild('searchBox', { static: true }) searchBox: ElementRef;
 
   search(term: string): void {
-    // console.log('search', term);
     this.searchTerms.next(term);
   }
 
@@ -45,9 +44,6 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
     this.search$ = this.searchTerms.pipe(
       debounceTime(300),
       distinctUntilChanged(),
-      switchMap((term: string) => {
-        return of(term);
-      }),
       takeUntil(this.unsubscribe$)
     );
 

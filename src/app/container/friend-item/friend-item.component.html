@@ -1,7 +1,7 @@
 <div *ngIf="friend" class="media text-muted pt-3">
   <app-bookmark
     (bookmarkChange)="bookmarkChange($event)"
-    [value]="friend.bookmark"
+    [bookmark]="friend.bookmark"
     [id]="friend.id"
   ></app-bookmark>
 

@@ -1,25 +1,26 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { Friend } from '../../class/friends';
 import * as FriendsActions from '../../store/action';
 import { FriendsState } from '../../interface/friends';
+import { Observable } from 'rxjs';
+import { getBookmarksCount, getTypeSort } from '../../store/selector/friends.selector';
 
 @Component({
   selector: 'app-nav',
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.scss']
 })
-export class NavComponent implements OnInit, OnDestroy {
+export class NavComponent implements OnInit {
   constructor(private store$: Store<FriendsState>) {}
-
-  public typeSort: number = 0;
-  public countBookmark = 0;
   public activeBookmark: boolean;
-  public nav$;
 
-  showBookmark(showBookmark?: boolean): void {
+  public typeSort$: Observable<number> = this.store$.pipe(select(getTypeSort));
+  public bookmarksCount$: Observable<number> = this.store$.pipe(select(getBookmarksCount));
+
+  showBookmark(showBookmark: boolean = false): void {
     this.store$.dispatch(FriendsActions.ShowBookmarksFriends({showBookmark}));
-    this.activeBookmark = showBookmark || false;
+    this.activeBookmark = showBookmark;
   }
 
   changeSort(typeSort: number) {
@@ -27,21 +28,6 @@ export class NavComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.nav$ = this.store$
-      .subscribe(({ bookmarks, configsFriends }) => {
-        console.log('nav', configsFriends)
-        // this.countBookmark = bookmarks.count || 0;
-        // this.countBookmark = this.countBookmark < 0 ? 0 : this.countBookmark;
-        // this.typeSort = configsFriends.typeSort || 0;
-      });
-
-    // todo: delete
-    // this.store$.dispatch(FriendsActions.GetCountBookmarksFriends()); //
-  }
-
-  ngOnDestroy() {
-    if (this.nav$) {
-      this.nav$.unsubscribe();
-    }
+    this.store$.dispatch(FriendsActions.GetCountBookmarksFriends());
   }
 }

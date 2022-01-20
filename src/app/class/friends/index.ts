@@ -1,6 +1,6 @@
 export class Friend {
   rating: number = 0;
-  bookmark: number = 0;
+  bookmark: boolean = false;
 
   constructor(
     public id: string = '',

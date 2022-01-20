@@ -29,3 +29,14 @@ export const getLoading = createSelector(
   friendsFeatureSelector,
   (state: FriendsState): boolean => !state.errors && state.loading
 );
+
+export const getBookmarksCount = createSelector(
+  friendsFeatureSelector,
+  (state: FriendsState): number => state.bookmarks.count
+);
+
+export const getTypeSort = createSelector(
+  friendsFeatureSelector,
+  (state: FriendsState): number => state.configsFriends.typeSort
+);
+

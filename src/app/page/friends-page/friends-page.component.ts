@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Friend } from '../../class/friends';
 import { Observable } from 'rxjs';
@@ -10,10 +10,9 @@ import { FriendsState } from '../../interface/friends';
   selector: 'app-friends',
   templateUrl: './friends-page.component.html'
 })
-export class FriendsPageComponent implements OnInit, OnDestroy {
-  public friends$: Observable<Friend[]>;
-  public errors$
-  public errorMsg: boolean;
+export class FriendsPageComponent implements OnInit {
+  public friends$: Observable<Friend[]> = this.store$.pipe(select(getFriends));
+  public errors$ = this.store$.pipe(select(getErrors))
 
   constructor(private store$: Store<FriendsState>) {}
 
@@ -23,24 +22,8 @@ export class FriendsPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.friends$ = this.store$
-      .pipe(select(getFriends)
-      );
+    this.store$.dispatch(FriendsActions.GetFriends({}));
 
-    this.friends$.subscribe((xx) => {
-      console.error('x', xx)
-    })
-
-    this.errors$ = this.store$
-      .pipe(select(getErrors))
-      .subscribe((error) => {
-        this.errorMsg = !!(error && error.text);
-      });
-
-    this.store$.dispatch(FriendsActions.GetFriends({configsFriends: {startView: 0}}));
-  }
-
-  ngOnDestroy() {
-    this.errors$.unsubscribe();
+    this.friends$.subscribe(console.log)
   }
 }

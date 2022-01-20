@@ -7,12 +7,11 @@ import { ofType } from '@ngrx/effects';
 import { FriendsService } from '../../service/friends.service';
 import { ErrorMessage } from '../../class/errors';
 import * as FriendsAction from '../action';
-import { FriendsState } from '../../interface/friends';
 import { AppState } from '../reducer';
 import { friendsFeatureSelector } from '../selector/friends.selector';
 
 @Injectable()
-export class BookmarkFriendsEffect {
+export class BookmarkEffect {
   constructor(
     private actions$: Actions,
     private store$: Store<AppState>,
@@ -34,42 +33,18 @@ export class BookmarkFriendsEffect {
     )
   );
 
-  setBookmarkFriends$ = createEffect(() => this.actions$.pipe( //
-    ofType(FriendsAction.BookmarksFriends),
+  setBookmarkFriends$ = createEffect(() => this.actions$.pipe(
+    ofType(FriendsAction.SetBookmarksFriends),
     withLatestFrom(this.store$.select(friendsFeatureSelector)),
-    switchMap(([{friend}, store]) => {
-      console.error('friend', friend)
-      const {id, bookmark} = friend;
+    switchMap(([{friend: {id, bookmark}}, store]) => {
       this.friendsService.setBookmark( id, bookmark );
 
-      // todo: get from bookmark server request
-      let count = bookmark
-        ? ++store.bookmarks.count
-        : --store.bookmarks.count;
-      count = count < 0 ? 0 : count;
+      const friends = store.friends.map((currentFriend) => currentFriend.id === id ? {...currentFriend, bookmark} : currentFriend)
 
-      const actions: Action[] = [FriendsAction.SetCountBookmarksFriends({count})];
-
-      // Friend list is updated when showing bookmark
-      if (store.configsFriends.showBookmark) {
-        let errors;
-        // todo: Запрашивать из json заново
-        const friends = this.friendsService.getFilterBookmark(store.friends);
-
-        if (friends.length === 0) {
-          errors = new ErrorMessage('info', 'errorMessage.bookmarkEmpty');
-        }
-
-        actions.push(
-          FriendsAction.LoadFriends({friends: {
-              ...store,
-              friends,
-              errors
-            }})
-        );
-      }
-
-      return from(actions);
+      return [
+        FriendsAction.GetCountBookmarksFriends(),
+        FriendsAction.LoadFriends({friends: {...store, friends}})
+      ];
     })
   ));
 }

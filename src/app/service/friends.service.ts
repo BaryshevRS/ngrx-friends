@@ -68,7 +68,7 @@ export class FriendsService {
         friendsList = this.getBookmark(friendsList);
         friendsList = friendsList.filter((friend) => friend.bookmark);
         return friendsList.reduce(
-          (a: number, friend: Friend) => (friend.bookmark > 0 ? ++a : a),
+          (a: number, friend: Friend) => (friend.bookmark ? ++a : a),
           0
         );
       }),
@@ -111,8 +111,8 @@ export class FriendsService {
   }
 
   // save locally user bookmarks
-  public setBookmark(id: string, value: number): void {
-    this.LocalSave.set(this.nameFriendsBookmark, { [id]: value });
+  public setBookmark(id: string, bookmark: boolean): void {
+    this.LocalSave.set(this.nameFriendsBookmark, { [id]: bookmark });
   }
 
   // save locally user rating

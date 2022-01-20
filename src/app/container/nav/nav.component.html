@@ -8,27 +8,25 @@
           [ngClass]="{ active: !activeBookmark }"
           class="nav-link active"
           href="#"
-          >Все</a
-        >
+        >Все</a>
 
         <a
           routerLink="/"
           (click)="showBookmark(true)"
           [ngClass]="{ active: activeBookmark }"
           class="nav-link"
-          href="#"
-        >
+          href="#">
           Избранные
           <span class="badge badge-pill bg-light align-text-bottom">{{
-            countBookmark
-          }}</span>
+            bookmarksCount$ | async
+            }}</span>
         </a>
       </nav>
 
       <app-nav-sort
-        [typeSort]="typeSort"
-        (changeSort)="changeSort($event)"
-      ></app-nav-sort>
+        [typeSort]="typeSort$ | async"
+        (changeSort)="changeSort($event)">
+      </app-nav-sort>
     </div>
   </div>
 </div>

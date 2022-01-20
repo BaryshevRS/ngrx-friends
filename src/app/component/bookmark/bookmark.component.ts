@@ -13,11 +13,10 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BookmarkComponent {
-  @Input() id: string;
-  @Input() value: number;
-  @Output() bookmarkChange: EventEmitter<number> = new EventEmitter();
+  @Input() bookmark: boolean;
+  @Output() bookmarkChange: EventEmitter<boolean> = new EventEmitter();
 
   public setValue(): void {
-    this.bookmarkChange.emit(<number>(this.value ? 0 : 1));
+    this.bookmarkChange.emit(!this.bookmark);
   }
 }

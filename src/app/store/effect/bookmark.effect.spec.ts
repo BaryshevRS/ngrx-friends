@@ -7,9 +7,9 @@ import { Observable, of } from 'rxjs';
 import { Friend } from '../../class/friends';
 import { HttpClientModule } from '@angular/common/http';
 import { provideMockActions } from '@ngrx/effects/testing';
-import { BookmarkFriendsEffect } from './bookmarkFriends.effect';
+import { BookmarkEffect } from './bookmark.effect';
 
-describe('BookmarkFriendsEffect on bookmarks page', () => {
+describe('BookmarkEffect on bookmarks page', () => {
   const initialState = {
     friends: {
       friends: [new Friend('1', 'first_name', 'last_name')],
@@ -59,8 +59,8 @@ describe('BookmarkFriendsEffect on bookmarks page', () => {
     }
   };
 
-  let effects: BookmarkFriendsEffect;
-  // let metadata: EffectsMetadata<BookmarkFriendsEffect>;
+  let effects: BookmarkEffect;
+  // let metadata: EffectsMetadata<BookmarkEffect>;
   let actionsMarble$: Observable<Action>;
 
   let store: MockStore<any>;
@@ -69,13 +69,13 @@ describe('BookmarkFriendsEffect on bookmarks page', () => {
     TestBed.configureTestingModule({
       imports: [HttpClientModule],
       providers: [
-        BookmarkFriendsEffect,
+        BookmarkEffect,
         {provide: FriendsService, useValue: mockFriendsService},
         provideMockStore({initialState}),
         provideMockActions(() => actionsMarble$)
       ]
     });
-    effects = TestBed.inject<BookmarkFriendsEffect>(BookmarkFriendsEffect);
+    effects = TestBed.inject<BookmarkEffect>(BookmarkEffect);
     // metadata = getEffectsMetadata(effects);
     store = TestBed.inject(MockStore);
   });

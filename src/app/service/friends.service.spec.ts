@@ -72,7 +72,7 @@ describe('FriendsService', () => {
     [FriendsService],
     (service: FriendsService) => {
       const serviceMoskFriends = [new Friend('1', 'first_name', 'last_name')];
-      serviceMoskFriends[0].bookmark = 1;
+      serviceMoskFriends[0].bookmark = true;
 
       expect({ ...service.getFilterBookmark(serviceMoskFriends) }).toEqual({
         ...serviceMoskFriends
@@ -82,7 +82,7 @@ describe('FriendsService', () => {
 
   it('should be get count bookmarsk friends', async(() => {
     const serviceMoskFriends = [new Friend('1', 'first_name', 'last_name')];
-    serviceMoskFriends[0].bookmark = 1;
+    serviceMoskFriends[0].bookmark = true;
 
     httpClientSpy.get.and.returnValue(of(serviceMoskFriends));
 

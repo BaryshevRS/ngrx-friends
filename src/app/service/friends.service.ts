@@ -26,7 +26,7 @@ export class FriendsService {
     limitView = 0
   }: ConfigsFriends): Observable<Friend[]> {
     return this.http.get<Friend[]>(this.BASE_URL).pipe(
-      delay(200), // emulate delay
+      delay(400), // emulate delay
       map((friendsList: Friend[]) => this.getRating(friendsList)),
       map((friendsList: Friend[]) => this.getBookmark(friendsList)),
       map((friendsList: Friend[]) => this.setRatingSort(friendsList, typeSort)),
@@ -47,7 +47,7 @@ export class FriendsService {
 
   public getFriend(id: string): Observable<Friend> {
     return this.http.get<Friend[]>(this.BASE_URL).pipe(
-      // delay(400), // emulate delay
+      delay(400), // emulate delay
       map((friendsList: Friend[]) => this.getRating(friendsList)),
       map((friendsList: Friend[]) => this.getBookmark(friendsList)),
       map((friendsList: Friend[]) => this.findId(id, friendsList)),
@@ -63,6 +63,7 @@ export class FriendsService {
 
   public getCountBookmarksFriends(): Observable<number> {
     return this.http.get<Friend[]>(this.BASE_URL).pipe(
+      delay(400), // emulate delay
       map((friendsList: Friend[]) => {
         friendsList = this.getBookmark(friendsList);
         friendsList = friendsList.filter((friend) => friend.bookmark);

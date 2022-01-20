@@ -1,45 +1,19 @@
 import {
-  AfterViewInit,
-  ChangeDetectorRef,
-  Component,
-  OnDestroy
+  Component
 } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { FriendsState } from '../../interface/friends';
+import { getLoading } from '../../store/selector/friends.selector';
 
 @Component({
   selector: 'app-loader',
   templateUrl: './loader.component.html',
   styleUrls: ['./loader.component.scss']
 })
-export class LoaderComponent implements OnDestroy, AfterViewInit {
+export class LoaderComponent {
   constructor(
-    private store$: Store<FriendsState>,
-    private cd: ChangeDetectorRef
+    private store$: Store<FriendsState>
   ) {}
 
-  public loading = false;
-  public loading$;
-
-  ngAfterViewInit(): void {
-    this.loading$ = this.store$
-      .subscribe(({ loading, errors }) => {
-        this.loading = loading;
-
-        if (
-          errors &&
-          !(Object.keys(errors).length === 0 && errors.constructor === Object)
-        ) {
-          this.loading = false;
-        }
-
-        this.cd.detectChanges();
-      });
-  }
-
-  ngOnDestroy() {
-    if (this.loading$) {
-      this.loading$.unsubscribe();
-    }
-  }
+  public loading$ = this.store$.pipe(select(getLoading))
 }

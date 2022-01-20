@@ -24,3 +24,8 @@ export const getErrors = createSelector(
   friendsFeatureSelector,
   (state: FriendsState): ErrorMessage => state.errors
 );
+
+export const getLoading = createSelector(
+  friendsFeatureSelector,
+  (state: FriendsState): boolean => !state.errors && state.loading
+);

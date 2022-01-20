@@ -1,7 +1,8 @@
-import { FriendsAction, friendsActionTypes } from '../type';
-import { Friends } from '../../interface/friends';
+import { FriendsState } from '../../interface/friends';
+import { createReducer, on } from "@ngrx/store";
+import * as FriendsActions from '../action';
 
-const initialState: Friends = {
+const initialState: FriendsState = {
   friends: [],
   friendDescription: null,
   configsFriends: {
@@ -18,81 +19,69 @@ const initialState: Friends = {
   errors: null
 };
 
-export function friendsReducer(state = initialState, action: FriendsAction) {
-  switch (action.type) {
-    case friendsActionTypes.LOAD_FRIENDS:
-      return {
-        ...state,
-        friends: [...action.payload.friends],
-        configsFriends: { ...action.payload.configsFriends },
-        loading: false,
-        errors: { ...action.payload.errors }
-      };
+const UpdateFriend = (state, {friend}) => ({
+  ...state,
+  friends: state.friends.map((friendCurrent) => {
+    return friendCurrent.id === friend.id ? friend : friendCurrent;
+  })
+});
 
-    case friendsActionTypes.GET_FRIENDS:
-      return { ...state, loading: true };
-
-    case friendsActionTypes.GET_FRIEND:
-      return { ...state, loading: true, friendDescription: null };
-
-    case friendsActionTypes.SET_FRIEND_DESCRIPTION:
-      return {
-        ...state,
-        friendDescription: { ...action.payload },
-        loading: false
-      };
-
-    case friendsActionTypes.SORT_FRIENDS:
-      return {
-        ...state,
-        configsFriends: {
-          ...state.configsFriends,
-          ...{ typeSort: action.payload, startView: 0 }
-        },
-        loading: true
-      };
-
-    case friendsActionTypes.SEARCH_FRIENDS:
-      return {
-        ...state,
-        friends: [],
-        configsFriends: {
-          ...state.configsFriends,
-          ...{ searchValue: action.payload, startView: 0 }
-        },
-        loading: true
-      };
-
-    case friendsActionTypes.SHOW_BOOKMARKS_FRIENDS:
-      return {
-        ...state,
-        friends: [],
-        configsFriends: {
-          ...state.configsFriends,
-          ...{ showBookmark: action.payload, startView: 0 }
-        },
-        loading: true
-      };
-
-    case friendsActionTypes.BOOKMARKS_FRIENDS:
-    case friendsActionTypes.RATING_FRIENDS:
-      return {
-        ...state,
-        friends: state.friends.map((friend) => {
-          return friend.id === action.payload.id ? action.payload : friend;
-        })
-      };
-
-    case friendsActionTypes.SET_COUNT_BOOKMARKS_FRIENDS:
-      return {
-        ...state,
-        ...{ bookmarks: { count: action.payload } }
-      };
-
-    case friendsActionTypes.ERRORS_FRIENDS:
-      return { ...state, errors: { ...action.payload } };
-
-    default:
-      return state;
-  }
-}
+export const friendsReducer = createReducer(
+  initialState,
+  on(FriendsActions.LoadFriends, (state, {friends}) => ({
+    ...state,
+    ...friends,
+    loading: false,
+  })),
+  on(FriendsActions.GetFriends, (state, {configsFriends}) => ({
+    ...state,
+    configsFriends: {
+      ...state.configsFriends, ...configsFriends
+    },
+    loading: true,
+  })),
+  on(FriendsActions.GetFriend, (state) => ({
+    ...state,
+    loading: true,
+    friendDescription: null
+  })),
+  on(FriendsActions.SetFriendDescription, (state, {friend: friendDescription}) => ({
+    ...state,
+    loading: false,
+    friendDescription
+  })),
+  on(FriendsActions.SortFriends, (state, {typeSort}) => ({
+    ...state,
+    loading: true,
+    configsFriends: {
+      ...state.configsFriends,
+      ...{ typeSort, startView: 0 }
+    }
+  })),
+  on(FriendsActions.SearchFriends, (state, {searchValue}) => ({
+    ...state,
+    loading: true,
+    configsFriends: {
+      ...state.configsFriends,
+      ...{ searchValue, startView: 0 }
+    },
+  })),
+  on(FriendsActions.ShowBookmarksFriends, (state, {showBookmark}) => ({
+    ...state,
+    loading: true,
+    configsFriends: {
+      ...state.configsFriends,
+      ...{ showBookmark, startView: 0 }
+    },
+  })),
+  on(FriendsActions.BookmarksFriends, UpdateFriend),
+  on(FriendsActions.RatingFriends, UpdateFriend),
+  on(FriendsActions.SetCountBookmarksFriends, (state, {count}) => ({
+    ...state,
+    ...{ bookmarks: { count } }
+  })),
+  on(FriendsActions.ErrorsFriends, (state, {errors}) => ({
+    ...state,
+    errors
+  })),
+);

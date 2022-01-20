@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Friend } from '../../class/friends';
 import { Store } from '@ngrx/store';
-import { BookmarksFriends, RatingFriends } from '../../store/action';
+import * as FriendsActions from '../../store/action';
 
 @Component({
   selector: 'app-friend-item',
@@ -15,11 +15,11 @@ export class FriendItemComponent {
 
   bookmarkChange(value: number) {
     this.friend.bookmark = value;
-    this.store$.dispatch(new BookmarksFriends(this.friend));
+    this.store$.dispatch(FriendsActions.BookmarksFriends({friend: this.friend}));
   }
 
   ratingChange(value: number) {
     this.friend.rating = value;
-    this.store$.dispatch(new RatingFriends(this.friend));
+    this.store$.dispatch(FriendsActions.RatingFriends({friend: this.friend}));
   }
 }

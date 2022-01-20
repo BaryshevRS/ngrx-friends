@@ -1,15 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Actions, Effect } from '@ngrx/effects';
+import { Actions, createEffect } from '@ngrx/effects';
 import { Action, Store } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
 import { catchError, map, switchMap, withLatestFrom } from 'rxjs/operators';
-import { friendsActionTypes } from '../type/index';
-import {
-  ErrorsFriends,
-  GetFriend,
-  LoadFriends,
-  SetFriendDescription
-} from '../action';
+import * as FriendsAction from '../action';
 import { ofType } from '@ngrx/effects';
 import { FriendsService } from '../../service/friends.service';
 import { ErrorMessage } from '../../class/errors';
@@ -22,17 +16,16 @@ export class LoadFriendsEffect {
     private friendsService: FriendsService
   ) {}
 
-  @Effect()
-  getFriends$: Observable<Action> = this.actions$.pipe(
-    ofType<any>(
-      friendsActionTypes.GET_FRIENDS,
-      friendsActionTypes.SORT_FRIENDS,
-      friendsActionTypes.SEARCH_FRIENDS
+  getFriends$: Observable<Action> = createEffect(() => this.actions$.pipe(
+    ofType(
+      FriendsAction.GetFriend,
+      FriendsAction.SortFriends,
+      FriendsAction.SearchFriends,
+      FriendsAction.ShowBookmarksFriends
     ),
     withLatestFrom(this.store$.select('friends')),
-    switchMap(([action, store]) => {
-      const params = { ...store.configsFriends, ...action.payload };
-
+    switchMap(([configsFriends, store]) => {
+      const params = { ...store.configsFriends, ...configsFriends };
       return this.friendsService.getFriends(params).pipe(
         map((friends) => {
           let errors = null;
@@ -58,40 +51,37 @@ export class LoadFriendsEffect {
             }
           }
 
-          return new LoadFriends({
+          return FriendsAction.LoadFriends({
+            ...store,
             configsFriends: params,
             friends: friends,
             errors: errors
           });
         }),
-        catchError((error) => {
-          return of(
-            new ErrorsFriends(
-              new ErrorMessage('danger', 'errorMessage.friendsEmpty')
+        catchError(() => of(
+            FriendsAction.ErrorsFriends(
+              {errors: new ErrorMessage('danger', 'errorMessage.friendsEmpty')}
             )
-          );
-        })
+          ))
       );
     })
-  );
+  ));
 
-  @Effect()
-  getFriend$ = this.actions$.pipe(
-    ofType<GetFriend>(friendsActionTypes.GET_FRIEND),
-    withLatestFrom(this.store$.select('friends')),
-    switchMap(([action, store]) => {
-      return this.friendsService.getFriend(action.payload).pipe(
+  getFriend$ = createEffect(() => this.actions$.pipe(
+    ofType(FriendsAction.GetFriend),
+    switchMap(({id}) => {
+      return this.friendsService.getFriend(id).pipe(
         map((friend) => {
-          return new SetFriendDescription(friend);
+          return FriendsAction.SetFriendDescription({friend});
         }),
-        catchError((error) => {
-          return of(
-            new ErrorsFriends(
-              new ErrorMessage('danger', 'errorMessage.networkConnect')
-            )
-          );
-        })
+        catchError(() => of(
+          FriendsAction.ErrorsFriends(
+            {
+              errors: new ErrorMessage('danger', 'errorMessage.networkConnect')
+            }
+          )
+        ))
       );
     })
-  );
+  ));
 }

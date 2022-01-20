@@ -1,10 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
-import { FriendsAction } from '../../store/type';
 import { ErrorMessage } from '../../class/errors';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { getErrors } from 'src/app/store/selector/friends.selector';
+import { FriendsState } from '../../interface/friends';
 
 @Component({
   selector: 'app-errors',
@@ -16,7 +16,7 @@ export class ErrorsComponent implements OnInit, OnDestroy {
   errors: ErrorMessage | null;
   errors$: Observable<ErrorMessage>;
 
-  constructor(private store$: Store<FriendsAction>) {}
+  constructor(private readonly store$: Store<FriendsState>) {}
 
   ngOnInit() {
     this.errors$ = this.store$.pipe(

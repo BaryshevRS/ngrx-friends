@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { SearchFriends } from '../../store/action';
 import { Store } from '@ngrx/store';
-import { FriendsAction } from '../../store/type';
 import { Router } from '@angular/router';
+import { FriendsState } from '../../interface/friends';
+import * as FriendsAction from '../../store/action'
 
 @Component({
   selector: 'app-header',
@@ -13,10 +13,10 @@ import { Router } from '@angular/router';
 export class HeaderComponent {
   public title = 'Friends';
 
-  constructor(private store$: Store<FriendsAction>, private router: Router) {}
+  constructor(private store$: Store<FriendsState>, private router: Router) {}
 
-  initSearch(term: string) {
+  initSearch(searchValue: string = '') {
     this.router.navigate(['/']);
-    this.store$.dispatch(new SearchFriends(term));
+    this.store$.dispatch(FriendsAction.SearchFriends({searchValue}));
   }
 }

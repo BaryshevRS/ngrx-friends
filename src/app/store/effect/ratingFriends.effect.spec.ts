@@ -74,11 +74,11 @@ describe('RatingFriendsEffect', () => {
       expect(effects.SetRatingFriends$).toBeObservable(expected);
     });*/
 
-    it('should register GetCountBookmarksFriends$ that dispatches an action', () => {
-      expect(metadata.SetRatingFriends$).toEqual({
-        dispatch: true,
-        resubscribeOnError: true
-      });
-    });
+    // it('should register GetCountBookmarksFriends$ that dispatches an action', () => {
+    //   expect(metadata.SetRatingFriends$).toEqual({
+    //     dispatch: true,
+    //     resubscribeOnError: true
+    //   });
+    // });
   });
 });

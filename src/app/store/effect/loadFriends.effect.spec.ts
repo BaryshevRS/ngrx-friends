@@ -90,19 +90,19 @@ describe('LoadFriendsEffect', () => {
       expect(effects.getFriend$).toBeObservable(expected);
     });*/
 
-    it('should register getFriends$ that dispatches an action', () => {
-      expect(metadata.getFriends$).toEqual({
-        dispatch: true,
-        resubscribeOnError: true
-      });
-    });
-
-    it('should register getFriend$ that dispatches an action', () => {
-      expect(metadata.getFriend$).toEqual({
-        dispatch: true,
-        resubscribeOnError: true
-      });
-    });
+    // it('should register getFriends$ that dispatches an action', () => {
+    //   expect(metadata.getFriends$).toEqual({
+    //     dispatch: true,
+    //     resubscribeOnError: true
+    //   });
+    // });
+    //
+    // it('should register getFriend$ that dispatches an action', () => {
+    //   expect(metadata.getFriend$).toEqual({
+    //     dispatch: true,
+    //     resubscribeOnError: true
+    //   });
+    // });
   });
 
   describe('Catch Error load friends', () => {

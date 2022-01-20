@@ -1,20 +1,26 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { Friends } from '../../interface/friends';
 import { Friend } from '../../class/friends';
 import { ErrorMessage } from '../../class/errors';
+import { FriendsState } from '../../interface/friends';
 
-export const getFriendsState = createFeatureSelector('friends');
-const fromGetFriends = (state: Friends): Friend[] => state.friends;
+export const selectFriends = (state: FriendsState) => state;
 
-export const getFriends = createSelector(getFriendsState, fromGetFriends);
-
-const fromGetFriendsErrors = (state: Friends): ErrorMessage => state.errors;
-export const getErrors = createSelector(getFriendsState, fromGetFriendsErrors);
-
-const fromGetFriendsDescription = (state: Friends): Friend =>
-  state.friendDescription;
+export const getFriendsState = createSelector(
+  selectFriends,
+  (state: FriendsState) => state
+);
 
 export const getDescriptions = createSelector(
-  getFriendsState,
-  fromGetFriendsDescription
+  selectFriends,
+  (state: FriendsState) => state.friendDescription
+);
+
+export const getFriends = createSelector(
+  selectFriends,
+  (state: FriendsState): Friend[] => state.friends
+);
+
+export const getErrors = createSelector(
+  selectFriends,
+  (state: FriendsState): ErrorMessage => state.errors
 );

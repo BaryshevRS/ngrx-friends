@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Actions, Effect } from '@ngrx/effects';
+import { Actions, createEffect } from '@ngrx/effects';
 import { Action, Store } from '@ngrx/store';
 import { Observable, from } from 'rxjs';
 import { switchMap, withLatestFrom } from 'rxjs/operators';
-import { friendsActionTypes } from '../type';
-import { LoadFriends, RatingFriends } from '../action';
 import { ofType } from '@ngrx/effects';
 import { FriendsService } from '../../service/friends.service';
+import * as FriendsAction from '../action';
 
 @Injectable()
 export class RatingFriendsEffect {
@@ -16,12 +15,11 @@ export class RatingFriendsEffect {
     private friendsService: FriendsService
   ) {}
 
-  @Effect()
-  SetRatingFriends$: Observable<Action> = this.actions$.pipe(
-    ofType<RatingFriends>(friendsActionTypes.RATING_FRIENDS),
+  SetRatingFriends$: Observable<Action> = createEffect(() => this.actions$.pipe(
+    ofType(FriendsAction.RatingFriends),
     withLatestFrom(this.store$.select('friends')),
-    switchMap(([action, store]) => {
-      this.friendsService.setRating(action.payload.id, action.payload.rating);
+    switchMap(([{friend: {id, rating}}, store]) => {
+      this.friendsService.setRating(id, rating);
 
       const actions: Action[] = [];
       if (store.configsFriends.typeSort) {
@@ -30,9 +28,10 @@ export class RatingFriendsEffect {
           store.configsFriends.typeSort
         );
         actions.push(
-          new LoadFriends({
+          FriendsAction.LoadFriends({
+            ...store,
             configsFriends: store.configsFriends,
-            friends: friends,
+            friends,
             errors: null
           })
         );
@@ -40,5 +39,5 @@ export class RatingFriendsEffect {
 
       return from(actions);
     })
-  );
+  ));
 }

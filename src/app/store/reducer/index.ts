@@ -1,8 +1,14 @@
 import { ActionReducerMap } from '@ngrx/store';
 import { friendsReducer } from './friends.reducer';
-import { routerReducer } from '@ngrx/router-store';
+import { routerReducer, RouterState } from '@ngrx/router-store';
+import { FriendsState } from '../../interface/friends';
 
-export const appReducer: ActionReducerMap<any> = {
+export interface AppState {
+  friends: FriendsState;
+  router: RouterState
+}
+
+export const appReducer: ActionReducerMap<AppState> = {
   friends: friendsReducer,
   router: routerReducer
 };

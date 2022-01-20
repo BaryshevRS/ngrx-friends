@@ -1,13 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Store, select } from '@ngrx/store';
-import { FriendsAction } from '../../store/type';
-import {
-  GetCountBookmarksFriends,
-  ShowBookmarksFriends,
-  SortFriends
-} from '../../store/action';
+import { Store } from '@ngrx/store';
 import { Friend } from '../../class/friends';
-import { getFriendsState } from '../../store/selector/friends.selector';
+import * as FriendsActions from '../../store/action';
+import { FriendsState } from '../../interface/friends';
 
 @Component({
   selector: 'app-nav',
@@ -15,7 +10,7 @@ import { getFriendsState } from '../../store/selector/friends.selector';
   styleUrls: ['./nav.component.scss']
 })
 export class NavComponent implements OnInit, OnDestroy {
-  constructor(private store$: Store<FriendsAction>) {}
+  constructor(private store$: Store<FriendsState>) {}
 
   public typeSort: number;
   public countBookmark = 0;
@@ -23,25 +18,25 @@ export class NavComponent implements OnInit, OnDestroy {
   public friends: Friend[];
   public nav$;
 
-  showBookmark(active?: boolean): void {
-    this.store$.dispatch(new ShowBookmarksFriends(active));
-    this.activeBookmark = active || false;
+  showBookmark(showBookmark?: boolean): void {
+    this.store$.dispatch(FriendsActions.ShowBookmarksFriends({showBookmark}));
+    this.activeBookmark = showBookmark || false;
   }
 
   changeSort(typeSort: number) {
-    this.store$.dispatch(new SortFriends(typeSort));
+    this.store$.dispatch(FriendsActions.SortFriends({typeSort}));
   }
 
   ngOnInit() {
     this.nav$ = this.store$
-      .pipe(select(getFriendsState))
       .subscribe(({ bookmarks, configsFriends }) => {
         this.countBookmark = bookmarks.count || 0;
         this.countBookmark = this.countBookmark < 0 ? 0 : this.countBookmark;
         this.typeSort = configsFriends.typeSort || 0;
       });
 
-    this.store$.dispatch(new GetCountBookmarksFriends());
+    // todo: delete
+    this.store$.dispatch(FriendsActions.GetCountBookmarksFriends());
   }
 
   ngOnDestroy() {

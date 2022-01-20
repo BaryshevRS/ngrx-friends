@@ -5,7 +5,7 @@ import { catchError, delay, map } from 'rxjs/operators';
 
 import { Friend } from '../class/friends';
 import { LocalSaveService } from './local-save.service';
-import { IGetFriends } from '../interface/friends';
+import { ConfigsFriends } from '../interface/friends';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -24,7 +24,7 @@ export class FriendsService {
     showBookmark = false,
     startView = 0,
     limitView = 0
-  }: IGetFriends): Observable<Friend[]> {
+  }: ConfigsFriends): Observable<Friend[]> {
     return this.http.get<Friend[]>(this.BASE_URL).pipe(
       delay(200), // emulate delay
       map((friendsList: Friend[]) => this.getRating(friendsList)),

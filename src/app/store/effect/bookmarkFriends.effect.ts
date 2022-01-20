@@ -1,21 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Actions, Effect } from '@ngrx/effects';
+import { Actions, createEffect } from '@ngrx/effects';
 import { Action, Store } from '@ngrx/store';
 import { Observable, from, of } from 'rxjs';
 import { catchError, map, switchMap, withLatestFrom } from 'rxjs/operators';
-import { friendsActionTypes } from '../type';
-import {
-  BookmarksFriends,
-  ErrorsFriends,
-  GetCountBookmarksFriends,
-  GetFriends,
-  LoadFriends,
-  SetCountBookmarksFriends,
-  ShowBookmarksFriends
-} from '../action';
 import { ofType } from '@ngrx/effects';
 import { FriendsService } from '../../service/friends.service';
 import { ErrorMessage } from '../../class/errors';
+import * as FriendsAction from '../action';
 
 @Injectable()
 export class BookmarkFriendsEffect {
@@ -25,44 +16,39 @@ export class BookmarkFriendsEffect {
     private friendsService: FriendsService
   ) {}
 
-  @Effect()
-  GetCountBookmarksFriends$: Observable<Action> = this.actions$.pipe(
-    ofType<GetCountBookmarksFriends>(
-      friendsActionTypes.GET_COUNT_BOOKMARKS_FRIENDS
-    ),
-    switchMap(() => {
-      return this.friendsService.getCountBookmarksFriends().pipe(
-        map((count) => new SetCountBookmarksFriends(count)),
-        catchError(() => {
-          return of(
-            new ErrorsFriends(
-              new ErrorMessage('danger', 'errorMessage.networkConnect')
-            )
-          );
-        })
-      );
-    })
+  // Count bookmarks get to emulated from server
+  GetCountBookmarksFriends$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(FriendsAction.GetCountBookmarksFriends),
+      switchMap(action =>
+        this.friendsService.getCountBookmarksFriends().pipe(
+          map(count => FriendsAction.SetCountBookmarksFriends({count})),
+          catchError(() => of(FriendsAction.ErrorsFriends(
+            { errors: new ErrorMessage('danger', 'errorMessage.networkConnect')
+          })))
+        )
+      )
+    )
   );
 
-  @Effect()
-  SetBookmarkFriends$: Observable<Action> = this.actions$.pipe(
-    ofType<BookmarksFriends>(friendsActionTypes.BOOKMARKS_FRIENDS),
+  SetBookmarkFriends$: Observable<Action> = createEffect(() => this.actions$.pipe(
+    ofType(FriendsAction.BookmarksFriends),
     withLatestFrom(this.store$.select('friends')),
-    switchMap(([action, store]) => {
-      this.friendsService.setBookmark(
-        action.payload.id,
-        action.payload.bookmark
-      );
-      let count = action.payload.bookmark
+    switchMap(([{friend: {id, bookmark}}, store]) => {
+      this.friendsService.setBookmark( id, bookmark );
+
+      // todo: get from bookmark server request
+      let count = bookmark
         ? ++store.bookmarks.count
         : --store.bookmarks.count;
       count = count < 0 ? 0 : count;
 
-      const actions: Action[] = [new SetCountBookmarksFriends(count)];
+      const actions: Action[] = [FriendsAction.SetCountBookmarksFriends({count})];
 
-      // update friend list when show bookmark
+      // Friend list is updated when showing bookmark
       if (store.configsFriends.showBookmark) {
         let errors;
+        // todo: Запрашивать из json заново
         const friends = this.friendsService.getFilterBookmark(store.friends);
 
         if (friends.length === 0) {
@@ -70,8 +56,8 @@ export class BookmarkFriendsEffect {
         }
 
         actions.push(
-          new LoadFriends({
-            configsFriends: store.configsFriends,
+          FriendsAction.LoadFriends({
+            ...store,
             friends,
             errors
           })
@@ -80,14 +66,14 @@ export class BookmarkFriendsEffect {
 
       return from(actions);
     })
-  );
+  ));
 
-  @Effect()
-  ShowBookmarkFriends$: Observable<Action> = this.actions$.pipe(
-    ofType<ShowBookmarksFriends>(friendsActionTypes.SHOW_BOOKMARKS_FRIENDS),
-    switchMap((action) => {
-      action.payload = action.payload || false;
-      return of(new GetFriends({ showBookmark: action.payload }));
-    })
-  );
+/*  // todo: delete
+  ShowBookmarkFriends$: Observable<Action> = createEffect(() => this.actions$.pipe(
+    ofType(FriendsAction.ShowBookmarksFriends),
+    switchMap(({showBookmark}) => of(FriendsAction.GetFriends({configsFriends: {showBookmark}}))),
+    catchError(() => of(FriendsAction.ErrorsFriends(
+      { errors: new ErrorMessage('danger', 'errorMessage.networkConnect')
+      })))
+  ));*/
 }

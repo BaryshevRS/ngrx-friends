@@ -1,10 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Friend } from '../../class/friends';
-import { GetFriends } from '../../store/action';
 import { Observable } from 'rxjs';
 import { getErrors, getFriends } from '../../store/selector/friends.selector';
-import { ErrorMessage } from '../../class/errors';
+import * as FriendsActions from '../../store/action';
 
 @Component({
   selector: 'app-friends',
@@ -20,17 +19,18 @@ export class FriendsPageComponent implements OnInit, OnDestroy {
 
   // fill up page, if height content not more, than height screen
   drawing() {
-    this.store$.dispatch(new GetFriends());
+    this.store$.dispatch(FriendsActions.GetFriends({}));
   }
 
   ngOnInit() {
+    // @ts-ignore
     this.friends$ = this.store$.pipe(select(getFriends));
     this.errors$ = this.store$
       .pipe(select(getErrors))
-      .subscribe((error: ErrorMessage) => {
+      .subscribe((error) => {
         this.errorMsg = !!(error && error.text);
       });
-    this.store$.dispatch(new GetFriends());
+    this.store$.dispatch(FriendsActions.GetFriends({}));
   }
 
   ngOnDestroy() {

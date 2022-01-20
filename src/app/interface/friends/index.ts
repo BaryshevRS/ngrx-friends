@@ -1,7 +1,7 @@
 ﻿import { Friend } from '../../class/friends';
 import { ErrorMessage } from '../../class/errors';
 
-export interface IGetFriends {
+export interface ConfigsFriends {
   typeSort?: number;
   searchValue?: string;
   showBookmark?: boolean;
@@ -9,10 +9,10 @@ export interface IGetFriends {
   limitView?: number;
 }
 
-export interface Friends {
+export interface FriendsState {
   friends: Friend[];
   friendDescription?: Friend;
-  configsFriends?: IGetFriends;
+  configsFriends?: ConfigsFriends;
   bookmarks?: {
     count: number;
   };

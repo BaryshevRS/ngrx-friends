@@ -7,7 +7,7 @@ enum friendsActionTypes {
   GET_FRIENDS = '[Friends] GET_FRIENDS',
   LOAD_FRIENDS = '[Friends] LOAD_FRIENDS',
   SEARCH_FRIENDS = '[Friends] SEARCH_FRIENDS',
-  RATING_FRIENDS = '[Friends] RATING_FRIENDS',
+  SET_RATING_FRIENDS = '[Friends] SET_RATING_FRIENDS',
   SORT_FRIENDS = '[Friends] SORT_FRIENDS',
   GET_FRIEND = '[Friends] GET_FRIEND',
   SET_FRIEND_DESCRIPTION = '[Friends] SET_FRIEND_DESCRIPTION',
@@ -22,7 +22,7 @@ export const LoadFriends = createAction(friendsActionTypes.LOAD_FRIENDS, props<{
 export const GetFriends = createAction(friendsActionTypes.GET_FRIENDS, props<{configsFriends?: ConfigsFriends}>());
 export const GetFriend = createAction(friendsActionTypes.GET_FRIEND, props<{id: string}>());
 export const SetFriendDescription = createAction(friendsActionTypes.SET_FRIEND_DESCRIPTION, props<{friend: Friend}>());
-export const RatingFriends = createAction(friendsActionTypes.RATING_FRIENDS, props<{friend: Friend}>());
+export const SetRatingFriends = createAction(friendsActionTypes.SET_RATING_FRIENDS, props<{friend: Friend}>());
 export const SearchFriends = createAction(friendsActionTypes.SEARCH_FRIENDS, props<{searchValue: string}>());
 export const SortFriends = createAction(friendsActionTypes.SORT_FRIENDS, props<{typeSort: number}>());
 export const SetBookmarksFriends = createAction(friendsActionTypes.SET_BOOKMARKS_FRIENDS, props<{friend: Friend}>());

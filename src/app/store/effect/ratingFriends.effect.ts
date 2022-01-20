@@ -16,7 +16,7 @@ export class RatingFriendsEffect {
   ) {}
 
   SetRatingFriends$: Observable<Action> = createEffect(() => this.actions$.pipe(
-    ofType(FriendsAction.RatingFriends),
+    ofType(FriendsAction.SetRatingFriends),
     withLatestFrom(this.store$.select('friends')),
     switchMap(([{friend: {id, rating}}, store]) => {
       this.friendsService.setRating(id, rating);

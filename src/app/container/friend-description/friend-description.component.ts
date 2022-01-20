@@ -18,8 +18,7 @@ export class FriendDescriptionComponent {
     this.store$.dispatch(FriendsActions.SetBookmarksFriends({friend: {...this.friend, bookmark}}));
   }
 
-  ratingChange(value: number) {
-    this.friend.rating = value;
-    this.store$.dispatch(FriendsActions.RatingFriends({friend: this.friend}));
+  ratingChange(rating: number) {
+    this.store$.dispatch(FriendsActions.SetRatingFriends({friend: {...this.friend, rating}}));
   }
 }

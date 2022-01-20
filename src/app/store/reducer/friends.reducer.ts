@@ -75,7 +75,7 @@ export const friendsReducer = createReducer(
     },
   })),
   on(FriendsActions.SetBookmarksFriends, UpdateFriend),
-  on(FriendsActions.RatingFriends, UpdateFriend),
+  on(FriendsActions.SetRatingFriends, UpdateFriend),
   on(FriendsActions.SetCountBookmarksFriends, (state, {count}) => ({
     ...state,
     ...{ bookmarks: { count } }

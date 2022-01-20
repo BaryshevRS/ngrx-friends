@@ -8,7 +8,7 @@ import { Friend } from '../../class/friends';
 import { EffectsMetadata, getEffectsMetadata } from '@ngrx/effects';
 import { HttpClientModule } from '@angular/common/http';
 import { provideMockActions } from '@ngrx/effects/testing';
-import { LoadFriends, RatingFriends } from '../action';
+import { LoadFriends, SetRatingFriends } from '../action';
 import { RatingFriendsEffect } from './ratingFriends.effect';
 
 describe('RatingFriendsEffect', () => {

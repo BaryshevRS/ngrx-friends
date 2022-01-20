@@ -47,4 +47,12 @@ export class BookmarkEffect {
       ];
     })
   ));
+
+  ShowBookmarkFriends$: Observable<Action> = createEffect(() => this.actions$.pipe(
+    ofType(FriendsAction.ShowBookmarksFriends),
+    switchMap(({showBookmark}) => of(FriendsAction.GetFriends({configsFriends: {showBookmark}}))),
+    catchError(() => of(FriendsAction.ErrorsFriends(
+      { errors: new ErrorMessage('danger', 'errorMessage.networkConnect')
+      })))
+  ));
 }

@@ -21,8 +21,7 @@ export class FriendsEffect {
     ofType(
       FriendsAction.GetFriends,
       FriendsAction.SortFriends,
-      FriendsAction.SearchFriends,
-      FriendsAction.ShowBookmarksFriends
+      FriendsAction.SearchFriends
     ),
     withLatestFrom(this.store$.select('friends')),
     switchMap(([configsFriends, store]) => {

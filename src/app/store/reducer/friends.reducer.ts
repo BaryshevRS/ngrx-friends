@@ -4,7 +4,7 @@ import * as FriendsActions from '../action';
 
 const initialState: FriendsState = {
   friends: [],
-  friendDescription: null,
+  friendDetails: null,
   configsFriends: {
     typeSort: 0,
     searchValue: '',
@@ -43,12 +43,12 @@ export const friendsReducer = createReducer(
   on(FriendsActions.GetFriend, (state) => ({
     ...state,
     loading: true,
-    friendDescription: null
+    friendDetails: null
   })),
-  on(FriendsActions.SetFriendDescription, (state, {friend: friendDescription}) => ({
+  on(FriendsActions.SetFriendDetails, (state, {friend: friendDetails}) => ({
     ...state,
     loading: false,
-    friendDescription
+    friendDetails
   })),
   on(FriendsActions.SortFriends, (state, {typeSort}) => ({
     ...state,

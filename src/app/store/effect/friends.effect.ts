@@ -71,7 +71,7 @@ export class FriendsEffect {
     switchMap(({id}) => {
       return this.friendsService.getFriend(id).pipe(
         map((friend) => {
-          return FriendsAction.SetFriendDescription({friend});
+          return FriendsAction.SetFriendDetails({friend});
         }),
         catchError(() => of(
           FriendsAction.ErrorsFriends(

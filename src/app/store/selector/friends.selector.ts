@@ -12,7 +12,7 @@ export const getFriendsState = createSelector(
 
 export const getDescriptions = createSelector(
   friendsFeatureSelector,
-  (state: FriendsState) => state.friendDescription
+  (state: FriendsState) => state.friendDetails
 );
 
 export const getFriends = createSelector(

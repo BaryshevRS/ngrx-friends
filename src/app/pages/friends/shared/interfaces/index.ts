@@ -11,7 +11,7 @@ export interface ConfigsFriends {
 
 export interface FriendsState {
   friends: Friend[];
-  friendDescription?: Friend;
+  friendDetails?: Friend;
   configsFriends?: ConfigsFriends;
   bookmarks?: {
     count: number;

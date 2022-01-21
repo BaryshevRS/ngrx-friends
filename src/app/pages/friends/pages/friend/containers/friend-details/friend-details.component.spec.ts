@@ -5,7 +5,7 @@ import { appReducer } from '../../../../../../store/reducer';
 import { BookmarkComponent } from '../../../../../../shared/components/bookmark/bookmark.component';
 import { RatingComponent } from '../../../../../../shared/components/rating/rating.component';
 
-describe('FriendDescriptionComponent', () => {
+describe('FriendDetailsComponent', () => {
   let component: FriendDetailsComponent;
   let fixture: ComponentFixture<FriendDetailsComponent>;
 

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Friend } from './shared/classes/friends';
 import { Observable } from 'rxjs';
-import { getErrors, getFriends } from '../../store/selector/friends.selector';
+import { getErrors, getFriends, getLoading } from '../../store/selector/friends.selector';
 import * as FriendsActions from '../../store/action';
 import { FriendsState } from './shared/interfaces';
 
@@ -12,7 +12,8 @@ import { FriendsState } from './shared/interfaces';
 })
 export class FriendsComponent implements OnInit {
   public friends$: Observable<Friend[]> = this.store$.pipe(select(getFriends));
-  public errors$ = this.store$.pipe(select(getErrors))
+  public errors$ = this.store$.pipe(select(getErrors));
+  public loading$ = this.store$.pipe(select(getLoading));
 
   constructor(private store$: Store<FriendsState>) {}
 

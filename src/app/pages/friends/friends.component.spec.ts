@@ -7,7 +7,7 @@ import { FriendsListComponent } from './components/friends-list/friends-list.com
 import { FriendItemComponent } from './components/friend-item/friend-item.component';
 import { BookmarkComponent } from '../../shared/components/bookmark/bookmark.component';
 import { RatingComponent } from '../../shared/components/rating/rating.component';
-import { LoaderComponent } from '../../shared/containers/loader/loader.component';
+import { SpinnerComponent } from '../../shared/components/spinner/spinner.component';
 import { StoreModule } from '@ngrx/store';
 import { appReducer } from '../../store/reducer';
 
@@ -24,7 +24,7 @@ describe('FriendsPageComponent', () => {
         FriendItemComponent,
         BookmarkComponent,
         RatingComponent,
-        LoaderComponent
+        SpinnerComponent
       ],
       imports: [RouterTestingModule, StoreModule.forRoot(appReducer, {})]
     }).compileComponents();

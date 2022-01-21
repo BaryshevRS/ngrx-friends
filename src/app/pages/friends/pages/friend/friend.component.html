@@ -1,13 +1,19 @@
-<app-errors></app-errors>
+<ng-container *ngIf="(errors$ | async) as errors; else content">
+  <app-errors [errors]="errors"></app-errors>
+</ng-container>
 
-<div *ngIf="(friend$ | async) as friend">
-  <app-breadcrumb
-    [currentPage]="friend.last_name + ' ' + friend.first_name"
-  ></app-breadcrumb>
+<ng-template #content>
+  <div>
+    <ng-container *ngIf="(friend$ | async) as friend">
+      <app-breadcrumb
+        [currentPage]="friend.last_name + ' ' + friend.first_name"
+      ></app-breadcrumb>
 
-  <h1>{{ friend.last_name }} {{ friend.first_name }}</h1>
+      <h1>{{ friend.last_name }} {{ friend.first_name }}</h1>
 
-  <app-friend-details [friend]="friend"></app-friend-details>
-</div>
+      <app-friend-details [friend]="friend"></app-friend-details>
+    </ng-container>
 
-<app-loader></app-loader>
+    <app-spinner *ngIf="loading$ | async"></app-spinner>
+  </div>
+</ng-template>

@@ -4,7 +4,7 @@ import { BreadcrumbComponent } from '../../../../shared/components/breadcrumb/br
 import { RouterTestingModule } from '@angular/router/testing';
 import { FriendComponent } from './friend.component';
 import { FriendDetailsComponent } from './containers/friend-details/friend-details.component';
-import { LoaderComponent } from '../../../../shared/containers/loader/loader.component';
+import { SpinnerComponent } from '../../../../shared/components/spinner/spinner.component';
 import { BookmarkComponent } from '../../../../shared/components/bookmark/bookmark.component';
 import { RatingComponent } from '../../../../shared/components/rating/rating.component';
 import { StoreModule } from '@ngrx/store';
@@ -20,7 +20,7 @@ describe('FriendPageComponent', () => {
         FriendComponent,
         FriendDetailsComponent,
         BreadcrumbComponent,
-        LoaderComponent,
+        SpinnerComponent,
         BookmarkComponent,
         RatingComponent
       ],

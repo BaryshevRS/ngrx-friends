@@ -26,7 +26,7 @@ export class FriendsService {
     limitView = 0
   }: ConfigsFriends): Observable<Friend[]> {
     return this.http.get<Friend[]>(this.BASE_URL).pipe(
-      delay(400), // emulate delay
+      delay(800), // emulate delay
       map((friendsList: Friend[]) => this.getRating(friendsList)),
       map((friendsList: Friend[]) => this.getBookmark(friendsList)),
       map((friendsList: Friend[]) => this.setRatingSort(friendsList, typeSort)),

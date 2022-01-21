@@ -4,15 +4,15 @@ import { InfinityScrollLoaderDirective } from './directives/infinity-scroll-load
 import { TranslateModule } from '@ngx-translate/core';
 import { RatingComponent } from './components/rating/rating.component';
 import { BookmarkComponent } from './components/bookmark/bookmark.component';
-import { LoaderComponent } from './containers/loader/loader.component';
-import { ErrorsComponent } from './containers/errors/errors.component';
+import { SpinnerComponent } from './components/spinner/spinner.component';
+import { ErrorsComponent } from './components/errors/errors.component';
 import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
 import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
     InfinityScrollLoaderDirective,
-    LoaderComponent,
+    SpinnerComponent,
     ErrorsComponent,
     RatingComponent,
     BookmarkComponent,
@@ -21,7 +21,7 @@ import { RouterModule } from '@angular/router';
   imports: [CommonModule, TranslateModule, RouterModule],
   exports: [
     InfinityScrollLoaderDirective,
-    LoaderComponent,
+    SpinnerComponent,
     ErrorsComponent,
     RatingComponent,
     BookmarkComponent,

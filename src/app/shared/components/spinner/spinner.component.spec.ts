@@ -1,22 +1,22 @@
 import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 
-import { LoaderComponent } from './loader.component';
+import { SpinnerComponent } from './spinner.component';
 import { StoreModule } from '@ngrx/store';
 import { appReducer } from '../../../store/reducer';
 
-describe('LoaderComponent', () => {
-  let component: LoaderComponent;
-  let fixture: ComponentFixture<LoaderComponent>;
+describe('SpinnerComponent', () => {
+  let component: SpinnerComponent;
+  let fixture: ComponentFixture<SpinnerComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [StoreModule.forRoot(appReducer, {})],
-      declarations: [LoaderComponent]
+      declarations: [SpinnerComponent]
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LoaderComponent);
+    fixture = TestBed.createComponent(SpinnerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,4 +1,4 @@
-<div *ngIf="errors && errors.status" class="errors">
+<div *ngIf="errors" class="errors">
   <div class="alert alert-{{ errors.status }}" role="alert">
     <span [innerHTML]="errors.text | translate"></span>
   </div>

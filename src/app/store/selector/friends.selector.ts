@@ -1,7 +1,7 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { Friend } from '../../class/friends';
-import { ErrorMessage } from '../../class/errors';
-import { FriendsState } from '../../interface/friends';
+import { Friend } from '../../pages/friends/shared/classes/friends';
+import { ErrorMessage } from '../../pages/friends/shared/classes/errors';
+import { FriendsState } from '../../pages/friends/shared/interfaces';
 
 export const friendsFeatureSelector = createFeatureSelector<FriendsState>('friends');
 

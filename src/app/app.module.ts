@@ -16,16 +16,16 @@ import { appReducer } from './store/reducer';
 import { appEffects } from './store/effect';
 
 import { AppRoutingModule } from './app-routing.module';
-import { FriendsPageModule } from './module/friends-page.module';
-import { FriendPageModule } from './module/friend-page.module';
-import { ShareModule } from './module/share.module';
+import { FriendsModule } from './pages/friends/friends.module';
+import { FriendModule } from './pages/friends/pages/friend/friend.module';
+import { ShareModule } from './shared/share.module';
 
 import { AppComponent } from './app.component';
-import { HeaderSearchComponent } from './component/header-search/header-search.component';
-import { NavSortComponent } from './component/nav-sort/nav-sort.component';
-import { HeaderComponent } from './container/header/header.component';
-import { NavComponent } from './container/nav/nav.component';
-import { ErrorPageComponent } from './page/error-page/error-page.component';
+import { HeaderSearchComponent } from './containers/header/components/header-search/header-search.component';
+import { NavSortComponent } from './containers/nav/components/nav-sort/nav-sort.component';
+import { HeaderComponent } from './containers/header/header.component';
+import { NavComponent } from './containers/nav/nav.component';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient, 'assets/i18n/', '.json');
@@ -38,7 +38,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     HeaderSearchComponent,
     NavComponent,
     NavSortComponent,
-    ErrorPageComponent
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
@@ -61,8 +61,8 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
       }
     }),
     ShareModule,
-    FriendsPageModule,
-    FriendPageModule
+    FriendsModule,
+    FriendModule
   ],
   bootstrap: [AppComponent]
 })

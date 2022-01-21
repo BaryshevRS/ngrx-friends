@@ -17,22 +17,22 @@ import {
   StoreRouterConnectingModule
 } from '@ngrx/router-store';
 import { appReducer } from './store/reducer';
-import { effectsList } from './store/effect';
+import { appEffects } from './store/effect';
 
 import { AppRoutingModule } from './app-routing.module';
-import { FriendsPageModule } from './module/friends-page.module';
-import { FriendPageModule } from './module/friend-page.module';
-import { ShareModule } from './module/share.module';
+import { FriendsModule } from './pages/friends/friends.module';
+import { FriendModule } from './pages/friends/pages/friend/friend.module';
+import { ShareModule } from './shared/share.module';
 
 import { AppComponent } from './app.component';
-import { HeaderSearchComponent } from './component/header-search/header-search.component';
-import { NavSortComponent } from './component/nav-sort/nav-sort.component';
-import { HeaderComponent } from './container/header/header.component';
-import { NavComponent } from './container/nav/nav.component';
-import { ErrorPageComponent } from './page/error-page/error-page.component';
+import { HeaderSearchComponent } from './containers/header/components/header-search/header-search.component';
+import { NavSortComponent } from './containers/nav/components/nav-sort/nav-sort.component';
+import { HeaderComponent } from './containers/header/header.component';
+import { NavComponent } from './containers/nav/nav.component';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 
 import { APP_BASE_HREF } from '@angular/common';
-import { HttpLoaderFactory } from './factory/translate-http-loader';
+import { HttpLoaderFactory } from './shared/factories/translate-http-loader';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -48,7 +48,7 @@ describe('AppComponent', () => {
         !environment.production
           ? StoreDevtoolsModule.instrument({ maxAge: 20 })
           : [],
-        EffectsModule.forRoot(effectsList),
+        EffectsModule.forRoot(appEffects),
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
@@ -57,8 +57,8 @@ describe('AppComponent', () => {
           }
         }),
         ShareModule,
-        FriendsPageModule,
-        FriendPageModule
+        FriendsModule,
+        FriendModule
       ],
       declarations: [
         AppComponent,
@@ -66,7 +66,7 @@ describe('AppComponent', () => {
         HeaderSearchComponent,
         NavComponent,
         NavSortComponent,
-        ErrorPageComponent
+        NotFoundComponent
       ],
       providers: [{ provide: APP_BASE_HREF, useValue: '/' }]
     }).compileComponents();

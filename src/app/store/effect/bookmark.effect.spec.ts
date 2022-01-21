@@ -1,10 +1,10 @@
 import { Action } from '@ngrx/store';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
-import { FriendsService } from '../../service/friends.service';
+import { FriendsService } from '../../pages/friends/shared/service/friends/friends.service';
 import { TestBed } from '@angular/core/testing';
 import { cold, hot } from 'jasmine-marbles';
 import { Observable, of } from 'rxjs';
-import { Friend } from '../../class/friends';
+import { Friend } from '../../pages/friends/shared/classes/friends';
 import { HttpClientModule } from '@angular/common/http';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { BookmarkEffect } from './bookmark.effect';

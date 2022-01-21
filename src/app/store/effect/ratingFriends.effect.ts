@@ -4,7 +4,7 @@ import { Action, Store } from '@ngrx/store';
 import { Observable, from } from 'rxjs';
 import { switchMap, withLatestFrom } from 'rxjs/operators';
 import { ofType } from '@ngrx/effects';
-import { FriendsService } from '../../service/friends.service';
+import { FriendsService } from '../../pages/friends/shared/service/friends/friends.service';
 import * as FriendsAction from '../action';
 
 @Injectable()

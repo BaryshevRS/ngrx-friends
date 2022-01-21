@@ -1,0 +1,13 @@
+<app-errors></app-errors>
+
+<div *ngIf="(friend$ | async) as friend">
+  <app-breadcrumb
+    [currentPage]="friend.last_name + ' ' + friend.first_name"
+  ></app-breadcrumb>
+
+  <h1>{{ friend.last_name }} {{ friend.first_name }}</h1>
+
+  <app-friend-details [friend]="friend"></app-friend-details>
+</div>
+
+<app-loader></app-loader>

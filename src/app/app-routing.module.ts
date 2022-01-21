@@ -1,17 +1,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { FriendsPageComponent } from './page/friends-page/friends-page.component';
-import { FriendsPageModule } from './module/friends-page.module';
-import { ErrorPageComponent } from './page/error-page/error-page.component';
+import { FriendsComponent } from './pages/friends/friends.component';
+import { FriendsModule } from './pages/friends/friends.module';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 
 const appRoutes: Routes = [
-  { path: '', component: FriendsPageComponent },
-  { path: '**', component: ErrorPageComponent }
+  { path: '', component: FriendsComponent },
+  { path: '**', component: NotFoundComponent }
 ];
 
 @NgModule({
   exports: [RouterModule],
   declarations: [],
-  imports: [RouterModule.forRoot(appRoutes), FriendsPageModule]
+  imports: [RouterModule.forRoot(appRoutes), FriendsModule]
 })
 export class AppRoutingModule {}

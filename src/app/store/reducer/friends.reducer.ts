@@ -1,4 +1,4 @@
-import { FriendsState } from '../../interface/friends';
+import { FriendsState } from '../../pages/friends/shared/interfaces';
 import { createReducer, on } from "@ngrx/store";
 import * as FriendsActions from '../action';
 

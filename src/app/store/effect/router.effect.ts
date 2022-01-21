@@ -4,7 +4,7 @@ import { of } from 'rxjs';
 import { filter, switchMap } from 'rxjs/operators';
 import { ofType } from '@ngrx/effects';
 import { ROUTER_NAVIGATION, RouterNavigationAction } from '@ngrx/router-store';
-import * as FriendsActions from '../../store/action';
+import * as FriendsActions from '../action';
 
 @Injectable()
 export class RouterEffects {

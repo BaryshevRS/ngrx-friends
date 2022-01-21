@@ -5,8 +5,8 @@ import { Observable, of } from 'rxjs';
 import { catchError, map, switchMap, withLatestFrom } from 'rxjs/operators';
 import * as FriendsAction from '../action';
 import { ofType } from '@ngrx/effects';
-import { FriendsService } from '../../service/friends.service';
-import { ErrorMessage } from '../../class/errors';
+import { FriendsService } from '../../pages/friends/shared/service/friends/friends.service';
+import { ErrorMessage } from '../../pages/friends/shared/classes/errors';
 import { AppState } from '../reducer';
 
 @Injectable()

@@ -9,17 +9,17 @@ import { EffectsMetadata, getEffectsMetadata } from '@ngrx/effects';
 import { HttpClientModule } from '@angular/common/http';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { LoadFriends, SetRatingFriends } from '../action';
-import { RatingFriendsEffect } from './ratingFriends.effect';
+import { RatingEffect } from './rating.effect';
 
 describe('RatingFriendsEffect', () => {
   describe('Rating friends', () => {
-    const moskStore = {
+    const mockStore = {
       friends: {
         friends: [new Friend('1', 'first_name', 'last_name')],
         configsFriends: {
           typeSort: 1,
           searchValue: '',
-          showBookmark: false,
+          showBookmarks: false,
           startView: 0,
           limitView: 0
         },
@@ -29,33 +29,33 @@ describe('RatingFriendsEffect', () => {
 
     const mockFriendsService = {
       getFriends: function (): Observable<Friend[]> {
-        return of(moskStore.friends.friends);
+        return of(mockStore.friends.friends);
       },
       setRating: function (): void {},
       setRatingSort: function (): Friend[] {
-        return moskStore.friends.friends;
+        return mockStore.friends.friends;
       }
     };
 
-    let effects: RatingFriendsEffect;
-    let metadata: EffectsMetadata<RatingFriendsEffect>;
+    let effects: RatingEffect;
+    let metadata: EffectsMetadata<RatingEffect>;
     let actionsMarble: Observable<any>;
 
     let store: MockStore<any>;
-    const initialState = moskStore;
+    const initialState = mockStore;
 
     beforeEach(() => {
       TestBed.configureTestingModule({
         imports: [HttpClientModule],
         providers: [
-          RatingFriendsEffect,
+          RatingEffect,
           { provide: FriendsService, useValue: mockFriendsService },
           provideMockStore({ initialState }),
           provideMockActions(() => actionsMarble)
         ]
       });
 
-      effects = TestBed.get(RatingFriendsEffect);
+      effects = TestBed.get(RatingEffect);
       metadata = getEffectsMetadata(effects);
       store = TestBed.get(Store);
     });

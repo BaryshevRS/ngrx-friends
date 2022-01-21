@@ -8,7 +8,7 @@ const initialState: FriendsState = {
   configsFriends: {
     typeSort: 0,
     searchValue: '',
-    showBookmark: false,
+    showBookmarks: false,
     startView: 0,
     limitView: 20
   },
@@ -18,13 +18,6 @@ const initialState: FriendsState = {
   loading: false,
   errors: null
 };
-
-const UpdateFriend = (state, {friend}) => ({
-  ...state,
-  friends: state.friends.map((friendCurrent) => {
-    return friendCurrent.id === friend.id ? friend : friendCurrent;
-  })
-});
 
 export const friendsReducer = createReducer(
   initialState,
@@ -50,32 +43,33 @@ export const friendsReducer = createReducer(
     loading: false,
     friendDetails
   })),
-  on(FriendsActions.SortFriends, (state, {typeSort}) => ({
+  on(FriendsActions.SortFriends, (state, {configsFriends}) => ({
     ...state,
     loading: true,
     configsFriends: {
       ...state.configsFriends,
-      ...{ typeSort, startView: 0 }
+      ...configsFriends,
+      startView: 0
     }
   })),
-  on(FriendsActions.SearchFriends, (state, {searchValue}) => ({
+  on(FriendsActions.SearchFriends, (state, {configsFriends}) => ({
     ...state,
     loading: true,
     configsFriends: {
       ...state.configsFriends,
-      ...{ searchValue, startView: 0 }
+      ...configsFriends,
+      startView: 0
     },
   })),
-  on(FriendsActions.ShowBookmarksFriends, (state, {showBookmark}) => ({
+  on(FriendsActions.ShowBookmarksFriends, (state, {configsFriends}) => ({
     ...state,
     loading: true,
     configsFriends: {
       ...state.configsFriends,
-      ...{ showBookmark, startView: 0 }
+      ...configsFriends,
+      startView: 0
     },
   })),
-  on(FriendsActions.SetBookmarksFriends, UpdateFriend),
-  on(FriendsActions.SetRatingFriends, UpdateFriend),
   on(FriendsActions.SetCountBookmarksFriends, (state, {count}) => ({
     ...state,
     ...{ bookmarks: { count } }

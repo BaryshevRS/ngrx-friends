@@ -2,12 +2,14 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect } from '@ngrx/effects';
 import { Action, Store } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
-import { catchError, map, switchMap, withLatestFrom } from 'rxjs/operators';
+import { catchError, exhaust, exhaustMap, map, switchMap, withLatestFrom } from 'rxjs/operators';
 import * as FriendsAction from '../action';
 import { ofType } from '@ngrx/effects';
 import { FriendsService } from '../../pages/friends/shared/service/friends/friends.service';
 import { ErrorMessage } from '../../pages/friends/shared/classes/errors';
 import { AppState } from '../reducer';
+import { friendsFeatureSelector } from '../selector/friends.selector';
+import { ConfigsFriends, FriendsState } from '../../pages/friends/shared/interfaces';
 
 @Injectable()
 export class FriendsEffect {
@@ -21,38 +23,42 @@ export class FriendsEffect {
     ofType(
       FriendsAction.GetFriends,
       FriendsAction.SortFriends,
-      FriendsAction.SearchFriends
+      FriendsAction.SearchFriends,
+      FriendsAction.ShowBookmarksFriends
     ),
-    withLatestFrom(this.store$.select('friends')),
-    switchMap(([configsFriends, store]) => {
-      const params = { ...store.configsFriends, ...configsFriends };
-      return this.friendsService.getFriends(params).pipe(
-        map((friends) => {
+    withLatestFrom(this.store$.select(friendsFeatureSelector)),
+    exhaustMap(([{configsFriends}, store]) => {
+      const defaultLimitView = 20;
+      console.log('!configsFriends', configsFriends);
+      const limitView = configsFriends.limitView ? configsFriends.limitView : defaultLimitView;
+      const configs = { ...store.configsFriends, ...configsFriends, limitView };
+      console.log({configs})
+      return this.friendsService.getFriends(configs).pipe(
+        map((friends = []) => {
           let errors = null;
 
-          friends = friends || [];
-
           if (friends && friends.length > 0) {
-            if (params.startView > 0) {
+            if (configs.startView > 0) {
               friends = [...store.friends, ...friends];
             }
-            params.startView = params.startView + params.limitView;
+            configs.startView = configs.startView + configs.limitView;
           } else {
-            if (params.startView > 0) {
+            if (configs.startView > 0) {
               friends = [...store.friends];
             } else {
-              if (params.searchValue) {
+              if (configs.searchValue) {
                 errors = new ErrorMessage('info', 'errorMessage.searchEmpty');
-              } else if (params.showBookmark) {
+              } else if (configs.showBookmarks) {
                 errors = new ErrorMessage('info', 'errorMessage.bookmarkEmpty');
               } else {
                 errors = new ErrorMessage('info', 'errorMessage.friendsEmpty');
               }
             }
           }
+          //  'friends!', friends)
 
           return FriendsAction.LoadFriends({friends: {
-              configsFriends: params,
+              configsFriends: configs,
               friends,
               errors
             }});

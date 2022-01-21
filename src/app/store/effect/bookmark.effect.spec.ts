@@ -16,7 +16,7 @@ describe('BookmarkEffect on bookmarks page', () => {
       configsFriends: {
         typeSort: 0,
         searchValue: '',
-        showBookmark: true,
+        showBookmarks: true,
         startView: 0,
         limitView: 0
       },
@@ -34,7 +34,7 @@ describe('BookmarkEffect on bookmarks page', () => {
     configsFriends: {
       typeSort: 0,
       searchValue: '',
-      showBookmark: true,
+      showBookmarks: true,
       startView: 0,
       limitView: 20
     },

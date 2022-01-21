@@ -4,7 +4,7 @@ import { ErrorMessage } from '../classes/errors';
 export interface ConfigsFriends {
   typeSort?: number;
   searchValue?: string;
-  showBookmark?: boolean;
+  showBookmarks?: boolean;
   startView?: number;
   limitView?: number;
 }

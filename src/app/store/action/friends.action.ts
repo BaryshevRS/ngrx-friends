@@ -19,14 +19,14 @@ enum friendsActionTypes {
 }
 
 export const LoadFriends = createAction(friendsActionTypes.LOAD_FRIENDS, props<{friends: FriendsState}>());
-export const GetFriends = createAction(friendsActionTypes.GET_FRIENDS, props<{configsFriends?: ConfigsFriends}>());
+export const GetFriends = createAction(friendsActionTypes.GET_FRIENDS, props<{configsFriends: ConfigsFriends}>());
 export const GetFriend = createAction(friendsActionTypes.GET_FRIEND, props<{id: string}>());
 export const SetFriendDetails = createAction(friendsActionTypes.SET_FRIEND_DETAILS, props<{friend: Friend}>());
 export const SetRatingFriends = createAction(friendsActionTypes.SET_RATING_FRIENDS, props<{friend: Friend}>());
-export const SearchFriends = createAction(friendsActionTypes.SEARCH_FRIENDS, props<{searchValue: string}>());
-export const SortFriends = createAction(friendsActionTypes.SORT_FRIENDS, props<{typeSort: number}>());
+export const SearchFriends = createAction(friendsActionTypes.SEARCH_FRIENDS, props<{configsFriends: ConfigsFriends}>());
+export const SortFriends = createAction(friendsActionTypes.SORT_FRIENDS, props<{configsFriends: ConfigsFriends}>());
 export const SetBookmarksFriends = createAction(friendsActionTypes.SET_BOOKMARKS_FRIENDS, props<{friend: Friend}>());
 export const GetCountBookmarksFriends = createAction(friendsActionTypes.GET_COUNT_BOOKMARKS_FRIENDS);
 export const SetCountBookmarksFriends = createAction(friendsActionTypes.SET_COUNT_BOOKMARKS_FRIENDS, props<{count: number}>());
-export const ShowBookmarksFriends = createAction(friendsActionTypes.SHOW_BOOKMARKS_FRIENDS, props<{showBookmark: boolean}>());
+export const ShowBookmarksFriends = createAction(friendsActionTypes.SHOW_BOOKMARKS_FRIENDS, props<{configsFriends: ConfigsFriends}>());
 export const ErrorsFriends = createAction(friendsActionTypes.ERRORS_FRIENDS, props<{errors: ErrorMessage}>());

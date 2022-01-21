@@ -19,19 +19,19 @@ export class FriendsService {
   constructor(private http: HttpClient, private LocalSave: LocalSaveService) {}
 
   public getFriends({
-    typeSort = 0,
-    searchValue = '',
-    showBookmark = false,
-    startView = 0,
-    limitView = 0
-  }: ConfigsFriends): Observable<Friend[]> {
+                      typeSort = 0,
+                      searchValue = '',
+                      showBookmarks = false,
+                      startView = 0,
+                      limitView = 0
+                    }: ConfigsFriends): Observable<Friend[]> {
     return this.http.get<Friend[]>(this.BASE_URL).pipe(
-      delay(800), // emulate delay
+      delay(400), // emulate delay
       map((friendsList: Friend[]) => this.getRating(friendsList)),
       map((friendsList: Friend[]) => this.getBookmark(friendsList)),
       map((friendsList: Friend[]) => this.setRatingSort(friendsList, typeSort)),
       map((friendsList: Friend[]) =>
-        showBookmark ? this.getFilterBookmark(friendsList) : friendsList
+        showBookmarks ? this.getFilterBookmark(friendsList) : friendsList
       ),
       map((friendsList: Friend[]) =>
         searchValue
@@ -111,7 +111,7 @@ export class FriendsService {
   }
 
   // save locally user bookmarks
-  public setBookmark(id: string, bookmark: boolean): void {
+  public setBookmark(id: string, bookmark: number): void {
     this.LocalSave.set(this.nameFriendsBookmark, { [id]: bookmark });
   }
 

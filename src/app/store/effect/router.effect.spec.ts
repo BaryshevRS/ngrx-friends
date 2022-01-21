@@ -19,7 +19,7 @@ describe('RouterEffects', () => {
       configsFriends: {
         typeSort: 1,
         searchValue: '',
-        showBookmark: false,
+        showBookmarks: false,
         startView: 0,
         limitView: 0
       },

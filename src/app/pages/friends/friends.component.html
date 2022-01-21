@@ -10,7 +10,6 @@
       [contents]="friends$ | async"
       (drawing)="drawing()">
     </app-friends-list>
-
     <app-spinner *ngIf="loading$ | async"></app-spinner>
   </div>
 </ng-template>

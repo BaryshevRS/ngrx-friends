@@ -14,7 +14,7 @@ export class FriendDetailsComponent {
 
   constructor(private store$: Store<FriendsState>) {}
 
-  bookmarkChange(bookmark: boolean) {
+  bookmarkChange(bookmark: number) {
     this.store$.dispatch(FriendsActions.SetBookmarksFriends({friend: {...this.friend, bookmark}}));
   }
 

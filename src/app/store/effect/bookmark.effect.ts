@@ -9,6 +9,7 @@ import { ErrorMessage } from '../../pages/friends/shared/classes/errors';
 import * as FriendsAction from '../action';
 import { AppState } from '../reducer';
 import { friendsFeatureSelector } from '../selector/friends.selector';
+import * as FriendsActions from '../action';
 
 @Injectable()
 export class BookmarkEffect {
@@ -33,26 +34,31 @@ export class BookmarkEffect {
     )
   );
 
-  setBookmarkFriends$ = createEffect(() => this.actions$.pipe(
+  setBookmarksFriends$ = createEffect(() => this.actions$.pipe(
     ofType(FriendsAction.SetBookmarksFriends),
     withLatestFrom(this.store$.select(friendsFeatureSelector)),
     switchMap(([{friend: {id, bookmark}}, store]) => {
       this.friendsService.setBookmark( id, bookmark );
-
-      const friends = store.friends.map((currentFriend) => currentFriend.id === id ? {...currentFriend, bookmark} : currentFriend)
-
+      const limitView = store.configsFriends.startView || store.configsFriends.limitView;
+      const startView = 0;
       return [
         FriendsAction.GetCountBookmarksFriends(),
-        FriendsAction.LoadFriends({friends: {...store, friends}})
+        FriendsActions.GetFriends({configsFriends: {limitView, startView}})
       ];
     })
   ));
 
-  ShowBookmarkFriends$: Observable<Action> = createEffect(() => this.actions$.pipe(
-    ofType(FriendsAction.ShowBookmarksFriends),
-    switchMap(({showBookmark}) => of(FriendsAction.GetFriends({configsFriends: {showBookmark}}))),
-    catchError(() => of(FriendsAction.ErrorsFriends(
-      { errors: new ErrorMessage('danger', 'errorMessage.networkConnect')
-      })))
-  ));
+  // setBookmarksFriend$ = createEffect(() => this.actions$.pipe(
+  //   ofType(FriendsAction.SetBookmarksFriends),
+  //   withLatestFrom(this.store$.select(friendsFeatureSelector)),
+  //   switchMap(([{friend: {id, bookmark}}, store]) => {
+  //     this.friendsService.setBookmark( id, bookmark );
+  //     const limitView = store.configsFriends.startView || store.configsFriends.limitView;
+  //     const startView = 0;
+  //     return [
+  //       FriendsAction.GetCountBookmarksFriends(),
+  //       FriendsActions.GetFriends({configsFriends: {limitView, startView}})
+  //     ];
+  //   })
+  // ));
 }

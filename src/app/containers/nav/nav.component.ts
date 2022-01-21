@@ -18,13 +18,13 @@ export class NavComponent implements OnInit {
   public typeSort$: Observable<number> = this.store$.pipe(select(getTypeSort));
   public bookmarksCount$: Observable<number> = this.store$.pipe(select(getBookmarksCount));
 
-  showBookmark(showBookmark: boolean = false): void {
-    this.store$.dispatch(FriendsActions.ShowBookmarksFriends({showBookmark}));
-    this.activeBookmark = showBookmark;
+  showBookmarks(showBookmarks: boolean = false): void {
+    this.store$.dispatch(FriendsActions.ShowBookmarksFriends({configsFriends: {showBookmarks}}));
+    this.activeBookmark = showBookmarks;
   }
 
   changeSort(typeSort: number) {
-    this.store$.dispatch(FriendsActions.SortFriends({typeSort}));
+    this.store$.dispatch(FriendsActions.SortFriends({configsFriends: {typeSort}}));
   }
 
   ngOnInit() {

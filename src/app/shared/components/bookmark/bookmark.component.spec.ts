@@ -42,7 +42,7 @@ describe('BookmarkComponent', () => {
   });
 
   it('should bookmark show active', () => {
-    component.bookmark = true;
+    component.bookmark = 1;
     fixture.detectChanges();
     expect(
       getBookmarkIcon().nativeElement.classList.contains('active')
@@ -50,7 +50,7 @@ describe('BookmarkComponent', () => {
   });
 
   it('should bookmark not show active', () => {
-    component.bookmark = false;
+    component.bookmark = 0;
     fixture.detectChanges();
     expect(
       getBookmarkIcon().nativeElement.classList.contains('active')

@@ -15,7 +15,7 @@ describe('FriendsService', () => {
   moskConfigsFriends = {
     typeSort: 0,
     searchValue: '',
-    showBookmark: false,
+    showBookmarks: false,
     startView: 0,
     limitView: 10
   };
@@ -72,7 +72,7 @@ describe('FriendsService', () => {
     [FriendsService],
     (service: FriendsService) => {
       const serviceMoskFriends = [new Friend('1', 'first_name', 'last_name')];
-      serviceMoskFriends[0].bookmark = true;
+      serviceMoskFriends[0].bookmark = 1;
 
       expect({ ...service.getFilterBookmark(serviceMoskFriends) }).toEqual({
         ...serviceMoskFriends
@@ -82,7 +82,7 @@ describe('FriendsService', () => {
 
   it('should be get count bookmarsk friends', async(() => {
     const serviceMoskFriends = [new Friend('1', 'first_name', 'last_name')];
-    serviceMoskFriends[0].bookmark = true;
+    serviceMoskFriends[0].bookmark = 1;
 
     httpClientSpy.get.and.returnValue(of(serviceMoskFriends));
 

@@ -26,7 +26,7 @@ describe('FriendsEffect', () => {
         configsFriends: {
           typeSort: 0,
           searchValue: '',
-          showBookmark: false,
+          showBookmarks: false,
           startView: 0,
           limitView: 0
         },
@@ -112,7 +112,7 @@ describe('FriendsEffect', () => {
         configsFriends: {
           typeSort: 0,
           searchValue: '',
-          showBookmark: false,
+          showBookmarks: false,
           startView: 0,
           limitView: 0
         },
@@ -169,7 +169,7 @@ describe('FriendsEffect', () => {
         configsFriends: {
           typeSort: 0,
           searchValue: '',
-          showBookmark: false,
+          showBookmarks: false,
           startView: 0,
           limitView: 0
         },
@@ -233,7 +233,7 @@ describe('FriendsEffect', () => {
         configsFriends: {
           typeSort: 0,
           searchValue: 'test',
-          showBookmark: false,
+          showBookmarks: false,
           startView: 0,
           limitView: 0
         },
@@ -297,7 +297,7 @@ describe('FriendsEffect', () => {
         configsFriends: {
           typeSort: 0,
           searchValue: '',
-          showBookmark: true,
+          showBookmarks: true,
           startView: 0,
           limitView: 0
         },

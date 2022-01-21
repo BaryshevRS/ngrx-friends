@@ -4,7 +4,7 @@
       <nav class="nav nav-underline">
         <a
           routerLink="/"
-          (click)="showBookmark(false)"
+          (click)="showBookmarks(false)"
           [ngClass]="{ active: !activeBookmark }"
           class="nav-link active"
           href="#"
@@ -12,7 +12,7 @@
 
         <a
           routerLink="/"
-          (click)="showBookmark(true)"
+          (click)="showBookmarks(true)"
           [ngClass]="{ active: activeBookmark }"
           class="nav-link"
           href="#">

@@ -14,18 +14,18 @@ import { delay } from 'rxjs/internal/operators/delay';
 export class FriendsComponent implements OnInit {
   public friends$: Observable<Friend[]> = this.store$.pipe(select(getFriends));
   public errors$ = this.store$.pipe(select(getErrors));
+  // Delay fixed render error
   public loading$ = this.store$.pipe(delay(0), select(getLoading));
 
   constructor(private store$: Store<FriendsState>) {}
 
-  // fill up page, if height content not more, than height screen
+  // Fill up page. If height content not more, than height screen
   drawing() {
-    this.store$.dispatch(FriendsActions.GetFriends({}));
+    this.store$.dispatch(FriendsActions.GetFriends({configsFriends: {}}));
   }
 
   ngOnInit() {
-    this.store$.dispatch(FriendsActions.GetFriends({}));
-
+    this.store$.dispatch(FriendsActions.GetFriends({configsFriends: {}}));
     this.friends$.subscribe(console.log)
   }
 }

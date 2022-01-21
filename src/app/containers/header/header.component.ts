@@ -17,6 +17,6 @@ export class HeaderComponent {
 
   initSearch(searchValue: string = '') {
     this.router.navigate(['/']);
-    this.store$.dispatch(FriendsAction.SearchFriends({searchValue}));
+    this.store$.dispatch(FriendsAction.SearchFriends({configsFriends: {searchValue}}));
   }
 }

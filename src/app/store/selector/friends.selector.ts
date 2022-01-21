@@ -10,7 +10,7 @@ export const getFriendsState = createSelector(
   (state: FriendsState) => state
 );
 
-export const getDescriptions = createSelector(
+export const getFriendDetails = createSelector(
   friendsFeatureSelector,
   (state: FriendsState) => state.friendDetails
 );

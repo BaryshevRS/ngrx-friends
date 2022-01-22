@@ -1,36 +1,27 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { filter, switchMap } from 'rxjs/operators';
+import { filter, switchMap, withLatestFrom } from 'rxjs/operators';
 import { ofType } from '@ngrx/effects';
-import { ROUTER_NAVIGATION, RouterNavigationAction } from '@ngrx/router-store';
+import { routerNavigatedAction } from '@ngrx/router-store';
 import * as FriendsActions from '../action';
+import { selectRouteParams } from '../selector/router.selector';
+
+import { select, Store } from '@ngrx/store';
+import { AppState } from '../reducer';
 
 @Injectable()
 export class RouterEffects {
-  constructor(private actions$: Actions) {}
+  constructor(
+    private actions$: Actions,
+    private store$: Store<AppState>
+  ) {}
 
   routeChange$ = createEffect(() => this.actions$.pipe(
-    ofType(ROUTER_NAVIGATION),
-    filter((payload: RouterNavigationAction) => {
-      if (payload) {
-        const {
-          payload: {
-            routerState: {
-              root: {
-                firstChild: {
-                  routeConfig: { path }
-                }
-              }
-            }
-          }
-        } = payload;
-        return path === 'friends/:id';
-      }
-      return false;
-    }),
-    switchMap((action: RouterNavigationAction) => {
-      const { id } = action.payload.routerState.root.firstChild.params;
+    ofType(routerNavigatedAction),
+    withLatestFrom(this.store$.pipe(select(selectRouteParams))),
+    filter(([, params]) => !!params?.['id']),
+    switchMap(([, {id}]) => {
       return of(FriendsActions.GetFriend({id}));
     })
   ));

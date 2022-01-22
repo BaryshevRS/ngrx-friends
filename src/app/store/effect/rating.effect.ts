@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect } from '@ngrx/effects';
 import { Action, Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { switchMap, withLatestFrom } from 'rxjs/operators';
 import { ofType } from '@ngrx/effects';
 import { FriendsService } from '../../pages/friends/shared/service/friends/friends.service';
@@ -28,6 +28,15 @@ export class RatingEffect {
       return [
         FriendsActions.GetFriends({configsFriends: {limitView, startView}})
       ]
+    })
+  ));
+
+  setRatingFriend$ = createEffect(() => this.actions$.pipe(
+    ofType(FriendsAction.SetRatingFriend),
+    switchMap(({friend}) => {
+      const {id, rating} = friend;
+      this.friendsService.setRating(id, rating);
+      return of(FriendsAction.SetDetailsFriend({friend}))
     })
   ));
 }

@@ -14,7 +14,7 @@ import {
   GetFriend,
   GetFriends,
   LoadFriends,
-  SetFriendDetails
+  SetDetailsFriend
 } from '../action';
 import { ErrorMessage } from '../../pages/friends/shared/classes/errors';
 
@@ -82,7 +82,7 @@ describe('FriendsEffect', () => {
 
   /*  it('should be get friend by id', () => {
       const action = new GetFriend('1');
-      const completion = new SetFriendDetails(moskStore.friends.friends[0]);
+      const completion = new SetDetailsFriend(moskStore.friends.friends[0]);
 
       actionsMarble = cold('--a-', { a: action });
       const expected = cold('--b', { b: completion });

@@ -38,7 +38,7 @@ export const friendsReducer = createReducer(
     loading: true,
     friendDetails: null
   })),
-  on(FriendsActions.SetFriendDetails, (state, {friend: friendDetails}) => ({
+  on(FriendsActions.SetDetailsFriend, (state, {friend: friendDetails}) => ({
     ...state,
     loading: false,
     friendDetails

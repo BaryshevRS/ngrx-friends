@@ -48,17 +48,12 @@ export class BookmarkEffect {
     })
   ));
 
-  // setBookmarksFriend$ = createEffect(() => this.actions$.pipe(
-  //   ofType(FriendsAction.SetBookmarksFriends),
-  //   withLatestFrom(this.store$.select(friendsFeatureSelector)),
-  //   switchMap(([{friend: {id, bookmark}}, store]) => {
-  //     this.friendsService.setBookmark( id, bookmark );
-  //     const limitView = store.configsFriends.startView || store.configsFriends.limitView;
-  //     const startView = 0;
-  //     return [
-  //       FriendsAction.GetCountBookmarksFriends(),
-  //       FriendsActions.GetFriends({configsFriends: {limitView, startView}})
-  //     ];
-  //   })
-  // ));
+  setBookmarksFriend$ = createEffect(() => this.actions$.pipe(
+    ofType(FriendsAction.SetBookmarksFriend),
+    switchMap(({friend}) => {
+      const {id, bookmark} = friend;
+      this.friendsService.setBookmark( id, bookmark );
+      return of(FriendsAction.SetDetailsFriend({friend}))
+    })
+  ));
 }

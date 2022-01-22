@@ -9,7 +9,6 @@ import { FriendsService } from '../../pages/friends/shared/service/friends/frien
 import { ErrorMessage } from '../../pages/friends/shared/classes/errors';
 import { AppState } from '../reducer';
 import { friendsFeatureSelector } from '../selector/friends.selector';
-import { ConfigsFriends, FriendsState } from '../../pages/friends/shared/interfaces';
 
 @Injectable()
 export class FriendsEffect {
@@ -55,7 +54,6 @@ export class FriendsEffect {
               }
             }
           }
-          //  'friends!', friends)
 
           return FriendsAction.LoadFriends({friends: {
               configsFriends: configs,
@@ -77,7 +75,7 @@ export class FriendsEffect {
     switchMap(({id}) => {
       return this.friendsService.getFriend(id).pipe(
         map((friend) => {
-          return FriendsAction.SetFriendDetails({friend});
+          return FriendsAction.SetDetailsFriend({friend});
         }),
         catchError(() => of(
           FriendsAction.ErrorsFriends(

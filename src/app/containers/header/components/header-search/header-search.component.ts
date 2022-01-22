@@ -28,7 +28,6 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
   private unsubscribe$: Subject<void> = new Subject<void>();
 
   @Output() initSearch: EventEmitter<string> = new EventEmitter();
-
   @ViewChild('searchBox', { static: true }) searchBox: ElementRef;
 
   search(term: string): void {

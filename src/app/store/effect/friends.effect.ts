@@ -28,10 +28,8 @@ export class FriendsEffect {
     withLatestFrom(this.store$.select(friendsFeatureSelector)),
     exhaustMap(([{configsFriends}, store]) => {
       const defaultLimitView = 20;
-      console.log('!configsFriends', configsFriends);
       const limitView = configsFriends.limitView ? configsFriends.limitView : defaultLimitView;
       const configs = { ...store.configsFriends, ...configsFriends, limitView };
-      console.log({configs})
       return this.friendsService.getFriends(configs).pipe(
         map((friends = []) => {
           let errors = null;

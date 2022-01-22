@@ -26,6 +26,5 @@ export class FriendsComponent implements OnInit {
 
   ngOnInit() {
     this.store$.dispatch(FriendsActions.GetFriends({configsFriends: {}}));
-    this.friends$.subscribe(console.log)
   }
 }

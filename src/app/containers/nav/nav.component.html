@@ -24,6 +24,7 @@
       </nav>
 
       <app-nav-sort
+        *appIsFriendsList
         [typeSort]="typeSort$ | async"
         (changeSort)="changeSort($event)">
       </app-nav-sort>

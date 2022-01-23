@@ -17,7 +17,7 @@ export class RouterEffects {
     private store$: Store<AppState>
   ) {}
 
-  routeChange$ = createEffect(() => this.actions$.pipe(
+  routeDetails$ = createEffect(() => this.actions$.pipe(
     ofType(routerNavigatedAction),
     withLatestFrom(this.store$.pipe(select(selectRouteParams))),
     filter(([, params]) => !!params?.['id']),

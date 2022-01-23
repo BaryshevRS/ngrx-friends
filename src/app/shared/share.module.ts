@@ -8,6 +8,7 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
 import { ErrorsComponent } from './components/errors/errors.component';
 import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
 import { RouterModule } from '@angular/router';
+import { IsFriendsListDirective } from './directives/is-friends-list/is-friends-list.directive';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { RouterModule } from '@angular/router';
     ErrorsComponent,
     RatingComponent,
     BookmarkComponent,
-    BreadcrumbComponent
+    BreadcrumbComponent,
+    IsFriendsListDirective
   ],
   imports: [CommonModule, TranslateModule, RouterModule],
   exports: [
@@ -26,7 +28,8 @@ import { RouterModule } from '@angular/router';
     RatingComponent,
     BookmarkComponent,
     BreadcrumbComponent,
-    RouterModule
+    RouterModule,
+    IsFriendsListDirective
   ]
 })
 export class ShareModule {}

@@ -11,7 +11,7 @@ import { Friend } from '../../shared/classes/friends';
 export class FriendsListComponent {
   @Input() contents: Friend[] = [];
 
-  trackByFn(index: number, item: Friend) {
+  trackByFn(_: number, item: Friend) {
     return item.id;
   }
 }

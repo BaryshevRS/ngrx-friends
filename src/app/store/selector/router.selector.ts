@@ -16,5 +16,5 @@ export const {
 
 export const selectIsFriends = createSelector(
   selectCurrentRoute,
-  ({routeConfig}) => routeConfig && !routeConfig?.path
+  (route) => !route?.routeConfig.path
 );

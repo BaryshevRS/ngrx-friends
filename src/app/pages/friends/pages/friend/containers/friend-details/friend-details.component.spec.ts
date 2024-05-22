@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, async } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FriendDetailsComponent } from './friend-details.component';
 import { StoreModule } from '@ngrx/store';
 import { appReducer } from '../../../../../../store/reducer';

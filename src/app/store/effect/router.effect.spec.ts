@@ -2,12 +2,11 @@ import { Store } from '@ngrx/store';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { FriendsService } from '../../pages/friends/shared/service/friends/friends.service';
 import { TestBed } from '@angular/core/testing';
-import { Observable, ReplaySubject, of } from 'rxjs';
+import { Observable, of, ReplaySubject } from 'rxjs';
 import { Friend } from '../../pages/friends/shared/classes/friends';
 import { EffectsMetadata, getEffectsMetadata } from '@ngrx/effects';
 import { HttpClientModule } from '@angular/common/http';
 import { provideMockActions } from '@ngrx/effects/testing';
-import { GetFriend } from '../action';
 import { RouterEffects } from './router.effect';
 import { ROUTER_NAVIGATION } from '@ngrx/router-store';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
@@ -45,8 +44,8 @@ describe('RouterEffects', () => {
       imports: [HttpClientModule],
       providers: [
         RouterEffects,
-        { provide: FriendsService, useValue: mockFriendsService },
-        provideMockStore({ initialState }),
+        {provide: FriendsService, useValue: mockFriendsService},
+        provideMockStore({initialState}),
         provideMockActions(() => actionsMarble)
       ],
       schemas: [NO_ERRORS_SCHEMA]
@@ -78,7 +77,7 @@ describe('RouterEffects', () => {
     };
 
     actionsMarble = new ReplaySubject(1);
-    actionsMarble.next({ type: ROUTER_NAVIGATION, payload });
+    actionsMarble.next({type: ROUTER_NAVIGATION, payload});
 
     // effects.routeChange$.subscribe((result) => {
     //   expect(result).toEqual(new GetFriend('1'));

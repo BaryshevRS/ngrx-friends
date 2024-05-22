@@ -82,9 +82,11 @@ body {
 .lh-100 {
   line-height: 1;
 }
+
 .lh-125 {
   line-height: 1.25;
 }
+
 .lh-150 {
   line-height: 1.5;
 }
@@ -93,24 +95,24 @@ body {
   /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#30d1f2+0,1faf84+57,1faf84+100 */
   background: #30d1f2; /* Old browsers */
   background: -moz-linear-gradient(
-    -45deg,
-    #30d1f2 0%,
-    #1faf84 57%,
-    #1faf84 100%
+      -45deg,
+      #30d1f2 0%,
+      #1faf84 57%,
+      #1faf84 100%
   ); /* FF3.6-15 */
   background: -webkit-linear-gradient(
-    -45deg,
-    #30d1f2 0%,
-    #1faf84 57%,
-    #1faf84 100%
+      -45deg,
+      #30d1f2 0%,
+      #1faf84 57%,
+      #1faf84 100%
   ); /* Chrome10-25,Safari5.1-6 */
   background: linear-gradient(
-    135deg,
-    #30d1f2 0%,
-    #1faf84 57%,
-    #1faf84 100%
+      135deg,
+      #30d1f2 0%,
+      #1faf84 57%,
+      #1faf84 100%
   ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#30d1f2', endColorstr='#1faf84',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#30d1f2', endColorstr='#1faf84', GradientType=1); /* IE6-9 fallback on horizontal gradient */
 }
 
 select:-moz-focusring {
@@ -134,7 +136,22 @@ select:-moz-focusring {
   width: 50px;
   height: 50px;
   margin-right: 0.5rem;
+
   a {
     display: block;
+  }
+}
+
+.h-50px {
+  height: 50px;
+}
+
+.primary {
+  color: #2ecde6;
+}
+
+@media (min-width: 1200px) {
+  .container {
+    max-width: 960px;
   }
 }

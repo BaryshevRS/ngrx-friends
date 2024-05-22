@@ -1,6 +1,5 @@
-import { ComponentFixture, TestBed, async } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FriendsListComponent } from './friends-list.component';
-import { Friend } from '../../shared/classes/friends';
 import { FriendItemComponent } from '../friend-item/friend-item.component';
 import { BookmarkComponent } from '../../../../shared/components/bookmark/bookmark.component';
 import { RouterTestingModule } from '@angular/router/testing';

@@ -16,7 +16,8 @@ export class FriendsService {
   public nameFriendsRating = 'friendsRating';
   public nameFriendsBookmark = 'friendsBookmark';
 
-  constructor(private http: HttpClient, private LocalSave: LocalSaveService) {}
+  constructor(private http: HttpClient, private LocalSave: LocalSaveService) {
+  }
 
   public getFriends({
                       typeSort = 0,
@@ -41,7 +42,7 @@ export class FriendsService {
       map((friendsList: Friend[]) =>
         this.setLimitViewOnPage(friendsList, startView, limitView)
       ),
-      catchError(({ status }: Response) => throwError(status))
+      catchError(({status}: Response) => throwError(status))
     );
   }
 
@@ -51,7 +52,7 @@ export class FriendsService {
       map((friendsList: Friend[]) => this.getRating(friendsList)),
       map((friendsList: Friend[]) => this.getBookmark(friendsList)),
       map((friendsList: Friend[]) => this.findId(id, friendsList)),
-      catchError(({ status }: Response) => throwError(status))
+      catchError(({status}: Response) => throwError(status))
     );
   }
 
@@ -72,7 +73,7 @@ export class FriendsService {
           0
         );
       }),
-      catchError(({ status }: Response) => throwError(status))
+      catchError(({status}: Response) => throwError(status))
     );
   }
 
@@ -112,12 +113,12 @@ export class FriendsService {
 
   // save locally user bookmarks
   public setBookmark(id: string, bookmark: number): void {
-    this.LocalSave.set(this.nameFriendsBookmark, { [id]: bookmark });
+    this.LocalSave.set(this.nameFriendsBookmark, {[id]: bookmark});
   }
 
   // save locally user rating
   public setRating(id: string, value: number): void {
-    this.LocalSave.set(this.nameFriendsRating, { [id]: value });
+    this.LocalSave.set(this.nameFriendsRating, {[id]: value});
   }
 
   public setRatingSort(friendsList: Friend[], typeSort: number): Friend[] {

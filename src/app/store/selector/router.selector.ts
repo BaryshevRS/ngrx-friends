@@ -1,9 +1,7 @@
 import { getSelectors, RouterState } from '@ngrx/router-store';
-import { createFeatureSelector } from '@ngrx/store';
+import { createFeatureSelector, createSelector } from '@ngrx/store';
 
-export const routerState = createFeatureSelector<
-  RouterState
-  >('router');
+export const routerState = createFeatureSelector<RouterState>('router');
 
 export const {
   selectCurrentRoute, // select the current route
@@ -13,5 +11,10 @@ export const {
   selectRouteParams, // select the current route params
   selectRouteParam, // factory function to select a route param
   selectRouteData, // select the current route data
-  selectUrl, // select the current url
+  selectUrl // select the current url
 } = getSelectors();
+
+export const selectIsFriends = createSelector(
+  selectCurrentRoute,
+  (route) => !route?.routeConfig.path
+);

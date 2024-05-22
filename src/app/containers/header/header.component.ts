@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { FriendsState } from '../../pages/friends/shared/interfaces';
-import * as FriendsAction from '../../store/action'
+import * as FriendsAction from '../../store/action';
 
 @Component({
   selector: 'app-header',
@@ -13,10 +13,13 @@ import * as FriendsAction from '../../store/action'
 export class HeaderComponent {
   public title = 'Friends';
 
-  constructor(private store$: Store<FriendsState>, private router: Router) {}
+  constructor(private store$: Store<FriendsState>, private router: Router) {
+  }
 
   initSearch(searchValue: string = '') {
     this.router.navigate(['/']);
-    this.store$.dispatch(FriendsAction.SearchFriends({configsFriends: {searchValue}}));
+    this.store$.dispatch(
+      FriendsAction.SearchFriends({configsFriends: {searchValue}})
+    );
   }
 }

@@ -2,21 +2,12 @@ import { Store } from '@ngrx/store';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { FriendsService } from '../../pages/friends/shared/service/friends/friends.service';
 import { TestBed } from '@angular/core/testing';
-import { cold } from 'jasmine-marbles';
 import { Observable, of, throwError } from 'rxjs';
 import { Friend } from '../../pages/friends/shared/classes/friends';
 import { FriendsEffect } from './friends.effect';
 import { EffectsMetadata, getEffectsMetadata } from '@ngrx/effects';
 import { HttpClientModule } from '@angular/common/http';
 import { provideMockActions } from '@ngrx/effects/testing';
-import {
-  ErrorsFriends,
-  GetFriend,
-  GetFriends,
-  LoadFriends,
-  SetDetailsFriend
-} from '../action';
-import { ErrorMessage } from '../../pages/friends/shared/classes/errors';
 
 describe('FriendsEffect', () => {
   describe('Load Friends', () => {
@@ -55,8 +46,8 @@ describe('FriendsEffect', () => {
         imports: [HttpClientModule],
         providers: [
           FriendsEffect,
-          { provide: FriendsService, useValue: mockFriendsService },
-          provideMockStore({ initialState }),
+          {provide: FriendsService, useValue: mockFriendsService},
+          provideMockStore({initialState}),
           provideMockActions(() => actionsMarble)
         ]
       });
@@ -70,7 +61,7 @@ describe('FriendsEffect', () => {
       expect(effects).toBeTruthy();
     });
 
-/*    it('should be load friends', () => {
+    /*    it('should be load friends', () => {
       const action = new GetFriends();
       const completion = new LoadFriends(moskStore.friends);
 
@@ -80,7 +71,7 @@ describe('FriendsEffect', () => {
       expect(effects.getFriends$).toBeObservable(expected);
     });*/
 
-  /*  it('should be get friend by id', () => {
+    /*  it('should be get friend by id', () => {
       const action = new GetFriend('1');
       const completion = new SetDetailsFriend(moskStore.friends.friends[0]);
 
@@ -90,19 +81,19 @@ describe('FriendsEffect', () => {
       expect(effects.getFriend$).toBeObservable(expected);
     });*/
 
-    // it('should register getFriends$ that dispatches an action', () => {
-    //   expect(metadata.getFriends$).toEqual({
-    //     dispatch: true,
-    //     resubscribeOnError: true
-    //   });
-    // });
-    //
-    // it('should register getFriend$ that dispatches an action', () => {
-    //   expect(metadata.getFriend$).toEqual({
-    //     dispatch: true,
-    //     resubscribeOnError: true
-    //   });
-    // });
+    /*    it('should register getFriends$ that dispatches an action', () => {
+          expect(metadata.getFriends$).toEqual({
+            dispatch: true,
+            resubscribeOnError: true
+          });
+        });
+
+        it('should register getFriend$ that dispatches an action', () => {
+          expect(metadata.getFriend$).toEqual({
+            dispatch: true,
+            resubscribeOnError: true
+          });
+        });*/
   });
 
   describe('Catch Error load friends', () => {
@@ -138,8 +129,8 @@ describe('FriendsEffect', () => {
         imports: [HttpClientModule],
         providers: [
           FriendsEffect,
-          { provide: FriendsService, useValue: mockFriendsService },
-          provideMockStore({ initialState }),
+          {provide: FriendsService, useValue: mockFriendsService},
+          provideMockStore({initialState}),
           provideMockActions(() => actionsMarble)
         ]
       });
@@ -149,7 +140,7 @@ describe('FriendsEffect', () => {
       store = TestBed.get(Store);
     });
 
-/*    it('should be error empty load friends', () => {
+    /*    it('should be error empty load friends', () => {
       const action = new GetFriends();
       const completion = new ErrorsFriends(
         new ErrorMessage('danger', 'errorMessage.friendsEmpty')
@@ -195,8 +186,8 @@ describe('FriendsEffect', () => {
         imports: [HttpClientModule],
         providers: [
           FriendsEffect,
-          { provide: FriendsService, useValue: mockFriendsService },
-          provideMockStore({ initialState }),
+          {provide: FriendsService, useValue: mockFriendsService},
+          provideMockStore({initialState}),
           provideMockActions(() => actionsMarble)
         ]
       });
@@ -206,7 +197,7 @@ describe('FriendsEffect', () => {
       store = TestBed.get(Store);
     });
 
-/*    it('should be load empty friends list', () => {
+    /*    it('should be load empty friends list', () => {
       const action = new GetFriends();
 
       moskStore = {
@@ -259,8 +250,8 @@ describe('FriendsEffect', () => {
         imports: [HttpClientModule],
         providers: [
           FriendsEffect,
-          { provide: FriendsService, useValue: mockFriendsService },
-          provideMockStore({ initialState }),
+          {provide: FriendsService, useValue: mockFriendsService},
+          provideMockStore({initialState}),
           provideMockActions(() => actionsMarble)
         ]
       });
@@ -270,7 +261,7 @@ describe('FriendsEffect', () => {
       store = TestBed.get(Store);
     });
 
-/*    it('should be not load result for search', () => {
+    /*    it('should be not load result for search', () => {
       const action = new GetFriends();
 
       moskStore = {
@@ -323,8 +314,8 @@ describe('FriendsEffect', () => {
         imports: [HttpClientModule],
         providers: [
           FriendsEffect,
-          { provide: FriendsService, useValue: mockFriendsService },
-          provideMockStore({ initialState }),
+          {provide: FriendsService, useValue: mockFriendsService},
+          provideMockStore({initialState}),
           provideMockActions(() => actionsMarble)
         ]
       });
@@ -334,7 +325,7 @@ describe('FriendsEffect', () => {
       store = TestBed.get(Store);
     });
 
-/*    it('should be not load bookmark list', () => {
+    /*    it('should be not load bookmark list', () => {
       const action = new GetFriends();
 
       moskStore = {

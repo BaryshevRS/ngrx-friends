@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Store, select } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { Friend } from './shared/classes/friends';
 import { Observable } from 'rxjs';
 import { getErrors, getFriends, getLoading } from '../../store/selector/friends.selector';
@@ -17,7 +17,8 @@ export class FriendsComponent implements OnInit {
   // Delay fixed render error
   public loading$ = this.store$.pipe(delay(0), select(getLoading));
 
-  constructor(private store$: Store<FriendsState>) {}
+  constructor(private store$: Store<FriendsState>) {
+  }
 
   // Fill up page. If height content not more, than height screen
   drawing() {

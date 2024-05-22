@@ -1,10 +1,10 @@
-<ng-container *ngIf="(errors$ | async) as errors; else content">
+<ng-container *ngIf="errors$ | async as errors; else content">
   <app-errors [errors]="errors"></app-errors>
 </ng-container>
 
 <ng-template #content>
   <div>
-    <ng-container *ngIf="(friend$ | async) as friend">
+    <ng-container *ngIf="friend$ | async as friend">
       <app-breadcrumb
         [currentPage]="friend.last_name + ' ' + friend.first_name"
       ></app-breadcrumb>

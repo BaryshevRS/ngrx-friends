@@ -123,6 +123,7 @@
   },
   "defaultProject": "ngrx-friends",
   "cli": {
+    "analytics": false,
     "defaultCollection": "@angular-eslint/schematics"
   }
 }

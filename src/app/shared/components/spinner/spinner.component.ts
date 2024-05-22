@@ -1,6 +1,4 @@
-import {
-  Component
-} from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-spinner',
@@ -8,5 +6,6 @@ import {
   styleUrls: ['./spinner.component.scss']
 })
 export class SpinnerComponent {
-  constructor() {}
+  constructor() {
+  }
 }

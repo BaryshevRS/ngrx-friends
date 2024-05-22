@@ -1,32 +1,13 @@
-import {
-  AfterViewChecked,
-  AfterViewInit,
-  Directive,
-  ElementRef,
-  EventEmitter,
-  Inject, InjectionToken,
-  Input,
-  OnDestroy,
-  Output
-} from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Directive, ElementRef, EventEmitter, Inject, Input, OnDestroy, Output } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
-import { Observable, Subject, fromEvent } from 'rxjs';
-import {
-  debounceTime,
-  distinct,
-  filter,
-  map,
-  pairwise,
-  takeUntil,
-  tap
-} from 'rxjs/operators';
+import { fromEvent, Subject } from 'rxjs';
+import { debounceTime, distinct, filter, map, pairwise, takeUntil } from 'rxjs/operators';
 
 @Directive({
   selector: '[appInfinityScrollLoader]'
 })
 export class InfinityScrollLoaderDirective
-  implements AfterViewInit, AfterViewChecked, OnDestroy
-{
+  implements AfterViewInit, AfterViewChecked, OnDestroy {
   private initScrollHeight = 0;
   private scrollEvent$;
   private unsubscribe$: Subject<void> = new Subject<void>();
@@ -40,7 +21,8 @@ export class InfinityScrollLoaderDirective
   constructor(
     private elm: ElementRef<HTMLLinkElement>,
     @Inject(DOCUMENT) private document: Document
-  ) {}
+  ) {
+  }
 
   ngAfterViewInit() {
     this.scrollEvent$ = fromEvent(window, 'scroll').pipe(

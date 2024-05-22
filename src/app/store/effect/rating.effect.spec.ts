@@ -64,7 +64,7 @@ describe('RatingFriendsEffect', () => {
       expect(effects).toBeTruthy();
     });
 
-/*    it('should be set rating when sort', () => {
+    /*    it('should be set rating when sort', () => {
       const action = new RatingFriends(moskStore.friends.friends[0]);
       const completion = new LoadFriends(moskStore.friends);
 

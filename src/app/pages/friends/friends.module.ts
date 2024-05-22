@@ -7,11 +7,7 @@ import { FriendItemComponent } from './components/friend-item/friend-item.compon
 import { FriendsComponent } from './friends.component';
 
 @NgModule({
-  declarations: [
-    FriendsComponent,
-    FriendsListComponent,
-    FriendItemComponent
-  ],
+  declarations: [FriendsComponent, FriendsListComponent, FriendItemComponent],
   imports: [CommonModule, ShareModule, FriendsRoutingModule],
   exports: [FriendsComponent]
 })

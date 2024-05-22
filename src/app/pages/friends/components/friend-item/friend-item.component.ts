@@ -14,10 +14,16 @@ export class FriendItemComponent {
   constructor(private store$: Store<FriendsState>) {}
 
   bookmarkChange(bookmark: number) {
-    this.store$.dispatch(FriendsActions.SetBookmarksFriends({friend: {...this.friend, bookmark}}));
+    this.store$.dispatch(
+      FriendsActions.SetBookmarksFriends({
+        friend: { ...this.friend, bookmark }
+      })
+    );
   }
 
   ratingChange(rating: number) {
-    this.store$.dispatch(FriendsActions.SetRatingFriends({friend: {...this.friend, rating}}));
+    this.store$.dispatch(
+      FriendsActions.SetRatingFriends({ friend: { ...this.friend, rating } })
+    );
   }
 }

@@ -19,12 +19,12 @@ export class FriendsService {
   constructor(private http: HttpClient, private LocalSave: LocalSaveService) {}
 
   public getFriends({
-                      typeSort = 0,
-                      searchValue = '',
-                      showBookmarks = false,
-                      startView = 0,
-                      limitView = 0
-                    }: ConfigsFriends): Observable<Friend[]> {
+    typeSort = 0,
+    searchValue = '',
+    showBookmarks = false,
+    startView = 0,
+    limitView = 0
+  }: ConfigsFriends): Observable<Friend[]> {
     return this.http.get<Friend[]>(this.BASE_URL).pipe(
       delay(400), // emulate delay
       map((friendsList: Friend[]) => this.getRating(friendsList)),

@@ -17,26 +17,23 @@ const mockFriends: Friend[] = [
 
 @Component({
   template: `
-        <div
-          appInfinityScrollLoader
-          [contents]="contents"
-          (drawing)="drawing()"
-        >
-          <div class="row" *ngFor="let friend of contents"></div>
-        </div>
-      `,
+    <div appInfinityScrollLoader [contents]="contents" (drawing)="drawing()">
+      <div class="row" *ngFor="let friend of contents"></div>
+    </div>
+  `,
   styles: [
     `
-          .row {
-            width: 100px;
-            height: 100px;
-          }
-        `
+      .row {
+        width: 100px;
+        height: 100px;
+      }
+    `
   ]
 })
 class TestComponent {
   public contents = mockFriends;
-  @ViewChild(InfinityScrollLoaderDirective, { static: true }) directive: InfinityScrollLoaderDirective;
+  @ViewChild(InfinityScrollLoaderDirective, { static: true })
+  directive: InfinityScrollLoaderDirective;
   drawing() {}
 }
 

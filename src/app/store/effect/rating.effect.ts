@@ -17,26 +17,40 @@ export class RatingEffect {
     private friendsService: FriendsService
   ) {}
 
-  setRatingFriends$: Observable<Action> = createEffect(() => this.actions$.pipe(
-    ofType(FriendsAction.SetRatingFriends),
-    withLatestFrom(this.store$.select(friendsFeatureSelector)),
-    switchMap(([{friend: {id, rating}}, store]) => {
-      // Get all scrolled friends
-      const limitView = store.configsFriends.startView || store.configsFriends.limitView;
-      const startView = 0;
-      this.friendsService.setRating(id, rating);
-      return [
-        FriendsActions.GetFriends({configsFriends: {limitView, startView}})
-      ]
-    })
-  ));
+  setRatingFriends$: Observable<Action> = createEffect(() =>
+    this.actions$.pipe(
+      ofType(FriendsAction.SetRatingFriends),
+      withLatestFrom(this.store$.select(friendsFeatureSelector)),
+      switchMap(
+        ([
+          {
+            friend: { id, rating }
+          },
+          store
+        ]) => {
+          // Get all scrolled friends
+          const limitView =
+            store.configsFriends.startView || store.configsFriends.limitView;
+          const startView = 0;
+          this.friendsService.setRating(id, rating);
+          return [
+            FriendsActions.GetFriends({
+              configsFriends: { limitView, startView }
+            })
+          ];
+        }
+      )
+    )
+  );
 
-  setRatingFriend$ = createEffect(() => this.actions$.pipe(
-    ofType(FriendsAction.SetRatingFriend),
-    switchMap(({friend}) => {
-      const {id, rating} = friend;
-      this.friendsService.setRating(id, rating);
-      return of(FriendsAction.SetDetailsFriend({friend}))
-    })
-  ));
+  setRatingFriend$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(FriendsAction.SetRatingFriend),
+      switchMap(({ friend }) => {
+        const { id, rating } = friend;
+        this.friendsService.setRating(id, rating);
+        return of(FriendsAction.SetDetailsFriend({ friend }));
+      })
+    )
+  );
 }

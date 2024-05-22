@@ -23,37 +23,58 @@ export class BookmarkEffect {
   getCountBookmarksFriends$ = createEffect(() =>
     this.actions$.pipe(
       ofType(FriendsAction.GetCountBookmarksFriends),
-      switchMap(action =>
+      switchMap((action) =>
         this.friendsService.getCountBookmarksFriends().pipe(
-          map(count => FriendsAction.SetCountBookmarksFriends({count})),
-          catchError(() => of(FriendsAction.ErrorsFriends(
-            { errors: new ErrorMessage('danger', 'errorMessage.networkConnect')
-          })))
+          map((count) => FriendsAction.SetCountBookmarksFriends({ count })),
+          catchError(() =>
+            of(
+              FriendsAction.ErrorsFriends({
+                errors: new ErrorMessage(
+                  'danger',
+                  'errorMessage.networkConnect'
+                )
+              })
+            )
+          )
         )
       )
     )
   );
 
-  setBookmarksFriends$ = createEffect(() => this.actions$.pipe(
-    ofType(FriendsAction.SetBookmarksFriends),
-    withLatestFrom(this.store$.select(friendsFeatureSelector)),
-    switchMap(([{friend: {id, bookmark}}, store]) => {
-      this.friendsService.setBookmark( id, bookmark );
-      const limitView = store.configsFriends.startView || store.configsFriends.limitView;
-      const startView = 0;
-      return [
-        FriendsAction.GetCountBookmarksFriends(),
-        FriendsActions.GetFriends({configsFriends: {limitView, startView}})
-      ];
-    })
-  ));
+  setBookmarksFriends$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(FriendsAction.SetBookmarksFriends),
+      withLatestFrom(this.store$.select(friendsFeatureSelector)),
+      switchMap(
+        ([
+          {
+            friend: { id, bookmark }
+          },
+          store
+        ]) => {
+          this.friendsService.setBookmark(id, bookmark);
+          const limitView =
+            store.configsFriends.startView || store.configsFriends.limitView;
+          const startView = 0;
+          return [
+            FriendsAction.GetCountBookmarksFriends(),
+            FriendsActions.GetFriends({
+              configsFriends: { limitView, startView }
+            })
+          ];
+        }
+      )
+    )
+  );
 
-  setBookmarksFriend$ = createEffect(() => this.actions$.pipe(
-    ofType(FriendsAction.SetBookmarksFriend),
-    switchMap(({friend}) => {
-      const {id, bookmark} = friend;
-      this.friendsService.setBookmark( id, bookmark );
-      return of(FriendsAction.SetDetailsFriend({friend}))
-    })
-  ));
+  setBookmarksFriend$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(FriendsAction.SetBookmarksFriend),
+      switchMap(({ friend }) => {
+        const { id, bookmark } = friend;
+        this.friendsService.setBookmark(id, bookmark);
+        return of(FriendsAction.SetDetailsFriend({ friend }));
+      })
+    )
+  );
 }

@@ -17,7 +17,7 @@ export class BookmarkComponent {
   @Output() bookmarkChange: EventEmitter<number> = new EventEmitter();
 
   public setValue(): void {
-    const bookmark = this.bookmark ? 0 : 1
+    const bookmark = this.bookmark ? 0 : 1;
     this.bookmarkChange.emit(bookmark);
     // Optimistic ui
     this.bookmark = bookmark;

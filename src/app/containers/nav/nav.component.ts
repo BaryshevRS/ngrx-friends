@@ -4,7 +4,10 @@ import { Friend } from '../../pages/friends/shared/classes/friends';
 import * as FriendsActions from '../../store/action';
 import { FriendsState } from '../../pages/friends/shared/interfaces';
 import { Observable } from 'rxjs';
-import { getBookmarksCount, getTypeSort } from '../../store/selector/friends.selector';
+import {
+  getBookmarksCount,
+  getTypeSort
+} from '../../store/selector/friends.selector';
 
 @Component({
   selector: 'app-nav',
@@ -16,15 +19,21 @@ export class NavComponent implements OnInit {
   public activeBookmark: boolean;
 
   public typeSort$: Observable<number> = this.store$.pipe(select(getTypeSort));
-  public bookmarksCount$: Observable<number> = this.store$.pipe(select(getBookmarksCount));
+  public bookmarksCount$: Observable<number> = this.store$.pipe(
+    select(getBookmarksCount)
+  );
 
   showBookmarks(showBookmarks: boolean = false): void {
-    this.store$.dispatch(FriendsActions.ShowBookmarksFriends({configsFriends: {showBookmarks}}));
+    this.store$.dispatch(
+      FriendsActions.ShowBookmarksFriends({ configsFriends: { showBookmarks } })
+    );
     this.activeBookmark = showBookmarks;
   }
 
   changeSort(typeSort: number) {
-    this.store$.dispatch(FriendsActions.SortFriends({configsFriends: {typeSort}}));
+    this.store$.dispatch(
+      FriendsActions.SortFriends({ configsFriends: { typeSort } })
+    );
   }
 
   ngOnInit() {

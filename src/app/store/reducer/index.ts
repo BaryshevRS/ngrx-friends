@@ -5,7 +5,7 @@ import { routerReducer, RouterState } from '@ngrx/router-store';
 
 export interface AppState {
   friends: FriendsState;
-  router: RouterState
+  router: RouterState;
 }
 
 export const appReducer: ActionReducerMap<AppState> = {

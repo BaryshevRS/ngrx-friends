@@ -47,7 +47,7 @@ describe('LocalSaveService', () => {
       }
     ));
 
-/*    it('should be get', inject(
+    /*    it('should be get', inject(
       [LocalSaveService],
       (service: LocalSaveService) => {
         const moskName = 'friendsBookmark';

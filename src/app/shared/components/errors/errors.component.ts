@@ -1,4 +1,4 @@
-import { Component, Input} from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ErrorMessage } from '../../../pages/friends/shared/classes/errors';
 
 @Component({

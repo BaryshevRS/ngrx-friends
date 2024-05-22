@@ -12,7 +12,8 @@
     "compodoc": "compodoc -p tsconfig.json",
     "analyze": "ng build --stats-json && webpack-bundle-analyzer ./dist/ngrx-friends/stats.json",
     "eslint": "npx eslint 'src/**/*.{js,ts,html}' --quiet --fix",
-    "prettier": "prettier --write 'client/src/**/*.(ts|html|scss)'"
+    "prettier": "prettier --write 'src/**/*.(ts|html|scss)'",
+    "prepare": "husky install"
   },
   "husky": {
     "hooks": {

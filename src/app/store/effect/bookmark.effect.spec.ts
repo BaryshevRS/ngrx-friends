@@ -37,7 +37,7 @@ describe('BookmarkEffect on bookmarks page', () => {
       showBookmarks: true,
       startView: 0,
       limitView: 20
-    },
+    }
   };
 
   const countBookmarksFriends = 10;
@@ -49,8 +49,7 @@ describe('BookmarkEffect on bookmarks page', () => {
     getFriend: function (): Observable<Friend> {
       return of(initialState.friends.friends[0]);
     },
-    setBookmark: function (): void {
-    },
+    setBookmark: function (): void {},
     getCountBookmarksFriends: function (): Observable<number> {
       return of(countBookmarksFriends);
     },
@@ -70,8 +69,8 @@ describe('BookmarkEffect on bookmarks page', () => {
       imports: [HttpClientModule],
       providers: [
         BookmarkEffect,
-        {provide: FriendsService, useValue: mockFriendsService},
-        provideMockStore({initialState}),
+        { provide: FriendsService, useValue: mockFriendsService },
+        provideMockStore({ initialState }),
         provideMockActions(() => actionsMarble$)
       ]
     });

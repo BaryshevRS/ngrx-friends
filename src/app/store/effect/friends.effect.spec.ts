@@ -70,7 +70,7 @@ describe('FriendsEffect', () => {
       expect(effects).toBeTruthy();
     });
 
-/*    it('should be load friends', () => {
+    /*    it('should be load friends', () => {
       const action = new GetFriends();
       const completion = new LoadFriends(moskStore.friends);
 
@@ -80,7 +80,7 @@ describe('FriendsEffect', () => {
       expect(effects.getFriends$).toBeObservable(expected);
     });*/
 
-  /*  it('should be get friend by id', () => {
+    /*  it('should be get friend by id', () => {
       const action = new GetFriend('1');
       const completion = new SetDetailsFriend(moskStore.friends.friends[0]);
 
@@ -149,7 +149,7 @@ describe('FriendsEffect', () => {
       store = TestBed.get(Store);
     });
 
-/*    it('should be error empty load friends', () => {
+    /*    it('should be error empty load friends', () => {
       const action = new GetFriends();
       const completion = new ErrorsFriends(
         new ErrorMessage('danger', 'errorMessage.friendsEmpty')
@@ -206,7 +206,7 @@ describe('FriendsEffect', () => {
       store = TestBed.get(Store);
     });
 
-/*    it('should be load empty friends list', () => {
+    /*    it('should be load empty friends list', () => {
       const action = new GetFriends();
 
       moskStore = {
@@ -270,7 +270,7 @@ describe('FriendsEffect', () => {
       store = TestBed.get(Store);
     });
 
-/*    it('should be not load result for search', () => {
+    /*    it('should be not load result for search', () => {
       const action = new GetFriends();
 
       moskStore = {
@@ -334,7 +334,7 @@ describe('FriendsEffect', () => {
       store = TestBed.get(Store);
     });
 
-/*    it('should be not load bookmark list', () => {
+    /*    it('should be not load bookmark list', () => {
       const action = new GetFriends();
 
       moskStore = {

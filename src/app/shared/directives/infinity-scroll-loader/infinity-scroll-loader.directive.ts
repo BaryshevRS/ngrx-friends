@@ -4,7 +4,8 @@ import {
   Directive,
   ElementRef,
   EventEmitter,
-  Inject, InjectionToken,
+  Inject,
+  InjectionToken,
   Input,
   OnDestroy,
   Output

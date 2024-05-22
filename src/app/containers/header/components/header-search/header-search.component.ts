@@ -1,20 +1,6 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  ElementRef,
-  EventEmitter,
-  OnDestroy,
-  OnInit,
-  Output,
-  ViewChild
-} from '@angular/core';
-import { Observable, Subject, of } from 'rxjs';
-import {
-  debounceTime,
-  distinctUntilChanged,
-  switchMap,
-  takeUntil
-} from 'rxjs/operators';
+import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-header-search',
@@ -28,7 +14,7 @@ export class HeaderSearchComponent implements OnInit, OnDestroy {
   private unsubscribe$: Subject<void> = new Subject<void>();
 
   @Output() initSearch: EventEmitter<string> = new EventEmitter();
-  @ViewChild('searchBox', { static: true }) searchBox: ElementRef;
+  @ViewChild('searchBox', {static: true}) searchBox: ElementRef;
 
   search(term: string): void {
     this.searchTerms.next(term);

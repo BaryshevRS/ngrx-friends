@@ -2,13 +2,11 @@ import { Store } from '@ngrx/store';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { FriendsService } from '../../pages/friends/shared/service/friends/friends.service';
 import { TestBed } from '@angular/core/testing';
-import { cold } from 'jasmine-marbles';
 import { Observable, of } from 'rxjs';
 import { Friend } from '../../pages/friends/shared/classes/friends';
 import { EffectsMetadata, getEffectsMetadata } from '@ngrx/effects';
 import { HttpClientModule } from '@angular/common/http';
 import { provideMockActions } from '@ngrx/effects/testing';
-import { LoadFriends, SetRatingFriends } from '../action';
 import { RatingEffect } from './rating.effect';
 
 describe('RatingFriendsEffect', () => {
@@ -31,7 +29,8 @@ describe('RatingFriendsEffect', () => {
       getFriends: function (): Observable<Friend[]> {
         return of(mockStore.friends.friends);
       },
-      setRating: function (): void {},
+      setRating: function (): void {
+      },
       setRatingSort: function (): Friend[] {
         return mockStore.friends.friends;
       }
@@ -49,8 +48,8 @@ describe('RatingFriendsEffect', () => {
         imports: [HttpClientModule],
         providers: [
           RatingEffect,
-          { provide: FriendsService, useValue: mockFriendsService },
-          provideMockStore({ initialState }),
+          {provide: FriendsService, useValue: mockFriendsService},
+          provideMockStore({initialState}),
           provideMockActions(() => actionsMarble)
         ]
       });

@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, async } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 import { Store, StoreModule } from '@ngrx/store';
@@ -6,9 +6,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 import { ErrorsComponent } from './errors.component';
 import { appReducer } from '../../../store/reducer';
-import { ErrorMessage } from '../../../pages/friends/shared/classes/errors';
 import { HttpLoaderFactory } from '../../factories/translate-http-loader';
-import { ErrorsFriends } from '../../../store/action';
 import { FriendsState } from '../../../pages/friends/shared/interfaces';
 
 describe('ErrorsComponent', () => {

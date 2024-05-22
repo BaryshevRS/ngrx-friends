@@ -2,7 +2,6 @@ import { Action } from '@ngrx/store';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { FriendsService } from '../../pages/friends/shared/service/friends/friends.service';
 import { TestBed } from '@angular/core/testing';
-import { cold, hot } from 'jasmine-marbles';
 import { Observable, of } from 'rxjs';
 import { Friend } from '../../pages/friends/shared/classes/friends';
 import { HttpClientModule } from '@angular/common/http';
@@ -49,7 +48,8 @@ describe('BookmarkEffect on bookmarks page', () => {
     getFriend: function (): Observable<Friend> {
       return of(initialState.friends.friends[0]);
     },
-    setBookmark: function (): void {},
+    setBookmark: function (): void {
+    },
     getCountBookmarksFriends: function (): Observable<number> {
       return of(countBookmarksFriends);
     },
@@ -69,8 +69,8 @@ describe('BookmarkEffect on bookmarks page', () => {
       imports: [HttpClientModule],
       providers: [
         BookmarkEffect,
-        { provide: FriendsService, useValue: mockFriendsService },
-        provideMockStore({ initialState }),
+        {provide: FriendsService, useValue: mockFriendsService},
+        provideMockStore({initialState}),
         provideMockActions(() => actionsMarble$)
       ]
     });

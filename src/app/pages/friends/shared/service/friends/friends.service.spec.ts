@@ -1,4 +1,4 @@
-import { TestBed, async, inject } from '@angular/core/testing';
+import { async, inject, TestBed } from '@angular/core/testing';
 import { FriendsService } from './friends.service';
 import { HttpClient } from '@angular/common/http';
 import { Friend } from '../../classes/friends';
@@ -25,15 +25,17 @@ describe('FriendsService', () => {
     httpClientSpy = jasmine.createSpyObj('HttpClient', ['get']);
 
     const LocalSaveMosk = {
-      get: () => {},
-      set: () => {}
+      get: () => {
+      },
+      set: () => {
+      }
     };
 
     TestBed.configureTestingModule({
       providers: [
         FriendsService,
-        { provide: HttpClient, useValue: httpClientSpy },
-        { provide: LocalSaveService, useValue: LocalSaveMosk }
+        {provide: HttpClient, useValue: httpClientSpy},
+        {provide: LocalSaveService, useValue: LocalSaveMosk}
       ],
       imports: [HttpClientTestingModule]
     });
@@ -52,7 +54,7 @@ describe('FriendsService', () => {
     httpClientSpy.get.and.returnValue(of(moskFriends));
 
     friendsService.getFriends(moskConfigsFriends).subscribe((friends) => {
-      expect({ ...friends }).toEqual({ ...moskFriends });
+      expect({...friends}).toEqual({...moskFriends});
     }, fail);
 
     expect(httpClientSpy.get.calls.count()).toBe(1, 'called once');
@@ -62,7 +64,7 @@ describe('FriendsService', () => {
     httpClientSpy.get.and.returnValue(of(moskFriends));
 
     friendsService.getFriend('1').subscribe((friend) => {
-      expect({ ...friend }).toEqual({ ...moskFriends[0] });
+      expect({...friend}).toEqual({...moskFriends[0]});
     }, fail);
 
     expect(httpClientSpy.get.calls.count()).toBe(1, 'called once');
@@ -74,7 +76,7 @@ describe('FriendsService', () => {
       const serviceMoskFriends = [new Friend('1', 'first_name', 'last_name')];
       serviceMoskFriends[0].bookmark = 1;
 
-      expect({ ...service.getFilterBookmark(serviceMoskFriends) }).toEqual({
+      expect({...service.getFilterBookmark(serviceMoskFriends)}).toEqual({
         ...serviceMoskFriends
       });
     }

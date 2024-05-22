@@ -1,15 +1,14 @@
 import { Injectable } from '@angular/core';
-import { Actions, createEffect } from '@ngrx/effects';
-import { Action, Store } from '@ngrx/store';
-import { Observable, from, of } from 'rxjs';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { Store } from '@ngrx/store';
+import { of } from 'rxjs';
 import { catchError, map, switchMap, withLatestFrom } from 'rxjs/operators';
-import { ofType } from '@ngrx/effects';
 import { FriendsService } from '../../pages/friends/shared/service/friends/friends.service';
 import { ErrorMessage } from '../../pages/friends/shared/classes/errors';
 import * as FriendsAction from '../action';
+import * as FriendsActions from '../action';
 import { AppState } from '../reducer';
 import { friendsFeatureSelector } from '../selector/friends.selector';
-import * as FriendsActions from '../action';
 
 @Injectable()
 export class BookmarkEffect {
@@ -17,7 +16,8 @@ export class BookmarkEffect {
     private actions$: Actions,
     private store$: Store<AppState>,
     private friendsService: FriendsService
-  ) {}
+  ) {
+  }
 
   // Count bookmarks get to emulated from server
   getCountBookmarksFriends$ = createEffect(() =>
@@ -25,7 +25,7 @@ export class BookmarkEffect {
       ofType(FriendsAction.GetCountBookmarksFriends),
       switchMap((action) =>
         this.friendsService.getCountBookmarksFriends().pipe(
-          map((count) => FriendsAction.SetCountBookmarksFriends({ count })),
+          map((count) => FriendsAction.SetCountBookmarksFriends({count})),
           catchError(() =>
             of(
               FriendsAction.ErrorsFriends({
@@ -47,11 +47,11 @@ export class BookmarkEffect {
       withLatestFrom(this.store$.select(friendsFeatureSelector)),
       switchMap(
         ([
-          {
-            friend: { id, bookmark }
-          },
-          store
-        ]) => {
+           {
+             friend: {id, bookmark}
+           },
+           store
+         ]) => {
           this.friendsService.setBookmark(id, bookmark);
           const limitView =
             store.configsFriends.startView || store.configsFriends.limitView;
@@ -59,7 +59,7 @@ export class BookmarkEffect {
           return [
             FriendsAction.GetCountBookmarksFriends(),
             FriendsActions.GetFriends({
-              configsFriends: { limitView, startView }
+              configsFriends: {limitView, startView}
             })
           ];
         }
@@ -70,10 +70,10 @@ export class BookmarkEffect {
   setBookmarksFriend$ = createEffect(() =>
     this.actions$.pipe(
       ofType(FriendsAction.SetBookmarksFriend),
-      switchMap(({ friend }) => {
-        const { id, bookmark } = friend;
+      switchMap(({friend}) => {
+        const {id, bookmark} = friend;
         this.friendsService.setBookmark(id, bookmark);
-        return of(FriendsAction.SetDetailsFriend({ friend }));
+        return of(FriendsAction.SetDetailsFriend({friend}));
       })
     )
   );

@@ -13,12 +13,13 @@ import * as FriendsAction from '../../store/action';
 export class HeaderComponent {
   public title = 'Friends';
 
-  constructor(private store$: Store<FriendsState>, private router: Router) {}
+  constructor(private store$: Store<FriendsState>, private router: Router) {
+  }
 
   initSearch(searchValue: string = '') {
     this.router.navigate(['/']);
     this.store$.dispatch(
-      FriendsAction.SearchFriends({ configsFriends: { searchValue } })
+      FriendsAction.SearchFriends({configsFriends: {searchValue}})
     );
   }
 }

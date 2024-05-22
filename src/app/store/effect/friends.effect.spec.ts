@@ -2,21 +2,12 @@ import { Store } from '@ngrx/store';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { FriendsService } from '../../pages/friends/shared/service/friends/friends.service';
 import { TestBed } from '@angular/core/testing';
-import { cold } from 'jasmine-marbles';
 import { Observable, of, throwError } from 'rxjs';
 import { Friend } from '../../pages/friends/shared/classes/friends';
 import { FriendsEffect } from './friends.effect';
 import { EffectsMetadata, getEffectsMetadata } from '@ngrx/effects';
 import { HttpClientModule } from '@angular/common/http';
 import { provideMockActions } from '@ngrx/effects/testing';
-import {
-  ErrorsFriends,
-  GetFriend,
-  GetFriends,
-  LoadFriends,
-  SetDetailsFriend
-} from '../action';
-import { ErrorMessage } from '../../pages/friends/shared/classes/errors';
 
 describe('FriendsEffect', () => {
   describe('Load Friends', () => {
@@ -55,8 +46,8 @@ describe('FriendsEffect', () => {
         imports: [HttpClientModule],
         providers: [
           FriendsEffect,
-          { provide: FriendsService, useValue: mockFriendsService },
-          provideMockStore({ initialState }),
+          {provide: FriendsService, useValue: mockFriendsService},
+          provideMockStore({initialState}),
           provideMockActions(() => actionsMarble)
         ]
       });
@@ -90,19 +81,19 @@ describe('FriendsEffect', () => {
       expect(effects.getFriend$).toBeObservable(expected);
     });*/
 
-    // it('should register getFriends$ that dispatches an action', () => {
-    //   expect(metadata.getFriends$).toEqual({
-    //     dispatch: true,
-    //     resubscribeOnError: true
-    //   });
-    // });
-    //
-    // it('should register getFriend$ that dispatches an action', () => {
-    //   expect(metadata.getFriend$).toEqual({
-    //     dispatch: true,
-    //     resubscribeOnError: true
-    //   });
-    // });
+    /*    it('should register getFriends$ that dispatches an action', () => {
+          expect(metadata.getFriends$).toEqual({
+            dispatch: true,
+            resubscribeOnError: true
+          });
+        });
+
+        it('should register getFriend$ that dispatches an action', () => {
+          expect(metadata.getFriend$).toEqual({
+            dispatch: true,
+            resubscribeOnError: true
+          });
+        });*/
   });
 
   describe('Catch Error load friends', () => {
@@ -138,8 +129,8 @@ describe('FriendsEffect', () => {
         imports: [HttpClientModule],
         providers: [
           FriendsEffect,
-          { provide: FriendsService, useValue: mockFriendsService },
-          provideMockStore({ initialState }),
+          {provide: FriendsService, useValue: mockFriendsService},
+          provideMockStore({initialState}),
           provideMockActions(() => actionsMarble)
         ]
       });
@@ -195,8 +186,8 @@ describe('FriendsEffect', () => {
         imports: [HttpClientModule],
         providers: [
           FriendsEffect,
-          { provide: FriendsService, useValue: mockFriendsService },
-          provideMockStore({ initialState }),
+          {provide: FriendsService, useValue: mockFriendsService},
+          provideMockStore({initialState}),
           provideMockActions(() => actionsMarble)
         ]
       });
@@ -259,8 +250,8 @@ describe('FriendsEffect', () => {
         imports: [HttpClientModule],
         providers: [
           FriendsEffect,
-          { provide: FriendsService, useValue: mockFriendsService },
-          provideMockStore({ initialState }),
+          {provide: FriendsService, useValue: mockFriendsService},
+          provideMockStore({initialState}),
           provideMockActions(() => actionsMarble)
         ]
       });
@@ -323,8 +314,8 @@ describe('FriendsEffect', () => {
         imports: [HttpClientModule],
         providers: [
           FriendsEffect,
-          { provide: FriendsService, useValue: mockFriendsService },
-          provideMockStore({ initialState }),
+          {provide: FriendsService, useValue: mockFriendsService},
+          provideMockStore({initialState}),
           provideMockActions(() => actionsMarble)
         ]
       });

@@ -1,4 +1,4 @@
-import { TestBed, async } from '@angular/core/testing';
+import { async, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { BrowserModule } from '@angular/platform-browser';
@@ -12,10 +12,7 @@ import { environment } from '../environments/environment.prod';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import {
-  RouterStateSerializer,
-  StoreRouterConnectingModule
-} from '@ngrx/router-store';
+import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { appReducer } from './store/reducer';
 import { appEffects } from './store/effect';
 
@@ -46,7 +43,7 @@ describe('AppComponent', () => {
         StoreModule.forRoot(appReducer),
         StoreRouterConnectingModule.forRoot(),
         !environment.production
-          ? StoreDevtoolsModule.instrument({ maxAge: 20 })
+          ? StoreDevtoolsModule.instrument({maxAge: 20})
           : [],
         EffectsModule.forRoot(appEffects),
         TranslateModule.forRoot({
@@ -68,7 +65,7 @@ describe('AppComponent', () => {
         NavSortComponent,
         NotFoundComponent
       ],
-      providers: [{ provide: APP_BASE_HREF, useValue: '/' }]
+      providers: [{provide: APP_BASE_HREF, useValue: '/'}]
     }).compileComponents();
   }));
 

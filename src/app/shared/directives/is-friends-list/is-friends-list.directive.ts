@@ -1,14 +1,8 @@
-import {
-  Directive,
-  OnDestroy,
-  OnInit,
-  TemplateRef,
-  ViewContainerRef
-} from '@angular/core';
+import { Directive, OnDestroy, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 import { select, Store } from '@ngrx/store';
 import { selectIsFriends } from '../../../store/selector/router.selector';
-import { Observable, of, Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { AppState } from '../../../store/reducer';
 
 @Directive({
@@ -21,7 +15,8 @@ export class IsFriendsListDirective implements OnInit, OnDestroy {
     private store$: Store<AppState>,
     private templateRef: TemplateRef<any>,
     private viewContainerRef: ViewContainerRef
-  ) {}
+  ) {
+  }
 
   public isFriends$: Observable<boolean> = this.store$.pipe(
     select(selectIsFriends)

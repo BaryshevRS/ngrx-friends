@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Friend } from '../../shared/classes/friends';
 import { Store } from '@ngrx/store';
 import * as FriendsActions from '../../../../store/action';
@@ -11,19 +11,20 @@ import { FriendsState } from '../../shared/interfaces';
 export class FriendItemComponent {
   @Input() friend: Friend;
 
-  constructor(private store$: Store<FriendsState>) {}
+  constructor(private store$: Store<FriendsState>) {
+  }
 
   bookmarkChange(bookmark: number) {
     this.store$.dispatch(
       FriendsActions.SetBookmarksFriends({
-        friend: { ...this.friend, bookmark }
+        friend: {...this.friend, bookmark}
       })
     );
   }
 
   ratingChange(rating: number) {
     this.store$.dispatch(
-      FriendsActions.SetRatingFriends({ friend: { ...this.friend, rating } })
+      FriendsActions.SetRatingFriends({friend: {...this.friend, rating}})
     );
   }
 }

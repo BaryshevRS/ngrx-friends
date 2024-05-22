@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, async } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FriendItemComponent } from './friend-item.component';
 import { BookmarkComponent } from '../../../../shared/components/bookmark/bookmark.component';
 import { RatingComponent } from '../../../../shared/components/rating/rating.component';

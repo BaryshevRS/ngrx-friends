@@ -1,8 +1,7 @@
-import { ComponentFixture, TestBed, async } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HeaderSearchComponent } from './header-search.component';
 import { By } from '@angular/platform-browser';
-import { ChangeDetectionStrategy, DebugElement } from '@angular/core';
 
 describe('HeaderSearchComponent', () => {
   let component: HeaderSearchComponent;

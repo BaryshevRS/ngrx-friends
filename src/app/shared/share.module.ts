@@ -32,4 +32,5 @@ import { IsFriendsListDirective } from './directives/is-friends-list/is-friends-
     IsFriendsListDirective
   ]
 })
-export class ShareModule {}
+export class ShareModule {
+}

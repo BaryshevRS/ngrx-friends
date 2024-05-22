@@ -1,7 +1,7 @@
-import { ComponentFixture, TestBed, async } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { BookmarkComponent } from './bookmark.component';
-import { ChangeDetectionStrategy, DebugElement } from '@angular/core';
+import { ChangeDetectionStrategy } from '@angular/core';
 import { By } from '@angular/platform-browser';
 
 describe('BookmarkComponent', () => {
@@ -18,7 +18,7 @@ describe('BookmarkComponent', () => {
       declarations: [BookmarkComponent]
     })
       .overrideComponent(BookmarkComponent, {
-        set: { changeDetection: ChangeDetectionStrategy.Default }
+        set: {changeDetection: ChangeDetectionStrategy.Default}
       })
       .compileComponents();
   }));

@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { getErrors, getFriends, getLoading } from '../../store/selector/friends.selector';
 import * as FriendsActions from '../../store/action';
 import { FriendsState } from './shared/interfaces';
-import { delay } from 'rxjs/internal/operators/delay';
+import { delay } from 'rxjs/operators';
 
 @Component({
   selector: 'app-friends',

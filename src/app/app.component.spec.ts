@@ -43,7 +43,7 @@ describe('AppComponent', () => {
         StoreModule.forRoot(appReducer),
         StoreRouterConnectingModule.forRoot(),
         !environment.production
-          ? StoreDevtoolsModule.instrument({maxAge: 20})
+          ? StoreDevtoolsModule.instrument({ maxAge: 20 })
           : [],
         EffectsModule.forRoot(appEffects),
         TranslateModule.forRoot({
@@ -65,7 +65,7 @@ describe('AppComponent', () => {
         NavSortComponent,
         NotFoundComponent
       ],
-      providers: [{provide: APP_BASE_HREF, useValue: '/'}]
+      providers: [{ provide: APP_BASE_HREF, useValue: '/' }]
     }).compileComponents();
   }));
 

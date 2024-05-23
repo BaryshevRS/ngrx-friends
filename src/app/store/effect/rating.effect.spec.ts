@@ -29,8 +29,7 @@ describe('RatingFriendsEffect', () => {
       getFriends: function (): Observable<Friend[]> {
         return of(mockStore.friends.friends);
       },
-      setRating: function (): void {
-      },
+      setRating: function (): void {},
       setRatingSort: function (): Friend[] {
         return mockStore.friends.friends;
       }
@@ -48,8 +47,8 @@ describe('RatingFriendsEffect', () => {
         imports: [HttpClientModule],
         providers: [
           RatingEffect,
-          {provide: FriendsService, useValue: mockFriendsService},
-          provideMockStore({initialState}),
+          { provide: FriendsService, useValue: mockFriendsService },
+          provideMockStore({ initialState }),
           provideMockActions(() => actionsMarble)
         ]
       });

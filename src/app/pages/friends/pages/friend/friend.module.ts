@@ -10,5 +10,4 @@ import { FriendRoutingModule } from './friend-routing.module';
   imports: [CommonModule, ShareModule, FriendRoutingModule],
   exports: [FriendComponent]
 })
-export class FriendModule {
-}
+export class FriendModule {}

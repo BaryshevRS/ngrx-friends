@@ -11,11 +11,12 @@
         data-src="https://robohash.org/{{ friend.id }}.png?size=50x50&set=set1"
         alt=""
         class="mr-2"
-      /></a>
+    /></a>
   </div>
 
   <p
-    class="w-100 align-items-center d-flex flex-row justify-content-between mb-0 small h-50px border-bottom border-gray">
+    class="w-100 align-items-center d-flex flex-row justify-content-between mb-0 small h-50px border-bottom border-gray"
+  >
     <a [routerLink]="['/friends', friend.id]" class="primary">
       {{ friend.first_name }} {{ friend.last_name }}
     </a>

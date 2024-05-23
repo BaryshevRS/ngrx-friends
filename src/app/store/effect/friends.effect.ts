@@ -2,7 +2,13 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
-import { catchError, exhaustMap, map, switchMap, withLatestFrom } from 'rxjs/operators';
+import {
+  catchError,
+  exhaustMap,
+  map,
+  switchMap,
+  withLatestFrom
+} from 'rxjs/operators';
 import * as FriendsAction from '../action';
 import { FriendsService } from '../../pages/friends/shared/service/friends/friends.service';
 import { ErrorMessage } from '../../pages/friends/shared/classes/errors';
@@ -15,8 +21,7 @@ export class FriendsEffect {
     private actions$: Actions,
     private store$: Store<AppState>,
     private friendsService: FriendsService
-  ) {
-  }
+  ) {}
 
   getFriends$ = createEffect(() =>
     this.actions$.pipe(
@@ -27,7 +32,7 @@ export class FriendsEffect {
         FriendsAction.ShowBookmarksFriends
       ),
       withLatestFrom(this.store$.select(friendsFeatureSelector)),
-      exhaustMap(([{configsFriends}, store]) => {
+      exhaustMap(([{ configsFriends }, store]) => {
         const defaultLimitView = 20;
         const limitView = configsFriends.limitView
           ? configsFriends.limitView
@@ -89,10 +94,10 @@ export class FriendsEffect {
   getFriend$ = createEffect(() =>
     this.actions$.pipe(
       ofType(FriendsAction.GetFriend),
-      switchMap(({id}) => {
+      switchMap(({ id }) => {
         return this.friendsService.getFriend(id).pipe(
           map((friend) => {
-            return FriendsAction.SetDetailsFriend({friend});
+            return FriendsAction.SetDetailsFriend({ friend });
           }),
           catchError(() =>
             of(

@@ -18,7 +18,7 @@ describe('BookmarkComponent', () => {
       declarations: [BookmarkComponent]
     })
       .overrideComponent(BookmarkComponent, {
-        set: {changeDetection: ChangeDetectionStrategy.Default}
+        set: { changeDetection: ChangeDetectionStrategy.Default }
       })
       .compileComponents();
   }));

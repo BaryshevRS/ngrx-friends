@@ -11,20 +11,19 @@ import { FriendsState } from '../../shared/interfaces';
 export class FriendItemComponent {
   @Input() friend: Friend;
 
-  constructor(private store$: Store<FriendsState>) {
-  }
+  constructor(private store$: Store<FriendsState>) {}
 
   bookmarkChange(bookmark: number) {
     this.store$.dispatch(
       FriendsActions.SetBookmarksFriends({
-        friend: {...this.friend, bookmark}
+        friend: { ...this.friend, bookmark }
       })
     );
   }
 
   ratingChange(rating: number) {
     this.store$.dispatch(
-      FriendsActions.SetRatingFriends({friend: {...this.friend, rating}})
+      FriendsActions.SetRatingFriends({ friend: { ...this.friend, rating } })
     );
   }
 }

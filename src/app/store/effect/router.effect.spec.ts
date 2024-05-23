@@ -44,8 +44,8 @@ describe('RouterEffects', () => {
       imports: [HttpClientModule],
       providers: [
         RouterEffects,
-        {provide: FriendsService, useValue: mockFriendsService},
-        provideMockStore({initialState}),
+        { provide: FriendsService, useValue: mockFriendsService },
+        provideMockStore({ initialState }),
         provideMockActions(() => actionsMarble)
       ],
       schemas: [NO_ERRORS_SCHEMA]
@@ -77,7 +77,7 @@ describe('RouterEffects', () => {
     };
 
     actionsMarble = new ReplaySubject(1);
-    actionsMarble.next({type: ROUTER_NAVIGATION, payload});
+    actionsMarble.next({ type: ROUTER_NAVIGATION, payload });
 
     // effects.routeChange$.subscribe((result) => {
     //   expect(result).toEqual(new GetFriend('1'));

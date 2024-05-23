@@ -2,9 +2,8 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-spinner',
-  templateUrl: './spinner.component.html',
+  templateUrl: './spinner.component.svg',
   styleUrls: ['./spinner.component.scss']
 })
 export class SpinnerComponent {
-  constructor() {}
 }

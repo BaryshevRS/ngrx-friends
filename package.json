@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build:prod": "ng build --configuration=production --base-href=/ngrx-friends/",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "watch": "ng build --watch --configuration development",
@@ -86,5 +87,8 @@
     "ts-node": "~10.4.0",
     "typescript": "~4.5.4",
     "webpack-bundle-analyzer": "^4.10.2"
+  },
+  "engines": {
+    "node": ">=20.0.0"
   }
 }

@@ -16,8 +16,7 @@ export class BookmarkEffect {
     private actions$: Actions,
     private store$: Store<AppState>,
     private friendsService: FriendsService
-  ) {
-  }
+  ) {}
 
   // Count bookmarks get to emulated from server
   getCountBookmarksFriends$ = createEffect(() =>
@@ -25,7 +24,7 @@ export class BookmarkEffect {
       ofType(FriendsAction.GetCountBookmarksFriends),
       switchMap((action) =>
         this.friendsService.getCountBookmarksFriends().pipe(
-          map((count) => FriendsAction.SetCountBookmarksFriends({count})),
+          map((count) => FriendsAction.SetCountBookmarksFriends({ count })),
           catchError(() =>
             of(
               FriendsAction.ErrorsFriends({
@@ -47,11 +46,11 @@ export class BookmarkEffect {
       withLatestFrom(this.store$.select(friendsFeatureSelector)),
       switchMap(
         ([
-           {
-             friend: {id, bookmark}
-           },
-           store
-         ]) => {
+          {
+            friend: { id, bookmark }
+          },
+          store
+        ]) => {
           this.friendsService.setBookmark(id, bookmark);
           const limitView =
             store.configsFriends.startView || store.configsFriends.limitView;
@@ -59,7 +58,7 @@ export class BookmarkEffect {
           return [
             FriendsAction.GetCountBookmarksFriends(),
             FriendsActions.GetFriends({
-              configsFriends: {limitView, startView}
+              configsFriends: { limitView, startView }
             })
           ];
         }
@@ -70,10 +69,10 @@ export class BookmarkEffect {
   setBookmarksFriend$ = createEffect(() =>
     this.actions$.pipe(
       ofType(FriendsAction.SetBookmarksFriend),
-      switchMap(({friend}) => {
-        const {id, bookmark} = friend;
+      switchMap(({ friend }) => {
+        const { id, bookmark } = friend;
         this.friendsService.setBookmark(id, bookmark);
-        return of(FriendsAction.SetDetailsFriend({friend}));
+        return of(FriendsAction.SetDetailsFriend({ friend }));
       })
     )
   );

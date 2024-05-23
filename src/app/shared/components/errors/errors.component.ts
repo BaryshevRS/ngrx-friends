@@ -8,6 +8,5 @@ import { ErrorMessage } from '../../../pages/friends/shared/classes/errors';
 export class ErrorsComponent {
   @Input() errors: ErrorMessage = null;
 
-  constructor() {
-  }
+  constructor() {}
 }

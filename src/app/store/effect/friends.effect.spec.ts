@@ -46,8 +46,8 @@ describe('FriendsEffect', () => {
         imports: [HttpClientModule],
         providers: [
           FriendsEffect,
-          {provide: FriendsService, useValue: mockFriendsService},
-          provideMockStore({initialState}),
+          { provide: FriendsService, useValue: mockFriendsService },
+          provideMockStore({ initialState }),
           provideMockActions(() => actionsMarble)
         ]
       });
@@ -129,8 +129,8 @@ describe('FriendsEffect', () => {
         imports: [HttpClientModule],
         providers: [
           FriendsEffect,
-          {provide: FriendsService, useValue: mockFriendsService},
-          provideMockStore({initialState}),
+          { provide: FriendsService, useValue: mockFriendsService },
+          provideMockStore({ initialState }),
           provideMockActions(() => actionsMarble)
         ]
       });
@@ -186,8 +186,8 @@ describe('FriendsEffect', () => {
         imports: [HttpClientModule],
         providers: [
           FriendsEffect,
-          {provide: FriendsService, useValue: mockFriendsService},
-          provideMockStore({initialState}),
+          { provide: FriendsService, useValue: mockFriendsService },
+          provideMockStore({ initialState }),
           provideMockActions(() => actionsMarble)
         ]
       });
@@ -250,8 +250,8 @@ describe('FriendsEffect', () => {
         imports: [HttpClientModule],
         providers: [
           FriendsEffect,
-          {provide: FriendsService, useValue: mockFriendsService},
-          provideMockStore({initialState}),
+          { provide: FriendsService, useValue: mockFriendsService },
+          provideMockStore({ initialState }),
           provideMockActions(() => actionsMarble)
         ]
       });
@@ -314,8 +314,8 @@ describe('FriendsEffect', () => {
         imports: [HttpClientModule],
         providers: [
           FriendsEffect,
-          {provide: FriendsService, useValue: mockFriendsService},
-          provideMockStore({initialState}),
+          { provide: FriendsService, useValue: mockFriendsService },
+          provideMockStore({ initialState }),
           provideMockActions(() => actionsMarble)
         ]
       });

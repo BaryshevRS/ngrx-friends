@@ -11,16 +11,15 @@ import { AppState } from '../reducer';
 
 @Injectable()
 export class RouterEffects {
-  constructor(private actions$: Actions, private store$: Store<AppState>) {
-  }
+  constructor(private actions$: Actions, private store$: Store<AppState>) {}
 
   routeDetails$ = createEffect(() =>
     this.actions$.pipe(
       ofType(routerNavigatedAction),
       withLatestFrom(this.store$.pipe(select(selectRouteParams))),
       filter(([, params]) => !!params?.['id']),
-      switchMap(([, {id}]) => {
-        return of(FriendsActions.GetFriend({id}));
+      switchMap(([, { id }]) => {
+        return of(FriendsActions.GetFriend({ id }));
       })
     )
   );

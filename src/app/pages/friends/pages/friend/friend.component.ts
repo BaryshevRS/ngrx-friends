@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { getErrors, getFriendDetails, getLoading } from '../../../../store/selector/friends.selector';
+import {
+  getErrors,
+  getFriendDetails,
+  getLoading
+} from '../../../../store/selector/friends.selector';
 import { Friend } from '../../shared/classes/friends';
 import { FriendsState } from '../../shared/interfaces';
 import { Observable } from 'rxjs';
@@ -16,6 +20,5 @@ export class FriendComponent {
   public errors$ = this.store$.pipe(select(getErrors));
   public loading$ = this.store$.pipe(select(getLoading));
 
-  constructor(private store$: Store<FriendsState>) {
-  }
+  constructor(private store$: Store<FriendsState>) {}
 }

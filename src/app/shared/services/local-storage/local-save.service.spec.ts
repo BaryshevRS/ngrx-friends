@@ -34,7 +34,7 @@ describe('LocalSaveService', () => {
       [LocalSaveService],
       (service: LocalSaveService) => {
         const moskName = 'friendsBookmark';
-        const moskValue = {id1: 1};
+        const moskValue = { id1: 1 };
 
         service.set(moskName, moskValue);
 
@@ -67,7 +67,7 @@ describe('LocalSaveService', () => {
         imports: [HttpClientModule]
       });
 
-      const store = {friendsBookmark: '{"id1":1}'};
+      const store = { friendsBookmark: '{"id1":1}' };
 
       spyOn(localStorage, 'getItem').and.callFake(function (
         key: string
@@ -91,8 +91,8 @@ describe('LocalSaveService', () => {
       [LocalSaveService],
       (service: LocalSaveService) => {
         const moskName = 'friendsBookmark';
-        const moskValue = {id2: 1};
-        const moskValueReturn = {id1: 1, id2: 1};
+        const moskValue = { id2: 1 };
+        const moskValueReturn = { id1: 1, id2: 1 };
 
         service.set(moskName, moskValue);
 
@@ -107,9 +107,9 @@ describe('LocalSaveService', () => {
       [LocalSaveService],
       (service: LocalSaveService) => {
         const moskName = 'friendsBookmark';
-        const moskValue = {id1: 1};
+        const moskValue = { id1: 1 };
 
-        expect({...service.get(moskName)}).toEqual({...moskValue});
+        expect({ ...service.get(moskName) }).toEqual({ ...moskValue });
         expect(localStorage.getItem).toHaveBeenCalledWith(moskName);
       }
     ));

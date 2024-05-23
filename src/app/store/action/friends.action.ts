@@ -1,6 +1,9 @@
 import { createAction, props } from '@ngrx/store';
 import { Friend } from '../../pages/friends/shared/classes/friends';
-import { ConfigsFriends, FriendsState } from '../../pages/friends/shared/interfaces';
+import {
+  ConfigsFriends,
+  FriendsState
+} from '../../pages/friends/shared/interfaces';
 import { ErrorMessage } from '../../pages/friends/shared/classes/errors';
 
 enum friendsActionTypes {

@@ -1,3 +1,5 @@
+
+
 [![GitHub license](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/BaryshevRS/ngrx-friends/blob/master/LICENSE)
 [![codecov](https://codecov.io/gh/BaryshevRS/ngrx-friends/branch/master/graph/badge.svg)](https://codecov.io/gh/BaryshevRS/ngrx-friends)
 
@@ -32,3 +34,4 @@
 
 `npm run prettier` - форматирование кодстайла проекта к одному виду
 
+`npm run start` - запуск приложения в режиме разработки
